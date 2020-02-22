@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class ConfigurationService {
 
     public static Config config;
-    
+
     public static void init(JavaPlugin plugin) {
 
         plugin.getLogger().info("Loading settings.yml...");
