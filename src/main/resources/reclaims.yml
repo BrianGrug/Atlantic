@@ -1,0 +1,8 @@
+# %player% returns the players name
+# %rank% returns the players rank name
+reclaims:
+  default:
+    commands:
+      - 'alert test'
+      - 'alert test2'
+reclaimed:

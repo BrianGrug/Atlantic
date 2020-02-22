@@ -1,0 +1,106 @@
+##################################################################
+#Currently Only Supports Vault and Aquacore                      #
+##################################################################
+PERMISSION-PLUGIN: "VAULT" # VAULT or AQUACORE
+HWID: ""
+combat-place: false
+ktk-points: 5
+conquest-points: 100
+koth-points: 10
+death-signs: true
+diamond-ore-notifications: true
+death-lightning: true
+modified-launch-event: true
+kit-map: true
+kit-map-stats-in-spawn-only: false
+prevent-ally-damage: true
+core-enderpearls: true
+exp-multiplier:
+  global: 2.0
+  fishing: 2.0
+  smelting: 2.0
+  looting-per-level: 1.5
+  luck-per-level: 1.5
+  fortune-per-level: 1.5
+roads:
+  allow-claims-besides: true
+  nametags:
+    enabled: true
+combatlog:
+  enabled: true
+  despawn-delay-ticks: 600
+conquest:
+  point-loss-per-death: 20
+  victory-points: 300
+  allow-negative-points: false
+warzone:
+  radius: 800
+factions:
+  disallowed-faction-names:
+  - EOTW
+  min-name-characters: 3
+  max-name-characters: 16
+  max-members: 25
+  max-allies: 1
+subclaims:
+  min-name-characters: 3
+  max-name-characters: 16
+relation-colours:
+  wilderness: DARK_GREEN
+  warzone: DARK_RED
+  teammate: GREEN
+  ally: BLUE
+  enemy: RED
+  road: GOLD
+LFF-COOLDOWN: 3600 #In Seconds
+LFA-COOLDOWN: 3600 #In Seconds
+deaths-till-raidable:
+  maximum: 6
+  millis-between-updates: 45000
+  increment-between-updates: 0.1
+deathban:
+  base-duration-minutes: 120
+  respawn-screen-seconds-before-kick: 15
+enchantment-limits:
+  PROTECTION_ENVIRONMENTAL: 1
+  PROTECTION_FIRE: 0
+  SILK_TOUCH: 1
+  DURABILITY: 3
+  PROTECTION_EXPLOSIONS: 0
+  LOOT_BONUS_BLOCKS: 3
+  PROTECTION_PROJECTILE: 0
+  OXYGEN: 0
+  WATER_WORKER: 0
+  THORNS: 0
+  DAMAGE_ALL: 1
+  ARROW_KNOCKBACK: 0
+  KNOCKBACK: 0
+  FIRE_ASPECT: 0
+  LOOT_BONUS_MOBS: 3
+  LUCK: 3
+  LURE: 3
+ENDEXIT:
+  x: 0
+  y: 71
+  z: 0
+ENDSPAWN:
+  x: 0
+  y: 100
+  z: 0
+eotw:
+  chat-symbol-prefix: ""
+  chat-symbol-suffix: ""
+  last-map-cappers: []
+KOTH-COMMAND: "cr givekey %winner% koth 1"
+CONQUEST-COMMAND: "cr givekey %winner% conquest 1"
+FROZEN-LOGOUT-AUTOBAN: TRUE
+FROZEN-LOGOUT-COMMAND: "ban %player% Logging Out Whilst Frozen."
+DEFAULT-APPLE-COOLDOWN: 30 #In Seconds
+DEFAULT-GOPPLE-COOLDOWN: 3600 #In Seconds
+SCOREBOARD-FOOTER: FALSE
+HCF-DTR-REGEN-TIME: 3600 #In Seconds
+STARTING-BALANCE: 250
+ROGUE-SPEED-COOLDOWN: 30
+ARCHER-JUMPBOOST-COOLDOWN: 30
+RECORDING-COOLDOWN: 300
+

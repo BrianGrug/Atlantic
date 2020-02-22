@@ -1,0 +1,83 @@
+disable_obsidian_generators: true
+server_time_zone: "GMT+1"
+warzone_radius: 850
+disallowed_faction_names:
+    - "kohieotw"
+    - "kohisotw"
+    - "hcteams"
+    - "hcteamsseotw"
+    - "hcteamssotw"
+    - "para"
+    - "parahcf"
+    - "parasotw"
+    - "paraeotw"
+enchantment_limits:
+    PROTECTION_ENVIRONMENTAL: 1
+    DAMAGE_ALL: 1
+    ARROW_KNOCKBACK: 0
+    KNOCKBACK: 0
+    FIRE_ASPECT: 0
+    THORNS: 0
+    ARROW_FIRE: 1
+    ARROW_DAMAGE: 4
+potion_limits:
+    STRENGTH: 0
+    WEAKNESS: 0
+    SLOWNESS: 0
+    INVISIBILITY: 0
+    POISON: 0
+    
+border_sizes:
+    NORMAL: 2000
+    NETHER: 1000
+    THE_END: 1500
+diamond_ore_alerts: true
+
+subclaim_name_characters_min: 3
+subclaim_name_characters_max: 16
+
+faction_name_characters_min: 3
+faction_name_characters_max: 16
+max_members_per_faction: 25
+
+road_min_height: 0
+road_max_height: 256
+
+end_portal_radius: 20
+end_portal_center: 500
+
+#milliseconds, default 1hour
+default_deathban_duration: 3600000
+
+teammate_colour: "GREEN"
+ally_colour: "GOLD"
+enemy_colour: "RED"
+
+safezone_colour: "GREEN"
+road_colour: "GOLD"
+warzone_colour: "DARK_RED"
+wilderness_colour: "DARK_GREEN"
+max_allies_per_faction: 1
+max_claims_per_faction: 8
+allow_claiming_besides_roads: true
+
+dtr_millis_between_updates: 45000
+
+dtr_increment_between_updates: 0.1
+maximum_dtr: 6.0
+
+exp_multiplier_general: 2.0
+exp_multiplier_fishing: 2.0
+exp_multiplier_smelting: 2.0
+exp_multiplier_looting_per_level: 1.5
+exp_multiplier_luck_per_level: 1.5
+exp_multiplier_fortune_per_level: 1.5
+
+conquest_point_loss_per_death: 20
+conquest_required_win_points: 300
+
+found_diamonds_alerts: true
+combat_log_despawn_ticks: 600
+combat_log_prevention_enabled: true
+
+

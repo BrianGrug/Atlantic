@@ -1,0 +1,40 @@
+ability-disabled: "&cThis ability is not enabled this map."
+invalid-amount: "&cYou have specified an invalid amount."
+damager-swapped-location: "&eYou have swapped locations with %player%"
+damaged-swapped-locations: "&eYou have been forced to switch locations with %player%"
+snowport-given-single: "&eYou have given %player% a snowport."
+snowport-given-multiple: "&eYou have given %player% %amount% snowport's"
+belchbomb-given-single: "&eYou have given %player% a belch bomb."
+belchbomb-given-multiple: "&eYou have given %player% %amount% belch bomb's"
+grappling-hook-given: "&eYou have given %player% a grappling hook."
+snowport:
+  enabled: true
+  name: "&f&lSnowport"
+  radius:
+    enabled: true
+    radius: 8
+  lore:
+    - '&cWhen you hit a player you will swap positions with them.'
+  cooldown: 15
+  remaining: "&eYou are still on cooldown for %remaining%"
+  refund: true
+grapplinghook:
+  enabled: true
+  name: "&6&lGrappling Hook"
+  lore:
+    - '&cThrow the hook and retract it to travel to the hooks location!'
+  cooldown: 15
+  remaining: "&eYou are still on cooldown for %remaining%"
+belchbomb:
+  enabled: true
+  name: "&a&lBelch Bomb"
+  lore:
+    - '&cRight-Click this item to give your enemys blindness and slowness.'
+  cooldown: 30
+  radius: 15
+  duration: 5
+  amplifier: 2
+  selfeffect:
+    duration: 5
+    amplifier: 2
+  remaining: "&eYou are still on cooldown for %remaining%"

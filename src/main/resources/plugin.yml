@@ -1,0 +1,169 @@
+name: Atlantic
+version: ${version}
+description: Fundemental HCF Core
+authors: [Scifi, DaddyImPregnant]
+main: me.scifi.hcf.HCF
+softdepend: [ProtocolLib,Vault,WorldEdit]
+commands:
+  angle:
+    description: Check your yaw and pitch position.
+  conquest:
+    description: Command used to handle Conquest events.
+  death:
+    description: Command used to kill combat-loggers.
+  economy:
+    aliases: [$, bal, money, eco, econ]
+    description: Command used to modify the economy.
+  end:
+    description: Command used to close or open the end.
+  eotw:
+    aliases: [endoftheworld]
+    description: Sets if the server is in End of the World mode.
+  event:
+    description: Command used to manage minigame events.
+  faction:
+    aliases: [f, fac]
+    description: Faction related commands.
+  gopple:
+    description: Command to check remaining OP apple cooldown time.
+    aliases: [opple, goppletimer, goppletime, oppletimer, oppletime]
+  hcf:
+    aliases: [hardcorefactions, hcfactions]
+  koth:
+    description: Make or delete KotH arenas.
+  lives:
+    description: Management of lives or deathbans.
+  location:
+    aliases: [loc]
+    description: Check the faction location of a player.
+  logout:
+    aliases: [disconnect]
+    description: Command to safely logout without an NPC spawning.
+  mapkit:
+    aliases: [viewkit]
+    description: Used to check the current map restrictions.
+  pay:
+    aliases: [p2p]
+    description: Allow players to pay money.
+  pvptimer:
+    aliases: [pvp]
+    description: Command to enable or disable pvp timer protection.
+  rename:
+    description: Rename the item in your hand.
+  regen:
+    description: Check ETA until a faction is able to regenerate DTR.
+  servertime:
+    description: Checks the date and time of server.
+  sotw:
+    aliases: [startoftheworld]
+    description: Command used to manage start of the world.
+  spawncannon:
+    aliases: [cannon, playercannon]
+    description: Shoots you into the warzone.
+  setspawn:
+    description: Set the overworld spawn
+  spawn:
+    description: Teleport to the overworld spawn
+  tl:
+    description: Broadcast your location to faction members
+  staffrevive:
+    description: Command used by staff to revive players.
+  ktk:
+    description: Kill The King Command
+  timer:
+    description: Command to manage timers.
+  togglebroadcasts:
+    aliases: [tb]
+    description: Toggle found diamond ore notifications.
+  togglecapzoneentry:
+    aliases: [togglecapentry]
+    description: Command used to hide or show capture zone entry messages.
+  togglelightning:
+    aliases: [lightningtoggle, togglestrikes]
+    description: Toggles the lightning strikes for when a player dies.
+  togglesidebar:
+    aliases: [sidebartoggle, sidebar, hud, togglehud]
+    description: Toggles the scoreboard timers displayed on sidebar.
+  set:
+    description: Set The End Exit And End Spawn
+  setborder:
+    description: Set The World Border Sizes
+  help:
+    description: Display The Help Information
+  staffmode:
+    description: Enter And Exit Staff Mode
+    aliases: [sm,staff,mod,modmode,h]
+  alert:
+    description: Broadcast A Message To The Server
+  lff:
+    description: Announce You Are Looking For A Faction
+  lfa:
+    description: Announce Your Faction Is Looking For An Ally
+  vanish:
+    description: Become Invisible To Regular Players
+  freeze:
+    description: Stop players from moving
+    aliases: [ss]
+  message:
+    description: Private message players
+    aliases: [m,msg,w,pm,tell]
+  heal:
+    description: Recover your health
+  request:
+    description: Request support from staff members.
+    aliases: [helpop]
+  report:
+    description: Report rule breakers
+  cobble:
+    description: Toggle cobblestone pickup
+  reclaim:
+    description: Give players specific rewards for buying a rank
+  resetreclaim:
+    description: Reset a players reclaim
+  mutechat:
+    description: Stop players from talking in chat
+    aliases: [lockchat]
+  refund:
+    description: Refund players that have died unfairly
+  recording:
+    aliases: [rec,record]
+    description: Announce that you are recording.
+  reset:
+    description: Reset a player's statistics
+  gmc:
+    description: Switchs you to creative mode
+  gms:
+    description: Switchs you to survival mode
+  coordinates:
+    aliases: [coords]
+    description: Display events and other useful coordnates
+  invsee:
+    description: Inspect a players inventory
+  teleporthere:
+    description: Teleport a player to you.
+    aliases: [tphere,s]
+  teleport:
+    description: Teleport to other players
+    aliases: [tp]
+  tppos:
+    description: Teleport to specific coordnates
+  gamemode:
+    description: Switch gamemodes
+    aliases: [gm]
+  chest:
+    description: Open your enderchest
+  reply:
+    description: Reply to the last person that messaged you.
+    aliases: [r]
+  flight:
+    description: Toggle your flight.
+    aliases: [fly]
+  customtimer:
+    description: Manage custom timers.
+  top:
+    description: Teleport to the highest location.
+  broadcast:
+    description: Announce a message to the server.
+  ability:
+    aliases: [items]
+    description: Give players ability items.

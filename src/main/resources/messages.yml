@@ -1,0 +1,301 @@
+SCOREBOARD:
+  TITLE: "&4&lDevelopment &7| &f&lKits"
+  FOOTER: "&7www.example.com"
+  SEPARATOR: "&8&m--------------------------------"
+  SOTW:
+    REGULAR: "&a&lSOTW &aends in: %remaining%"
+    ENABLED: "&a&mSOTW &a&mends in: %remain%"
+  REBOOT:
+    NAME: "&c&lReboot&7: &f%remaining%"
+  KILLS:
+    TITLE: "&4&lKills&7: &f%kills%"
+  DEATHS:
+    TITLE: "&4&lDeaths&7: &f%deaths%"
+  BALANCE:
+    TITLE: "&4&lBalance&7: &f%balance%"
+    ENABLED: FALSE
+  EVENT:
+    KOTH:
+     DISPLAYNAME: "&9%name% Koth"
+     NAME: "&9%name% Koth"
+     FORMATTED: "&9%name% Koth&7: &f%remaining%"
+    CONQUEST:
+      DISPLAYNAME: "&9%name% Conquest"
+      FORMATTED: "&9%name% Conquest&7:"
+  COMBAT:
+    NAME: "Combat"
+    PREFIX: "&4&l"
+    LENGTH: 30 #In Seconds
+  ENDERPEARL:
+    NAME: "Enderpearl"
+    PREFIX: "&5&l"
+    LENGTH: 15 #In Seconds
+  GOPPLE:
+    NAME: "Gopple"
+    PREFIX: "&6&l"
+    LENGTH: 3600 #In Seconds
+  APPLE:
+    NAME: "Apple"
+    PREFIX: "&e&l"
+    LENGTH: 30 #In Seconds
+  TELEPORT:
+    NAME: "Teleport"
+    PREFIX: "&1"
+    LENGTH: 15 #In Seconds
+  STUCK:
+    NAME: "Stuck"
+    PREFIX: "&4&l"
+    LENGTH: 165 #In Seconds
+  LOGOUT:
+    NAME: "Logout"
+    PREFIX: "&4&l"
+    LENGTH: 30 #In Seconds
+  WARMUP:
+    NAME: "Class Warmup"
+    PREFIX: "&b&l"
+    LENGTH: 10 #In Seconds
+  PVPTIMER:
+    NAME: "PVP Timer"
+    PREFIX: "&a&l"
+    LENGTH: 1800 #In Seconds
+ALERT-PREFIX: "&7[&4Alert&7]&f"
+HELP-MESSAGE:
+  - '&7&m------------------------------------'
+  - '&6&lMap Information&7:'
+  - '&eCurrent Map&8 - &fMap 1'
+  - '&eMap Border&8 - &f3000'
+  - '&eMap Kit&8 - &f/mapkit'
+  - '&7&m------------------------------------'
+  - '&6&lUseful Commands&7:'
+  - '&e/coords - &fProvides the coordinates for KoTH Locations'
+  - '&e/teamspeak - &fProvides the Teamspeak Server IP'
+  - '&e/mapkit - &fProvides you with the Map Information on Enchant Limits and Potions'
+  - '&e/report <Player> <Reason> - &fA command to report rule-breakers'
+  - '&e/helpop <Message> - &fAlerts online Staff Members that you are in need of
+    assistance'
+  - '&8&m------------------------------------'
+  - '&6&lOther infomation&7:'
+  - '&eWebsite&8 - &fwww.example.org'
+  - '&eBuycraft&8 - &fstore.example.org'
+  - '&eTeamspeak&8 - &fts.example.org'
+  - '&8&m------------------------------------'
+SPAWN-MESSAGE: "&eYou have teleported to &aSpawn"
+SET-SPAWN-MESSAGE: "&eYou have set the world &aSpawn"
+BORDER-NORMAL-SET: "&eYou have set the Overworld border's size."
+BORDER-NETHER-SET: "&eYou have set the Nether border's size."
+BORDER-END-SET: "&eYou have set The End's border size."
+CONSOLE-SENDER: "&cOnly players may use this command."
+SET-HELP:
+  - '&8&m--------------------------------'
+  - '&6&lEnd Help&7:'
+  - '&e/set endexit &7- &fSet The End Exit (In Overworld)'
+  - '&e/set endspawn &7- &fSet The End Spawn (In The End)'
+  - '&8&m--------------------------------'
+KING-DEATH:
+  - '&7&m--------------------------------'
+  - '&6&lKing Event&7:'
+  - '&eThe King Has Been Killed Ending The Event!'
+  - '&7&m--------------------------------'
+KING-STATUS:
+  - '&7&m--------------------------------'
+  - '&6&lKing Event&7:'
+  - '&eKing Name&7: &f%KING%'
+  - '&eKing Location&7: &f%KINGX%,%KINGY%,%KINGZ%'
+  - '&eKing Health&f: &f%HEALTH%'
+  - '&7&m--------------------------------'
+KING-HELP:
+  - '&7&m--------------------------------'
+  - '&6&lKing Help&7:'
+  - '&e/ktk status &7 - &fReturns the status of the king event'
+  - '&e/ktk (player) &7- &fStart a king event'
+  - '&e/ktk end &7- &fEnds the active kill the king event'
+  - '&7&m--------------------------------'
+KING-FORCE-END:
+  - '&7&m--------------------------------'
+  - '&6&lKing Event&7:'
+  - '&eThe King Event Has Been Terminated'
+  - '&7&m--------------------------------'
+KING-EVENT-ENDED: "&eYou have successfully terminated the King Event."
+KING-NOT-FOUND: "&cThere is no active kill the King Event"
+KING-EVENT-SPECIFYKING: "&cYou must specify a player to set as King"
+KING-EVENT-STARTED: "&eYou have successfully started a Kill The King Event"
+KING-EVENT-ACTIVE: "&eThere is already a Kill The King Event Active."
+SOTW-ENABLED-ALREADY: "&eYou have already enabled your Sotw Timer."
+SOTW-ENABLED-SUCCESSFUL: "&eYou have enabled your Sotw Timer."
+SOTW-HELP-MESSAGE:
+  - "&7&m--------------------------------"
+  - '&2&lSotw Help&7:'
+  - '&a/sotw enable &7- &fPvP during Sotw Timer'
+  - '&a/sotw cancel &7- &fEnd the Sotw Timer'
+  - '&a/sotw start (duration) &7- &fStarts the Sotw Timer'
+  - '&7&m--------------------------------'
+SOTW-ENDED-MESSAGE:
+  - '&7&m--------------------------------'
+  - '&2SOTW Timer &eHas Ended!'
+  - '&eGood Luck!'
+  - '&7&m--------------------------------'
+MAPKIT-MESSAGE:
+  - '&7&m--------------------------------'
+  - '&6&lMapkit&7:'
+  - '&eProtection &f1&7, &eSharpness &f1'
+  - '&7&m--------------------------------'
+STAFFMODE-ENABLED: "&eStaff Mode &aEnabled"
+STAFFMODE-DISABLED: "&eStaff Mode &cDisabled"
+STAFFMODE-BLOCK-BREAK: "&cYou may not break blocks in Staff Mode"
+STAFFMODE-BLOCK-PLACE: "&cYou may not place blocks in Staff Mode"
+STAFFMODE-GAMEMODE-SWITCH: "&cYou may not switch gamemodes whilst in Staff Mode."
+VANISH-ENABLED: "&eYou have &aenabled &evanish"
+VANISH-DISABLED: "&eYou have &cdisabled &evanish"
+STAFFMODE:
+  INSPECT:
+    NAME: "&eInventory &fInspector"
+    LORE:
+      - '&cRight-Click A Player To View Their Inventory'
+  SLOT: 0
+  THRUCOMPASS:
+    NAME: "&eTeleportation &fCompass"
+    LORE:
+      - '&cRight-Click A Block To Teleport Through It'
+    SLOT: 1
+  FREEZEBLOCK:
+    NAME: "&eFreeze &fUtility"
+    LORE:
+      - '&cRight-Click A Player To Freeze Them'
+    SLOT: 8
+  BETTERVIEW:
+    NAME: "&eBetter View"
+    LORE:
+      - "&7Just To Make Stuff Look Nicer"
+    SLOT: 4
+  VANISHITEM:
+    NAME:
+      ENABLED: "&eVanish &aEnabled"
+      DISABLED: "&eVanish &cDisabled"
+      LORE:
+        - '&cRight-Click To Change Your Vanish Status'
+    SLOT: 7
+  RANDOMTP:
+    NAME: "&eRandom &fTeleport"
+    LORE:
+      - '&cRight-Click To Teleport To A Random Player.'
+    SLOT: 6
+FACTION-HELP-TITLE: "&9Faction Help &f(Page %pagenumber% / %totalpagecount%)"
+FACTION-HELP-FORMAT: "&e/f %argumentname% &7- &f%argumentdescription%"
+FACTION-MAX-ALLIES: "&cYou already have the maximum amount of Allies."
+FACTION-NOT-FOUND: "&cYou must be in a faction to use this command."
+LFF-MESSAGE:
+  - '&7&m--------------------------------'
+  - '&6%PLAYER% &eIs Looking For A Faction'
+  - '&7&m--------------------------------'
+LFA-MESSAGE:
+  - '&7&m--------------------------------'
+  - '&5%FACTION% &dIs Looking For An Ally'
+  - '&7&m--------------------------------'
+SELF-HEALED: "&eYou have been healed."
+OTHER-HEALED: "&eYou have healed %player%"
+REQUEST-MESSAGE:
+  - '&7&m--------------------------------'
+  - '&4&lSupport Requested&7:'
+  - '&4&lSender&7: &e%player%'
+  - '&4&lMessage&7: &e%message%'
+  - '&7&m--------------------------------'
+REPORT-MESSAGE:
+  - '&7&m--------------------------------'
+  - '&4&lPlayer Report&7:'
+  - '&4&lReporter&7: &e%reporter%'
+  - '&4&lReported&7: &e%reported%'
+  - '&4&lReason&7: &e%reason%'
+  - '&7&m--------------------------------'
+REQUEST-RECIEVED: "&eYour request has been sent to all online staff members"
+REPORT-RECIEVED: "&eYour report has been sent to all online staff members"
+PLAYER-NOT-FOUND: "&cPlayer is not online"
+STAFF-FROZEN-PLAYER: "&e%player% is now frozen"
+PLAYER-FROZEN-MESSAGE:
+  - '&f████&c█&f████'
+  - '&f███&c█&6█&c█&f███ &4&lDo NOT log out!'
+  - '&f██&c█&6█&0█&6█&c█&f██ &cIf you do, you will be banned!'
+  - '&f██&c█&6█&0█&6█&c█&f██ &ePlease download Teamspeak and join'
+  - '&f█&c█&6██&0█&6██&c█&f█ &ets.example.com'
+  - '&f█&c█&6█████&c█&f█'
+  - '&c█&6███&0█&6███&c█'
+STAFF-UNFROZEN-PLAYER: "&e%player% is no longer frozen"
+PLAYER-UNFROZEN-MESSAGE: "&cYou are no longer frozen"
+FROZEN-LOGOUT-MESSAGE: "&c%player% has logged out whilst frozen"
+HIT-FROZEN-PLAYER: "&c%player% is currently frozen and cannot be damaged"
+HIT-WHILE-FROZEN: "&cYou cannot damage people whilst frozen"
+FROZEN-BLOCK-PLACE: "&cYou may not place blocks whilst frozen"
+FROZEN-BLOCK-BREAK: "&cYou may not break blocks whilst frozen"
+FROZEN-COMMAND-USE: "&cYou may not use commands while frozen."
+COBBLE-PICKUP-ENABLED: "&eYou have &aenabled &eCobblestone pickup"
+COBBLE-PICKUP-DISABLED: "&eYou have &cdisabled &eCobblestone pickup"
+COMBAT-TAG-MESSAGE: "&cYou are now %displayname% &ctagged for %duration% seconds."
+RECLAIM-ALREADY-RECLAIMED: "&cYou have already used your reclaim for the map."
+RECLAIM-USED-RECLAIM: "&eYou have redeemed your rank's perks."
+RECLAIM-NOT-FOUND: "&cTheir is no reclaim setup for your group at the moment."
+RECLAIM-PLAYER-CANRECLAIM: "&cThis player has not used their reclaim."
+RECLAIM-SUCCESSFULLY-RESET: "&cYou have successfully reset %player%'s reclaim"
+MUTE-CHAT-DISABLED: "&eYou have unlocked &fchat"
+CHAT-ENABLED-BROADCAST: "&eChat has been &funlocked"
+MUTE-CHAT-ENABLED: "&eYou have locked &fchat"
+CHAT-DISABLED-BROADCAST: "&eChat has been &flocked"
+CHAT-MUTED-TALK: "&cYou may not talk while chat is muted"
+URL-NOT-FOUND: "&cYou must provide a url to broadcast"
+URL-NOT-VALID: "&cYou must provide a valid url."
+SUCCESSFULLY-ANNOUNCED-RECORDING: "&eYou have successfully broadcast you are recording."
+GAMEMODE-CHANGED-SURVIVAL: "&eYou have been placed in &fSurvival &emode"
+GAMEMODE-CHANGED-CREATIVE: "&eYou have been placed in &fCreative &emode"
+NOT-ENOUGH-PLAYERS: "&cThere is not enough players online"
+TELEPORT-SUCCESSFUL-MESSAGE: "&eYou have successfully randomly teleported."
+PLAYER-STATISTICS-RESET: "&eYou have successfully reset &f%player%&e's statistics."
+COORDNATES-MESSAGE:
+  - '&7&m--------------------------------'
+  - '&5End Portal&7: &f1000,1000 '
+  - '&aSpawn&7: &f0,0'
+  - '&7&m--------------------------------'
+TELEPORT-HERE-MESSAGE: "&eYou have teleported &f%player% &eto you."
+TELEPORTED-TO-TARGET: "&eYou have teleported to &f%player%"
+TELEPORTED-PLAYER-TO-TARGET: "&eYou have teleported &f%player% &eto &f%target%"
+TELEPORTED-TO-COORDS: "&eYou have been teleported to &f%x%&e,&f%y%&e,&f%z%"
+TELEPORTED-TARGET-TO-COORDS: "&eYou have teleported &f%target% &eto &f%x%&e,&f%y%&e,&f%z%"
+COMBAT-PLACE-DISABLED: "&cPlacing blocks in combat is disabled."
+ITEM-RENAMED: "&eThe item in your hand has been renamed."
+ITEM-UNRENAMABLE: "&cThis item cannot be renamed."
+SOTW-DAMAGED-NOT-ENABLED: "&eThis player has not enabled their sotw timer."
+SOTW-DAMAGER-NOT-ENABLED: "&eYou have not enabled your sotw timer."
+PLAYER-KIT-HELP:
+  - '&7&m--------------------------------'
+  - ' &6&lKit Help&7:'
+  - '&7&m--------------------------------'
+FACTION-TOP-HEADER:
+  - '&7&m--------------------------------'
+  - '&6&lFaction Top&7:'
+  - '&7&m--------------------------------'
+FACTION-TOP-EMPTY: "&cNo Faction currently has above 0 points."
+CONVERSATION-NOT-FOUND: "&cNo one has messaged you recently."
+REPLY-PLAYER-LOGGED-OUT: "&cThe player you are trying to message has recently logged out."
+FLIGHT-ENABLED: "&eYou have &aenabled &eyour flight."
+FLIGHT-DISABLED: "&eYou have &cdisabled &eyour flight."
+FLIGHT-ENABLED-OTHERS: "&eYou have &aenabled &e%player%'s flight."
+FLIGHT-DISABLED-OTHERS: "&eYou have &cdisabled &e%player%'s flight."
+KIT-HELP-TITLE: "&6&lKit Help&7:"
+KIT-NOT-FOUND: "&cThe %kit% kit does not exist."
+KIT-CREATED: "&eYou have created the %kit% kit."
+KIT-ALREADY-EXISTS: "&cThe kit you have attempted to create already exists."
+KIT-COOLDOWN-CHANGED: "&eYou have changed the cooldown for the %kit% kit."
+KIT-ADMIN-HELP:
+  - '&7&m--------------------------------'
+  - '&6&lKit Help&7:'
+  - '&7&m--------------------------------'
+  - '&6&lCommands&7:'
+  - '&e&l/kit create <kit>'
+  - '&e&l/kit setdelay <kit> <duration>'
+  - '&e&l/kit setslot <kit> <slot>'
+  - '&e&l/kit gui'
+  - '&e&l/kit give <player> <kit>'
+  - '&e&l/kit <kit>'
+CUSTOMTIMER-HELP:
+  - '&7&m--------------------------------'
+  - '&3/customtimer start <name> <duration> <prefix>'
+  - '&3/customtimer end <name>'
+  - '&3/customtimer list'
+  - '&7&m--------------------------------'
