@@ -17,10 +17,10 @@ public class EndPortalFaction extends ClaimableFaction implements ConfigurationS
     public EndPortalFaction() {
         super("EndPortal");
 
-        World overworld = Bukkit.getWorld("world");
+/*        World overworld = Bukkit.getWorld("world");
         int maxHeight = overworld.getMaxHeight();
         int min = ConfigurationService.END_PORTAL_CENTER - ConfigurationService.END_PORTAL_RADIUS;
-        int max = ConfigurationService.END_PORTAL_CENTER + ConfigurationService.END_PORTAL_RADIUS;
+        int max = ConfigurationService.END_PORTAL_CENTER + ConfigurationService.END_PORTAL_RADIUS;*/
 
         this.safezone = false;
     }
