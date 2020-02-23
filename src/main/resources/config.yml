@@ -2,7 +2,6 @@
 #Currently Only Supports Vault and Aquacore                      #
 ##################################################################
 PERMISSION-PLUGIN: "VAULT" # VAULT or AQUACORE
-HWID: ""
 combat-place: false
 ktk-points: 5
 conquest-points: 100
@@ -103,4 +102,6 @@ STARTING-BALANCE: 250
 ROGUE-SPEED-COOLDOWN: 30
 ARCHER-JUMPBOOST-COOLDOWN: 30
 RECORDING-COOLDOWN: 300
+FACTION-PUNISHMENTS:
+  mute: "mute %player% 1h Faction Mute -s"
 

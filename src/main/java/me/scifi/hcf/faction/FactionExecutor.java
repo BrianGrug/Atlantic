@@ -68,6 +68,7 @@ public class FactionExecutor extends ArgumentExecutor {
         addArgument(new FactionWithdrawArgument(plugin));
         addArgument(new FactionSetPointsArgument(plugin));
         addArgument(new FactionTopArgument(plugin));
+        addArgument(new FactionMuteArgument(plugin));
     }
 
     @Override

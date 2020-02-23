@@ -77,7 +77,7 @@ public class FactionListArgument extends CommandArgument {
         // Store a map of factions to their online player count.
         Map<PlayerFaction, Integer> factionOnlineMap = new HashMap<>();
         Player senderPlayer = sender instanceof Player ? (Player) sender : null;
-        for (Player target : Bukkit.getOnlinePlayers()) {
+        for (Player target : HCF.getOnlinePlayers()) {
             if (senderPlayer == null || senderPlayer.canSee(target)) {
                 PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(target);
                 if (playerFaction != null) {

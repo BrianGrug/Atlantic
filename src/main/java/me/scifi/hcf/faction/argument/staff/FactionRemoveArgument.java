@@ -81,7 +81,7 @@ public class FactionRemoveArgument extends CommandArgument {
         } else {
             Player player = (Player) sender;
             List<String> results = new ArrayList<>(plugin.getFactionManager().getFactionNameMap().keySet());
-            for (Player target : Bukkit.getOnlinePlayers()) {
+            for (Player target : HCF.getOnlinePlayers()) {
                 if (player.canSee(target) && !results.contains(target.getName())) {
                     results.add(target.getName());
                 }

@@ -99,6 +99,8 @@ public class ConfigurationService {
         ALLY_COLOUR = ChatColor.valueOf(config.getString("ally_colour"));
         ENEMY_COLOUR = ChatColor.valueOf(config.getString("enemy_colour"));
 
+        FACTION_MUTE_COMMAND = config.getString("faction_mute_command");
+
         SAFEZONE_COLOUR = ChatColor.valueOf(config.getString("safezone_colour"));
         ROAD_COLOUR = ChatColor.valueOf(config.getString("road_colour"));
         WARZONE_COLOUR = ChatColor.valueOf(config.getString("warzone_colour"));
@@ -132,6 +134,8 @@ public class ConfigurationService {
     }
 
     public static boolean DISABLE_OBSIDIAN_GENERATORS = true;
+
+    public static String FACTION_MUTE_COMMAND = "mute %player% 1h Toxic faction -S";
 
     private static String DEFAULT_SERVER_TIME_ZONE = "GMT+1";
     public static TimeZone SERVER_TIME_ZONE = TimeZone.getTimeZone(DEFAULT_SERVER_TIME_ZONE);
