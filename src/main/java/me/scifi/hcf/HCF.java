@@ -253,6 +253,7 @@ public class HCF extends JavaPlugin {
         manager.registerEvents(new SnowportListener(),this);
         manager.registerEvents(new BelchbombListener(),this);
         manager.registerEvents(new GrapplingHookListener(),this);
+        manager.registerEvents(new PunishListener(), this);
     }
 
     private void registerCommands() {

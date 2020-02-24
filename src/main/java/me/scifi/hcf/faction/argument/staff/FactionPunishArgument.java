@@ -1,28 +1,23 @@
 package me.scifi.hcf.faction.argument.staff;
 
-import com.doctordark.util.BukkitUtils;
 import com.doctordark.util.command.CommandArgument;
 import me.scifi.hcf.HCF;
-import me.scifi.hcf.faction.FactionMember;
 import me.scifi.hcf.faction.type.Faction;
 import me.scifi.hcf.faction.type.PlayerFaction;
-import org.bukkit.Bukkit;
+import me.scifi.hcf.inventories.Inventories;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.io.IOException;
 
-public class FactionMuteArgument extends CommandArgument {
+public class FactionPunishArgument extends CommandArgument {
 
     private final HCF plugin;
 
-    public FactionMuteArgument(HCF plugin) {
-        super("mute", "Mutes a whole faction.");
+    public FactionPunishArgument(HCF plugin) {
+        super("punish", "Punish a whole faction.");
         this.plugin = plugin;
         this.permission = "hcf.command.faction.argument." + getName();
     }
@@ -33,7 +28,11 @@ public class FactionMuteArgument extends CommandArgument {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) throws IOException {
+
+        if(!(sender instanceof Player)){
+            return true;
+        }
         if (args.length < 1) {
             sender.sendMessage(ChatColor.RED + "Usage: " + getUsage(label));
             return true;
@@ -47,10 +46,12 @@ public class FactionMuteArgument extends CommandArgument {
             sender.sendMessage(ChatColor.RED + "This is not a player created faction!");
             return true;
         }
+
+        Player player = (Player) sender;
+
         PlayerFaction playerFaction = (PlayerFaction) faction;
 
-        playerFaction.getOnlinePlayers().forEach(player -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), HCF.getPlugin().getConfig().getString("FACTION-PUNISHMENTS.mute")
-                .replace("%player%", player.getName())));
+        Inventories.punishFactionInventory(player, playerFaction);
 
         return true;
     }

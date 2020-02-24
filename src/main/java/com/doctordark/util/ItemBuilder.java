@@ -10,6 +10,7 @@ import org.bukkit.enchantments.*;
 public class ItemBuilder {
     private ItemStack stack;
     private ItemMeta meta;
+    private Material material;
 
     public ItemBuilder(final Material material) {
         this(material, 1);
@@ -17,6 +18,7 @@ public class ItemBuilder {
 
     public ItemBuilder(final Material material, final int amount) {
         this(material, amount, (byte) 0);
+        this.material = material;
     }
 
     public ItemBuilder(final ItemStack stack) {
@@ -28,6 +30,7 @@ public class ItemBuilder {
         Preconditions.checkNotNull((Object) material, (Object) "Material cannot be null");
         Preconditions.checkArgument(amount > 0, (Object) "Amount must be positive");
         this.stack = new ItemStack(material, amount, (short) data);
+        this.material = material;
     }
 
     public ItemBuilder displayName(final String name) {
@@ -73,6 +76,60 @@ public class ItemBuilder {
     public ItemBuilder data(final short data) {
         this.stack.setDurability(data);
         return this;
+    }
+
+    public ItemBuilder asMaterial(Material material) {
+        this.material = material;
+        return this;
+    }
+
+    public ItemBuilder setDurability(int durability) {
+        stack.setDurability((short) durability);
+        return this;
+    }
+
+    public SkullBuilder toSkullBuilder() {
+        return new SkullBuilder(this);
+    }
+
+    public class SkullBuilder {
+
+        // Fundamentals
+        private ItemBuilder stackBuilder;
+
+        // Meta
+        private String owner;
+
+        private SkullBuilder(ItemBuilder stackBuilder) {
+            this.stackBuilder = stackBuilder;
+        }
+
+        // Meta
+        public SkullBuilder withOwner(String ownerName) {
+            this.owner = ownerName;
+            return this;
+        }
+
+        /**
+         * Builds a skull from a owner
+         *
+         * @return ItemStack skull with owner
+         */
+        public ItemStack buildSkull() {
+            // Build the stack first, edit to make sure it's a skull
+            ItemStack skull = stackBuilder
+                    .asMaterial(Material.SKULL_ITEM)
+                    .setDurability(3)
+                    .build();
+
+            // Edit skull meta
+            SkullMeta meta = (SkullMeta) skull.getItemMeta();
+            meta.setOwner(owner);
+            skull.setItemMeta(meta);
+
+            // Lastly, return the skull
+            return skull;
+        }
     }
 
     public ItemStack build() {
