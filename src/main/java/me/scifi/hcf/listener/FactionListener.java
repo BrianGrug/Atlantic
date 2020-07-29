@@ -58,7 +58,7 @@ public class FactionListener implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent e){
-        plugin.getUserManager().getUserAsync(e.getEntity().getUniqueId()).setDeaths(plugin.getUserManager().getUserAsync(e.getEntity().getUniqueId()).getDeaths() + 1);
+        plugin.getManagerHandler().getUserManager().getUserAsync(e.getEntity().getUniqueId()).setDeaths(plugin.getManagerHandler().getUserManager().getUserAsync(e.getEntity().getUniqueId()).getDeaths() + 1);
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -66,7 +66,7 @@ public class FactionListener implements Listener {
         Faction faction = event.getFaction();
         if (faction instanceof PlayerFaction) {
             CommandSender sender = event.getSender();
-            for (Player player : Bukkit.getOnlinePlayers()) {
+            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 String msg = ChatColor.YELLOW + "Faction " + ChatColor.WHITE + (player == null ? faction.getName() : faction.getDisplayName(player)) + ChatColor.YELLOW + " has been " + ChatColor.GREEN
                         + "created" + ChatColor.YELLOW + " by " + ChatColor.WHITE + (sender instanceof Player ? ((Player) sender).getDisplayName() : sender.getName()) + ChatColor.YELLOW + '.';
                 player.sendMessage(msg);
@@ -79,7 +79,7 @@ public class FactionListener implements Listener {
         Faction faction = event.getFaction();
         if (faction instanceof PlayerFaction) {
             CommandSender sender = event.getSender();
-            for (Player player : Bukkit.getOnlinePlayers()) {
+            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 String msg = ChatColor.YELLOW + "Faction " + ChatColor.WHITE + (player == null ? faction.getName() : faction.getDisplayName(player)) + ChatColor.YELLOW + " has been " + ChatColor.RED
                         + "disbanded" + ChatColor.YELLOW + " by " + ChatColor.WHITE + (sender instanceof Player ? ((Player) sender).getDisplayName() : sender.getName()) + ChatColor.YELLOW + '.';
                 player.sendMessage(msg);
@@ -91,7 +91,7 @@ public class FactionListener implements Listener {
     public void onFactionRename(FactionRenameEvent event) {
         Faction faction = event.getFaction();
         if (faction instanceof PlayerFaction) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
+            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 Relation relation = faction.getRelation(player);
                 String msg = ChatColor.YELLOW + "The faction " + relation.toChatColour() + event.getOriginalName() + ChatColor.YELLOW + " has been " + ChatColor.AQUA + "renamed" + ChatColor.YELLOW
                         + " to " + relation.toChatColour() + event.getNewName() + ChatColor.YELLOW + '.';
@@ -117,7 +117,7 @@ public class FactionListener implements Listener {
         if (getLastLandChangedMeta(player) > 0L)
             return; // delay before re-messaging.
 
-        if (plugin.getUserManager().getUser(player.getUniqueId()).isCapzoneEntryAlerts()) {
+        if (plugin.getManagerHandler().getUserManager().getUser(player.getUniqueId()).isCapzoneEntryAlerts()) {
             player.sendMessage(
                     ChatColor.YELLOW + "Now entering capture zone: " + event.getCaptureZone().getDisplayName() + ChatColor.YELLOW + '(' + event.getFaction().getName() + ChatColor.YELLOW + ')');
         }
@@ -129,7 +129,7 @@ public class FactionListener implements Listener {
         if (getLastLandChangedMeta(player) > 0L)
             return; // delay before re-messaging.
 
-        if (plugin.getUserManager().getUser(player.getUniqueId()).isCapzoneEntryAlerts()) {
+        if (plugin.getManagerHandler().getUserManager().getUser(player.getUniqueId()).isCapzoneEntryAlerts()) {
             player.sendMessage(
                     ChatColor.YELLOW + "Now leaving capture zone: " + event.getCaptureZone().getDisplayName() + ChatColor.YELLOW + '(' + event.getFaction().getName() + ChatColor.YELLOW + ')');
         }
@@ -163,7 +163,7 @@ public class FactionListener implements Listener {
     public void onPlayerLeftFaction(PlayerLeftFactionEvent event) {
         Optional<Player> optionalPlayer = event.getPlayer();
         if (optionalPlayer.isPresent()) {
-            plugin.getUserManager().getUser(optionalPlayer.get().getUniqueId()).setLastFactionLeaveMillis(System.currentTimeMillis());
+            plugin.getManagerHandler().getUserManager().getUser(optionalPlayer.get().getUniqueId()).setLastFactionLeaveMillis(System.currentTimeMillis());
         }
     }
 
@@ -175,13 +175,13 @@ public class FactionListener implements Listener {
             Player player = optionalPlayer.get();
             PlayerFaction playerFaction = (PlayerFaction) faction;
 
-            if (!ConfigurationService.KIT_MAP && !plugin.getEotwHandler().isEndOfTheWorld() && playerFaction.getRegenStatus() == RegenStatus.PAUSED) {
+            if (!ConfigurationService.KIT_MAP && !plugin.getManagerHandler().getEotwHandler().isEndOfTheWorld() && playerFaction.getRegenStatus() == RegenStatus.PAUSED) {
                 event.setCancelled(true);
                 player.sendMessage(ChatColor.RED + "You cannot join factions that are not regenerating DTR.");
                 return;
             }
 
-            long difference = (plugin.getUserManager().getUser(player.getUniqueId()).getLastFactionLeaveMillis() - System.currentTimeMillis()) + FACTION_JOIN_WAIT_MILLIS;
+            long difference = (plugin.getManagerHandler().getUserManager().getUser(player.getUniqueId()).getLastFactionLeaveMillis() - System.currentTimeMillis()) + FACTION_JOIN_WAIT_MILLIS;
             if (difference > 0L && !player.hasPermission("hcf.faction.argument.staff.forcejoin")) {
                 event.setCancelled(true);
                 player.sendMessage(ChatColor.RED + "You cannot join factions after just leaving within " + FACTION_JOIN_WAIT_WORDS + ". " + "You gotta wait another "
@@ -201,7 +201,7 @@ public class FactionListener implements Listener {
             Optional<Player> optional = event.getPlayer();
             if (optional.isPresent()) {
                 Player player = optional.get();
-                if (plugin.getFactionManager().getFactionAt(player.getLocation()) == faction) {
+                if (plugin.getManagerHandler().getFactionManager().getFactionAt(player.getLocation()) == faction) {
                     event.setCancelled(true);
                     player.sendMessage(ChatColor.RED + "You cannot leave your faction whilst you remain in its' territory.");
                 }
@@ -212,7 +212,7 @@ public class FactionListener implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
         if (playerFaction != null) {
             playerFaction.printDetails(player);
             playerFaction.broadcast(ChatColor.DARK_GREEN + "Member Online: " + ChatColor.GREEN + playerFaction.getMember(player).getRole().getAstrix() + player.getName() + ChatColor.GOLD + '.',
@@ -223,7 +223,7 @@ public class FactionListener implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
         if (playerFaction != null) {
             playerFaction.broadcast(ChatColor.RED + "Member Offline: " + ChatColor.GREEN + playerFaction.getMember(player).getRole().getAstrix() + player.getName() + ChatColor.GOLD + '.');
         }

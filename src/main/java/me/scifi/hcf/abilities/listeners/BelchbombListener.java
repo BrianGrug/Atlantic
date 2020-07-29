@@ -38,12 +38,12 @@ public class BelchbombListener implements Listener {
             return;
         }
 
-        if(plugin.getFactionManager().getFactionAt(player.getLocation()).isSafezone()) return;
+        if(plugin.getManagerHandler().getFactionManager().getFactionAt(player.getLocation()).isSafezone()) return;
 
         player.getNearbyEntities(radius, radius, radius).stream().filter(entity -> entity instanceof Player)
                 .filter(entity -> !entity.getUniqueId().equals(player.getUniqueId()))
                 .forEach(players -> {
-                    if(!plugin.getFactionManager().getFactionAt(players.getLocation()).isSafezone()) {
+                    if(!plugin.getManagerHandler().getFactionManager().getFactionAt(players.getLocation()).isSafezone()) {
                         ((Player) players).addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, plugin.getItemsYML().getInt("belchbomb.duration") * 20, plugin.getItemsYML().getInt("belchbomb.amplifier")));
                         ((Player) players).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, plugin.getItemsYML().getInt("belchbomb.duration") * 20, plugin.getItemsYML().getInt("belchbomb.amplifier")));
                     }

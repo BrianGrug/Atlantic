@@ -33,7 +33,7 @@ public class TeleportTimer extends PlayerTimer implements Listener {
     private final HCF plugin;
 
     public TeleportTimer(HCF plugin) {
-        super(plugin.messagesYML.getString("SCOREBOARD.TELEPORT.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().messagesYML.getLong("SCOREBOARD.TELEPORT.LENGTH")), false);
+        super(plugin.getMessagesYML().getString("SCOREBOARD.TELEPORT.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().getMessagesYML().getLong("SCOREBOARD.TELEPORT.LENGTH")), false);
         this.plugin = plugin;
     }
 
@@ -50,7 +50,7 @@ public class TeleportTimer extends PlayerTimer implements Listener {
 
     @Override
     public String getScoreboardPrefix() {
-        return plugin.messagesYML.getString("SCOREBOARD.TELEPORT.PREFIX");
+        return plugin.getMessagesYML().getString("SCOREBOARD.TELEPORT.PREFIX");
     }
 
     @Override
@@ -74,7 +74,7 @@ public class TeleportTimer extends PlayerTimer implements Listener {
      * @return the amount of players within enemy distance
      */
     public int getNearbyEnemies(Player player, int distance) {
-        FactionManager factionManager = plugin.getFactionManager();
+        FactionManager factionManager = plugin.getManagerHandler().getFactionManager();
         Faction playerFaction = factionManager.getPlayerFaction(player.getUniqueId());
         int count = 0;
 

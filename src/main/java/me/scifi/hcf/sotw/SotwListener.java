@@ -38,13 +38,13 @@ public class SotwListener implements Listener {
             Player damaged = (Player) e.getEntity();
             if (sotwRunnable != null) {
                 if (SotwCommand.enabled.contains(damager.getUniqueId()) && !SotwCommand.enabled.contains(damaged.getUniqueId())) {
-                    damager.sendMessage(Utils.chat(plugin.messagesYML.getString("SOTW-DAMAGED-NOT-ENABLED")));
+                    damager.sendMessage(Utils.chat(plugin.getMessagesYML().getString("SOTW-DAMAGED-NOT-ENABLED")));
                     e.setCancelled(true);
                 } else if (!SotwCommand.enabled.contains(damager.getUniqueId()) && SotwCommand.enabled.contains(damaged.getUniqueId())) {
-                    damager.sendMessage(Utils.chat(plugin.messagesYML.getString("SOTW-DAMAGER-NOT-ENABLED")));
+                    damager.sendMessage(Utils.chat(plugin.getMessagesYML().getString("SOTW-DAMAGER-NOT-ENABLED")));
                     e.setCancelled(true);
                 } else if (!SotwCommand.enabled.contains(damager.getUniqueId()) && !SotwCommand.enabled.contains(damaged.getUniqueId())) {
-                    damager.sendMessage(Utils.chat(plugin.messagesYML.getString("SOTW-DAMAGER-NOT-ENABLED")));
+                    damager.sendMessage(Utils.chat(plugin.getMessagesYML().getString("SOTW-DAMAGER-NOT-ENABLED")));
                     e.setCancelled(true);
                 }
 

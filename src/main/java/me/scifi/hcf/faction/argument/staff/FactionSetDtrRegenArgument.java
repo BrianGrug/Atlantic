@@ -2,6 +2,7 @@ package me.scifi.hcf.faction.argument.staff;
 
 import com.doctordark.util.JavaUtils;
 import com.doctordark.util.command.CommandArgument;
+import me.scifi.hcf.faction.FactionManager;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,7 +10,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import me.scifi.hcf.HCF;
-import me.scifi.hcf.faction.FactionManager;
 import me.scifi.hcf.faction.type.Faction;
 import me.scifi.hcf.faction.type.PlayerFaction;
 
@@ -51,7 +51,7 @@ public class FactionSetDtrRegenArgument extends CommandArgument {
             return true;
         }
 
-        Faction faction = plugin.getFactionManager().getContainingFaction(args[1]);
+        Faction faction = plugin.getManagerHandler().getFactionManager().getContainingFaction(args[1]);
 
         if (faction == null) {
             sender.sendMessage(ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
@@ -83,9 +83,9 @@ public class FactionSetDtrRegenArgument extends CommandArgument {
         } else if (args[1].isEmpty()) {
             return null;
         } else {
-            List<String> results = new ArrayList<>(plugin.getFactionManager().getFactionNameMap().keySet());
+            List<String> results = new ArrayList<>(plugin.getManagerHandler().getFactionManager().getFactionNameMap().keySet());
             Player senderPlayer = sender instanceof Player ? ((Player) sender) : null;
-            for (Player player : Bukkit.getOnlinePlayers()) {
+            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 // Make sure the player can see.
                 if (senderPlayer == null || senderPlayer.canSee(player)) {
                     results.add(player.getName());

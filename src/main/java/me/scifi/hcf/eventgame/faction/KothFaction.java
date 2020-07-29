@@ -71,7 +71,7 @@ public class KothFaction extends CapturableFaction implements ConfigurationSeria
             sender.sendMessage(ChatColor.YELLOW + "  Capture Delay: " + ChatColor.RED + captureZone.getDefaultCaptureWords());
             if (captureZone.getCappingPlayer() != null && sender.hasPermission("hcf.koth.checkcapper")) {
                 Player capping = captureZone.getCappingPlayer();
-                PlayerFaction playerFaction = HCF.getPlugin().getFactionManager().getPlayerFaction(capping);
+                PlayerFaction playerFaction = HCF.getPlugin().getManagerHandler().getFactionManager().getPlayerFaction(capping);
                 String factionTag = "[" + (playerFaction == null ? "*" : playerFaction.getName()) + "]";
                 sender.sendMessage(ChatColor.YELLOW + "  Current Capper: " + ChatColor.RED + capping.getName() + ChatColor.GOLD + factionTag);
             }

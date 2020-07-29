@@ -23,7 +23,7 @@ public class MapkitCommand implements CommandExecutor {
             if(sender instanceof Player){
                 Player p = (Player) sender;
                 if(p.hasPermission(command.getPermission())){
-                    List<String> mapkitMessage = plugin.messagesYML.getStringList("MAPKIT-MESSAGE");
+                    List<String> mapkitMessage = plugin.getMessagesYML().getStringList("MAPKIT-MESSAGE");
                     mapkitMessage.forEach(str -> p.sendMessage(Utils.chat(str)));
                     return true;
                 }

@@ -67,7 +67,7 @@ public class BardClass extends PvpClass implements Listener {
 
     @Override
     public boolean onEquip(Player player) {
-        if (plugin.getTimerManager().getPvpTimer().getRemaining(player) > 0L) {
+        if (plugin.getManagerHandler().getTimerManager().getPvpTimer().getRemaining(player) > 0L) {
             player.sendMessage(ChatColor.RED + "You cannot equip the " + getName() + " PVP Class whilst PVP Protected or eligible for it.");
             return false;
         }
@@ -95,9 +95,9 @@ public class BardClass extends PvpClass implements Listener {
                         plugin.getEffectRestorer().setRestoreEffect(player, bardEffect.heldable);
                     }
 
-                    if (!plugin.getFactionManager().getFactionAt(player.getLocation()).isSafezone()) {
+                    if (!plugin.getManagerHandler().getFactionManager().getFactionAt(player.getLocation()).isSafezone()) {
                         // Apply the held effect to faction members.
-                        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+                        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
                         if (playerFaction != null) {
                             Collection<Entity> nearbyEntities = player.getNearbyEntities(TEAMMATE_NEARBY_RADIUS, TEAMMATE_NEARBY_RADIUS, TEAMMATE_NEARBY_RADIUS);
                             for (Entity nearby : nearbyEntities) {
@@ -152,7 +152,7 @@ public class BardClass extends PvpClass implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onItemHeld(PlayerItemHeldEvent event) {
         Player player = event.getPlayer();
-        PvpClass equipped = plugin.getPvpClassManager().getEquippedClass(player);
+        PvpClass equipped = plugin.getManagerHandler().getPvpClassManager().getEquippedClass(player);
         if (equipped == null || !equipped.equals(this)) {
             return;
         }
@@ -201,9 +201,9 @@ public class BardClass extends PvpClass implements Listener {
                     player.setItemInHand(new ItemStack(Material.AIR, 1));
                 }
 
-                if (!plugin.getFactionManager().getFactionAt(player.getLocation()).isSafezone()) {
+                if (!plugin.getManagerHandler().getFactionManager().getFactionAt(player.getLocation()).isSafezone()) {
                     // Apply the held effect to faction members.
-                    PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+                    PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
                     if (playerFaction != null) {
                         Collection<Entity> nearbyEntities = player.getNearbyEntities(TEAMMATE_NEARBY_RADIUS, TEAMMATE_NEARBY_RADIUS, TEAMMATE_NEARBY_RADIUS);
                         for (Entity nearby : nearbyEntities) {
@@ -241,7 +241,7 @@ public class BardClass extends PvpClass implements Listener {
             errorFeedback = ChatColor.RED + "You cannot use this Bard buff for another " + ChatColor.BOLD + DurationFormatter.getRemaining(remaining, true, false) + ChatColor.RED + '.';
         }
 
-        Faction factionAt = plugin.getFactionManager().getFactionAt(player.getLocation());
+        Faction factionAt = plugin.getManagerHandler().getFactionManager().getFactionAt(player.getLocation());
         if (factionAt.isSafezone()) {
             errorFeedback = ChatColor.RED + "You may not use Bard buffs in safe-zones.";
         }

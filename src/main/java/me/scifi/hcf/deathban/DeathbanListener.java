@@ -48,19 +48,19 @@ public class DeathbanListener implements Listener {
                 return;
             }
 
-            FactionUser user = this.plugin.getUserManager().getUser(player.getUniqueId());
+            FactionUser user = this.plugin.getManagerHandler().getUserManager().getUser(player.getUniqueId());
             Deathban deathban = user.getDeathban();
             if (deathban == null || !deathban.isActive()) {
                 return;
             }
 
-            if (this.plugin.getEotwHandler().isEndOfTheWorld()) {
+            if (this.plugin.getManagerHandler().getEotwHandler().isEndOfTheWorld()) {
                 event.disallow(PlayerLoginEvent.Result.KICK_OTHER, ChatColor.RED + "Deathbanned for the entirety of the map due to EOTW.\nCome back tomorrow for SOTW.");
                 return;
             }
 
             UUID uuid = player.getUniqueId();
-            int lives = this.plugin.getDeathbanManager().getLives(uuid);
+            int lives = this.plugin.getManagerHandler().getDeathbanManager().getLives(uuid);
 
             String formattedRemaining = DurationFormatter.getRemaining(deathban.getRemaining(), true, false);
 
@@ -78,7 +78,7 @@ public class DeathbanListener implements Listener {
             if (lastAttemptedJoinMillis != this.lastAttemptedJoinMap.getNoEntryValue() && lastAttemptedJoinMillis - millis < DeathbanListener.LIFE_USE_DELAY_MILLIS) {
                 this.lastAttemptedJoinMap.remove(uuid);
                 user.removeDeathban();
-                lives = plugin.getDeathbanManager().takeLives(uuid, 1);
+                lives = plugin.getManagerHandler().getDeathbanManager().takeLives(uuid, 1);
 
                 event.setResult(PlayerLoginEvent.Result.ALLOWED);
                 new DelayedMessageRunnable(player, ChatColor.YELLOW + "You have used a life for entry. You now have " + ChatColor.WHITE + lives + ChatColor.YELLOW + " lives.").runTask(plugin);
@@ -99,7 +99,7 @@ public class DeathbanListener implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOW)
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
-        Deathban deathban = plugin.getDeathbanManager().applyDeathBan(player, event.getDeathMessage());
+        Deathban deathban = plugin.getManagerHandler().getDeathbanManager().applyDeathBan(player, event.getDeathMessage());
         long remaining = deathban.getRemaining();
         if (remaining <= 0L || player.hasPermission(DeathbanListener.DEATH_BAN_BYPASS_PERMISSION)) {
             return;
@@ -122,7 +122,7 @@ public class DeathbanListener implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerRequestRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
-        FactionUser user = this.plugin.getUserManager().getUser(player.getUniqueId());
+        FactionUser user = this.plugin.getManagerHandler().getUserManager().getUser(player.getUniqueId());
         Deathban deathban = user.getDeathban();
         if (deathban != null && deathban.getRemaining() > 0L) {
             if (player.hasPermission(DeathbanListener.DEATH_BAN_BYPASS_PERMISSION)) {
@@ -152,7 +152,7 @@ public class DeathbanListener implements Listener {
     }
 
     private void handleKick(Player player, Deathban deathban) {
-        if (this.plugin.getEotwHandler().isEndOfTheWorld()) {
+        if (this.plugin.getManagerHandler().getEotwHandler().isEndOfTheWorld()) {
             player.kickPlayer(ChatColor.RED + "Deathbanned for the entirety of the map due to EOTW.\nCome back tomorrow for SOTW!");
         } else {
             player.kickPlayer(ChatColor.RED + "Deathbanned for " + DurationFormatter.getRemaining(deathban.getRemaining(), true, false) + ": " + ChatColor.WHITE + deathban.getReason());

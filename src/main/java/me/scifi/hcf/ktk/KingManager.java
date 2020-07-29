@@ -2,11 +2,12 @@ package me.scifi.hcf.ktk;
 
 import lombok.Getter;
 import lombok.Setter;
+import me.scifi.hcf.managers.IManager;
 import org.bukkit.entity.Player;
 
 @Getter
 @Setter
-public class KingManager {
+public class KingManager implements IManager {
 
     public Player kingPlayer;
 

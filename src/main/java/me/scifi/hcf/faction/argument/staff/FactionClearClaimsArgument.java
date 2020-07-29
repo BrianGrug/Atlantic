@@ -60,7 +60,7 @@ public class FactionClearClaimsArgument extends CommandArgument {
             return true;
         }
 
-        Faction faction = plugin.getFactionManager().getContainingFaction(args[1]);
+        Faction faction = plugin.getManagerHandler().getFactionManager().getContainingFaction(args[1]);
 
         if (faction == null) {
             sender.sendMessage(ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
@@ -87,8 +87,8 @@ public class FactionClearClaimsArgument extends CommandArgument {
             return null;
         } else {
             Player player = (Player) sender;
-            List<String> results = new ArrayList<>(plugin.getFactionManager().getFactionNameMap().keySet());
-            for (Player target : Bukkit.getOnlinePlayers()) {
+            List<String> results = new ArrayList<>(plugin.getManagerHandler().getFactionManager().getFactionNameMap().keySet());
+            for (Player target : Bukkit.getServer().getOnlinePlayers()) {
                 if (player.canSee(target) && !results.contains(target.getName())) {
                     results.add(target.getName());
                 }
@@ -116,7 +116,7 @@ public class FactionClearClaimsArgument extends CommandArgument {
         public Prompt acceptInput(ConversationContext context, String string) {
             switch (string.toLowerCase()) {
             case "yes": {
-                for (Faction faction : plugin.getFactionManager().getFactions()) {
+                for (Faction faction : plugin.getManagerHandler().getFactionManager().getFactions()) {
                     if (faction instanceof ClaimableFaction) {
                         ClaimableFaction claimableFaction = (ClaimableFaction) faction;
                         claimableFaction.removeClaims(claimableFaction.getClaims(), Bukkit.getConsoleSender());

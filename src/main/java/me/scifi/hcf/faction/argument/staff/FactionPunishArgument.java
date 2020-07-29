@@ -37,11 +37,11 @@ public class FactionPunishArgument extends CommandArgument {
             sender.sendMessage(ChatColor.RED + "Usage: " + getUsage(label));
             return true;
         }
-        if (plugin.getFactionManager().getFaction(args[1]) == null) {
+        if (plugin.getManagerHandler().getFactionManager().getFaction(args[1]) == null) {
             sender.sendMessage(ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");
             return true;
         }
-        Faction faction = plugin.getFactionManager().getFaction(args[1]);
+        Faction faction = plugin.getManagerHandler().getFactionManager().getFaction(args[1]);
         if (!(faction instanceof PlayerFaction)) {
             sender.sendMessage(ChatColor.RED + "This is not a player created faction!");
             return true;

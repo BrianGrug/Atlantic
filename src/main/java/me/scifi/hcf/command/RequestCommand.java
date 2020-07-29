@@ -38,7 +38,7 @@ public class RequestCommand implements CommandExecutor {
                     String message = sb.toString();
                     for (Player staff : Bukkit.getServer().getOnlinePlayers()) {
                         if (staff.hasPermission(command.getPermission() + ".recieve")) {
-                            List<String> msg = Utils.list(plugin.messagesYML.getStringList("REQUEST-MESSAGE"));
+                            List<String> msg = Utils.list(plugin.getMessagesYML().getStringList("REQUEST-MESSAGE"));
                             msg.forEach(str -> staff.sendMessage(str
                                     .replace("%player%", sender.getName())
                                     .replace("%message%", message)));
@@ -46,7 +46,7 @@ public class RequestCommand implements CommandExecutor {
                     }
 
                     request.placeOnCooldown(p, 3600);
-                    p.sendMessage(Utils.chat(plugin.messagesYML.getString("REQUEST-RECIEVED")));
+                    p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("REQUEST-RECIEVED")));
                     return true;
                 }
             }

@@ -37,7 +37,7 @@ public class EventCreateArgument extends CommandArgument {
             return true;
         }
 
-        Faction faction = plugin.getFactionManager().getFaction(args[1]);
+        Faction faction = plugin.getManagerHandler().getFactionManager().getFaction(args[1]);
 
         if (faction != null) {
             sender.sendMessage(ChatColor.RED + "There is already a faction named " + args[1] + '.');
@@ -56,7 +56,7 @@ public class EventCreateArgument extends CommandArgument {
             return true;
         }
 
-        plugin.getFactionManager().createFaction(faction, sender);
+        plugin.getManagerHandler().getFactionManager().createFaction(faction, sender);
         sender.sendMessage(ChatColor.YELLOW + "Created event faction " + ChatColor.WHITE + faction.getDisplayName(sender) + ChatColor.YELLOW + " with type " + WordUtils.capitalizeFully(args[2]) + '.');
         return true;
     }

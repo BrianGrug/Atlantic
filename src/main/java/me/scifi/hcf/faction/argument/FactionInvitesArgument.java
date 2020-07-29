@@ -39,7 +39,7 @@ public class FactionInvitesArgument extends CommandArgument {
         }
 
         List<String> receivedInvites = new ArrayList<>();
-        for (Faction faction : plugin.getFactionManager().getFactions()) {
+        for (Faction faction : plugin.getManagerHandler().getFactionManager().getFactions()) {
             if (faction instanceof PlayerFaction) {
                 PlayerFaction targetPlayerFaction = (PlayerFaction) faction;
                 if (targetPlayerFaction.getInvitedPlayerNames().contains(sender.getName())) {
@@ -48,7 +48,7 @@ public class FactionInvitesArgument extends CommandArgument {
             }
         }
 
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction((Player) sender);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction((Player) sender);
         String delimiter = ChatColor.WHITE + ", " + ChatColor.GRAY;
 
         if (playerFaction != null) {

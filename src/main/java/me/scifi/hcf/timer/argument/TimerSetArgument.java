@@ -52,7 +52,7 @@ public class TimerSetArgument extends CommandArgument {
         }
 
         PlayerTimer playerTimer = null;
-        for (Timer timer : plugin.getTimerManager().getTimers()) {
+        for (Timer timer : plugin.getManagerHandler().getTimerManager().getTimers()) {
             if (timer instanceof PlayerTimer && WHITESPACE_TRIMMER.matcher(timer.getName()).replaceAll("").equalsIgnoreCase(args[1])) {
                 playerTimer = (PlayerTimer) timer;
                 break;
@@ -65,7 +65,7 @@ public class TimerSetArgument extends CommandArgument {
         }
 
         if (args[2].equalsIgnoreCase("all")) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
+            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 playerTimer.setCooldown(player, player.getUniqueId(), duration, true, null);
             }
 
@@ -90,7 +90,7 @@ public class TimerSetArgument extends CommandArgument {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 2) {
-            return plugin.getTimerManager().getTimers().stream().filter(timer -> timer instanceof PlayerTimer).map(new Function<Timer, String>() {
+            return plugin.getManagerHandler().getTimerManager().getTimers().stream().filter(timer -> timer instanceof PlayerTimer).map(new Function<Timer, String>() {
                 @Nullable
                 @Override
                 public String apply(Timer timer) {
@@ -101,7 +101,7 @@ public class TimerSetArgument extends CommandArgument {
             List<String> list = new ArrayList<>();
             list.add("ALL");
             Player player = sender instanceof Player ? (Player) sender : null;
-            for (Player target : Bukkit.getOnlinePlayers()) {
+            for (Player target : Bukkit.getServer().getOnlinePlayers()) {
                 if (player == null || player.canSee(target)) {
                     list.add(target.getName());
                 }

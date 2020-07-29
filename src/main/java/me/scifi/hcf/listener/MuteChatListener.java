@@ -20,7 +20,7 @@ public class MuteChatListener implements Listener {
     public void onChat(AsyncPlayerChatEvent e){
         if(MuteChatCommand.isLocked){
             if(!e.getPlayer().hasPermission("hcf.command.mutechat.bypass")){
-                e.getPlayer().sendMessage(Utils.chat(plugin.messagesYML.getString("CHAT-MUTED-TALK")));
+                e.getPlayer().sendMessage(Utils.chat(plugin.getMessagesYML().getString("CHAT-MUTED-TALK")));
                 e.setMessage("");
                 e.setCancelled(true);
             }

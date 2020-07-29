@@ -71,20 +71,20 @@ public class PvPTimer extends PlayerTimer implements Listener {
     private final HCF plugin;
 
     public PvPTimer(HCF plugin) {
-        super(plugin.messagesYML.getString("SCOREBOARD.PVPTIMER.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().messagesYML.getLong("SCOREBOARD.PVPTIMER.LENGTH")));
+        super(plugin.getMessagesYML().getString("SCOREBOARD.PVPTIMER.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().getMessagesYML().getLong("SCOREBOARD.PVPTIMER.LENGTH")));
         this.plugin = plugin;
     }
 
     @Override
     public String getScoreboardPrefix() {
-        return plugin.messagesYML.getString("SCOREBOARD.PVPTIMER.PREFIX");
+        return plugin.getMessagesYML().getString("SCOREBOARD.PVPTIMER.PREFIX");
     }
 
     @Override
     public void onExpire(UUID userUUID) {
         Player player = Bukkit.getPlayer(userUUID);
         if (player != null) {
-            plugin.getVisualiseHandler().clearVisualBlocks(player, VisualType.CLAIM_BORDER, null);
+            plugin.getManagerHandler().getVisualiseHandler().clearVisualBlocks(player, VisualType.CLAIM_BORDER, null);
             player.sendMessage(Utils.chat(ChatColor.RED.toString() + ChatColor.BOLD + "You no longer have " + getDisplayName() + ChatColor.RED + ChatColor.BOLD + ", good luck!"));
         }
     }
@@ -226,7 +226,7 @@ public class PvPTimer extends PlayerTimer implements Listener {
         } else {
                 // If a player has their timer paused and they are not in a safezone, un-pause for them.
                 // We do this because disconnection pauses PVP Protection.
-                if (this.isPaused(player) && getRemaining(player) > 0L && !plugin.getFactionManager().getFactionAt(event.getSpawnLocation()).isSafezone()) {
+                if (this.isPaused(player) && getRemaining(player) > 0L && !plugin.getManagerHandler().getFactionManager().getFactionAt(event.getSpawnLocation()).isSafezone()) {
                     this.setPaused(player.getUniqueId(), false);
                 }
             }
@@ -266,7 +266,7 @@ public class PvPTimer extends PlayerTimer implements Listener {
                 // Allow player to enter own claim, but just remove PVP Protection when teleporting.
                 PlayerFaction playerFaction; // lazy-load
 
-                if (toFaction instanceof PlayerFaction && (playerFaction = plugin.getFactionManager().getPlayerFaction(player)) != null && playerFaction == toFaction) {
+                if (toFaction instanceof PlayerFaction && (playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player)) != null && playerFaction == toFaction) {
                     player.sendMessage(Utils.chat(ChatColor.RED + "You have entered your own claim, therefore your " + getDisplayName() + ChatColor.RED + " timer was cleared."));
                     clearCooldown(player);
                     return;
@@ -328,6 +328,6 @@ public class PvPTimer extends PlayerTimer implements Listener {
     }
 
     private boolean canApply() {
-        return !plugin.getEotwHandler().isEndOfTheWorld() && !ConfigurationService.KIT_MAP && plugin.getSotwTimer().getSotwRunnable() == null;
+        return !plugin.getManagerHandler().getEotwHandler().isEndOfTheWorld() && !ConfigurationService.KIT_MAP && plugin.getSotwTimer().getSotwRunnable() == null;
     }
 }

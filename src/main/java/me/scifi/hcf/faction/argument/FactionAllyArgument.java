@@ -57,7 +57,7 @@ public class FactionAllyArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
@@ -69,7 +69,7 @@ public class FactionAllyArgument extends CommandArgument {
             return true;
         }
 
-        Faction containingFaction = plugin.getFactionManager().getContainingFaction(args[1]);
+        Faction containingFaction = plugin.getManagerHandler().getFactionManager().getContainingFaction(args[1]);
 
         if (!(containingFaction instanceof PlayerFaction)) {
             sender.sendMessage(ChatColor.RED + "Player faction named or containing member with IGN or UUID " + args[1] + " not found.");
@@ -140,15 +140,15 @@ public class FactionAllyArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
         if (playerFaction == null) {
             return Collections.emptyList();
         }
 
         List<String> results = new ArrayList<>();
-        for (Player target : Bukkit.getOnlinePlayers()) {
+        for (Player target : Bukkit.getServer().getOnlinePlayers()) {
             if (!target.equals(player) && player.canSee(target) && !results.contains(target.getName())) {
-                Faction targetFaction = plugin.getFactionManager().getPlayerFaction(target);
+                Faction targetFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(target);
                 if (targetFaction != null && playerFaction != targetFaction) {
                     if (playerFaction.getRequestedRelations().get(targetFaction.getUniqueID()) != RELATION && playerFaction.getRelations().get(targetFaction.getUniqueID()) != RELATION) {
                         results.add(targetFaction.getName());

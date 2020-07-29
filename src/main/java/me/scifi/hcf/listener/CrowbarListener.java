@@ -106,7 +106,7 @@ public class CrowbarListener implements Listener {
                     }
 
                     if (destroyed) {
-                        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+                        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
                         player.sendMessage(ChatColor.RED.toString() + ChatColor.GOLD + "Ender Portal is no longer active");
                         if (playerFaction != null) {
                             boolean informFaction = false;

@@ -27,11 +27,11 @@ import java.util.function.Predicate;
  */
 public class GappleTimer extends PlayerTimer implements Listener {
     public GappleTimer(JavaPlugin plugin) {
-        super(HCF.getPlugin().messagesYML.getString("SCOREBOARD.GOPPLE.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().messagesYML.getLong("SCOREBOARD.GOPPLE.LENGTH")));
+        super(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.GOPPLE.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().getMessagesYML().getLong("SCOREBOARD.GOPPLE.LENGTH")));
     }
 
     public String getScoreboardPrefix() {
-        return HCF.getPlugin().messagesYML.getString("SCOREBOARD.GOPPLE.PREFIX");
+        return HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.GOPPLE.PREFIX");
     }
 
     @EventHandler

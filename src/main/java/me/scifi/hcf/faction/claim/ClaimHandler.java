@@ -4,7 +4,10 @@ import com.doctordark.util.ItemBuilder;
 import com.doctordark.util.cuboid.Cuboid;
 import com.doctordark.util.cuboid.CuboidDirection;
 import com.google.common.base.Preconditions;
+import me.scifi.hcf.economy.EconomyManager;
+import me.scifi.hcf.faction.FactionManager;
 import me.scifi.hcf.faction.struct.Role;
+import me.scifi.hcf.managers.IManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,8 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import me.scifi.hcf.ConfigurationService;
 import me.scifi.hcf.HCF;
-import me.scifi.hcf.economy.EconomyManager;
-import me.scifi.hcf.faction.FactionManager;
 import me.scifi.hcf.faction.type.ClaimableFaction;
 import me.scifi.hcf.faction.type.Faction;
 import me.scifi.hcf.faction.type.PlayerFaction;
@@ -27,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class ClaimHandler {
+public class ClaimHandler implements IManager {
 
     public static final int MIN_CLAIM_HEIGHT = 0;
     public static final int MAX_CLAIM_HEIGHT = 256;
@@ -109,9 +110,9 @@ public class ClaimHandler {
     }
 
     public boolean clearClaimSelection(Player player) {
-        ClaimSelection claimSelection = plugin.getClaimHandler().claimSelectionMap.remove(player.getUniqueId());
+        ClaimSelection claimSelection = plugin.getManagerHandler().getClaimHandler().claimSelectionMap.remove(player.getUniqueId());
         if (claimSelection != null) {
-            plugin.getVisualiseHandler().clearVisualBlocks(player, VisualType.CREATE_CLAIM_SELECTION, null);
+            plugin.getManagerHandler().getVisualiseHandler().clearVisualBlocks(player, VisualType.CREATE_CLAIM_SELECTION, null);
             return true;
         }
 
@@ -128,7 +129,7 @@ public class ClaimHandler {
      * @return true if the {@link Player} can Subclaim at the {@link Location}
      */
     public boolean canSubclaimHere(Player player, Location location) {
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             player.sendMessage(ChatColor.RED + "You must be in a faction to subclaim land.");
@@ -140,7 +141,7 @@ public class ClaimHandler {
             return false;
         }
 
-        if (plugin.getFactionManager().getFactionAt(location) != playerFaction) {
+        if (plugin.getManagerHandler().getFactionManager().getFactionAt(location) != playerFaction) {
             player.sendMessage(ChatColor.RED + "This location is not part of your factions' territory.");
             return false;
         }
@@ -158,7 +159,7 @@ public class ClaimHandler {
      * @return true if {@link Player} could create the {@link Subclaim}
      */
     public boolean tryCreatingSubclaim(Player player, Subclaim subclaim) {
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             player.sendMessage(ChatColor.RED + "You must be in a faction to subclaim land.");
@@ -182,8 +183,8 @@ public class ClaimHandler {
         for (int x = minimumX; x < maximumX; x++) {
             for (int z = minimumZ; z < maximumZ; z++) {
                 Faction factionAt; // lazy load
-                Claim claimAt = plugin.getFactionManager().getClaimAt(world, x, z);
-                if (claimAt == null || playerFaction == (factionAt = plugin.getFactionManager().getFactionAt(world, x, z)) && !(factionAt instanceof PlayerFaction)) {
+                Claim claimAt = plugin.getManagerHandler().getFactionManager().getClaimAt(world, x, z);
+                if (claimAt == null || playerFaction == (factionAt = plugin.getManagerHandler().getFactionManager().getFactionAt(world, x, z)) && !(factionAt instanceof PlayerFaction)) {
                     player.sendMessage(ChatColor.RED + "This subclaim selection contains a location outside of your faction.");
                     return false;
                 }
@@ -235,14 +236,14 @@ public class ClaimHandler {
             return false;
         }
 
-        if (!(plugin.getFactionManager().getFactionAt(location) instanceof WildernessFaction)) {
+        if (!(plugin.getManagerHandler().getFactionManager().getFactionAt(location) instanceof WildernessFaction)) {
             player.sendMessage(ChatColor.RED + "You can only claim land in the " + ConfigurationService.WILDERNESS_COLOUR + "Wilderness" + ChatColor.RED + ". " + "Make sure you are past "
                     + ConfigurationService.WARZONE_RADIUS + " blocks from spawn..");
 
             return false;
         }
 
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             player.sendMessage(ChatColor.RED + "You must be in a faction to claim land.");
@@ -262,7 +263,7 @@ public class ClaimHandler {
         int locX = location.getBlockX();
         int locZ = location.getBlockZ();
 
-        final FactionManager factionManager = plugin.getFactionManager();
+        final FactionManager factionManager = plugin.getManagerHandler().getFactionManager();
         for (int x = locX - CLAIM_BUFFER_RADIUS; x < locX + CLAIM_BUFFER_RADIUS; x++) {
             for (int z = locZ - CLAIM_BUFFER_RADIUS; z < locZ + CLAIM_BUFFER_RADIUS; z++) {
                 Faction factionAtNew = factionManager.getFactionAt(world, x, z);
@@ -294,7 +295,7 @@ public class ClaimHandler {
             return false;
         }
 
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             player.sendMessage(ChatColor.RED + "You must be in a faction to claim land.");
@@ -337,7 +338,7 @@ public class ClaimHandler {
         int minimumZ = claim.getMinimumZ();
         int maximumZ = claim.getMaximumZ();
 
-        final FactionManager factionManager = plugin.getFactionManager();
+        final FactionManager factionManager = plugin.getManagerHandler().getFactionManager();
         for (int x = minimumX; x < maximumX; x++) {
             for (int z = minimumZ; z < maximumZ; z++) {
                 Faction factionAt = factionManager.getFactionAt(world, x, z);

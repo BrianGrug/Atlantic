@@ -25,13 +25,13 @@ public class ResetReclaimCommand implements CommandExecutor {
             }
             Player target = Bukkit.getServer().getPlayer(args[0]);
             if(target != null){
-                if(HCF.getPlugin().getReclaimManager().hasReclaimed(target)){
-                    HCF.getPlugin().getReclaimManager().resetReclaims(target);
-                    sender.sendMessage(Utils.chat(plugin.messagesYML.getString("RECLAIM-SUCCESSFULLY-RESET")
+                if(HCF.getPlugin().getManagerHandler().getReclaimManager().hasReclaimed(target)){
+                    HCF.getPlugin().getManagerHandler().getReclaimManager().resetReclaims(target);
+                    sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("RECLAIM-SUCCESSFULLY-RESET")
                     .replace("%player%",target.getName())));
                     return true;
                 }
-                sender.sendMessage(Utils.chat(plugin.messagesYML.getString("RECLAIM-PLAYER-CANRECLAIM")));
+                sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("RECLAIM-PLAYER-CANRECLAIM")));
                 return true;
             }
             sender.sendMessage(Utils.chat("&cPlayer is not online."));

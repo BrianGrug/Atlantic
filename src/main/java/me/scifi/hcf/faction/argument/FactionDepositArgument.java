@@ -4,12 +4,12 @@ import com.doctordark.util.JavaUtils;
 import com.doctordark.util.command.CommandArgument;
 import com.google.common.collect.ImmutableList;
 
+import me.scifi.hcf.economy.EconomyManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import me.scifi.hcf.HCF;
-import me.scifi.hcf.economy.EconomyManager;
 import me.scifi.hcf.faction.struct.Relation;
 import me.scifi.hcf.faction.type.PlayerFaction;
 
@@ -45,7 +45,7 @@ public class FactionDepositArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
@@ -53,7 +53,7 @@ public class FactionDepositArgument extends CommandArgument {
         }
 
         UUID uuid = player.getUniqueId();
-        playerBalance = plugin.getEconomyManager().getBalance(uuid);
+        playerBalance = plugin.getManagerHandler().getEconomyManager().getBalance(uuid);
 
         Integer amount;
         if (args[1].equalsIgnoreCase("all")) {
@@ -77,7 +77,7 @@ public class FactionDepositArgument extends CommandArgument {
             return true;
         }
 
-        plugin.getEconomyManager().subtractBalance(uuid, amount);
+        plugin.getManagerHandler().getEconomyManager().subtractBalance(uuid, amount);
 
         playerFaction.setBalance(playerFaction.getBalance() + amount);
         playerFaction.broadcast(Relation.MEMBER.toChatColour() + playerFaction.getMember(player).getRole().getAstrix() + sender.getName() + ChatColor.YELLOW + " has deposited " + ChatColor.BOLD

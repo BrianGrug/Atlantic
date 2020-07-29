@@ -62,17 +62,17 @@ public class LivesGiveArgument extends CommandArgument {
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            int ownedLives = plugin.getDeathbanManager().getLives(player.getUniqueId());
+            int ownedLives = plugin.getManagerHandler().getDeathbanManager().getLives(player.getUniqueId());
 
             if (amount > ownedLives) {
                 sender.sendMessage(ChatColor.RED + "You tried to give " + target.getName() + ' ' + amount + " lives, but you only have " + ownedLives + '.');
                 return true;
             }
 
-            plugin.getDeathbanManager().takeLives(player.getUniqueId(), amount);
+            plugin.getManagerHandler().getDeathbanManager().takeLives(player.getUniqueId(), amount);
         }
 
-        plugin.getDeathbanManager().addLives(target.getUniqueId(), amount);
+        plugin.getManagerHandler().getDeathbanManager().addLives(target.getUniqueId(), amount);
         sender.sendMessage(ChatColor.YELLOW + "You have sent " + ChatColor.GOLD + target.getName() + ChatColor.YELLOW + ' ' + amount + ' ' + (amount > 1 ? "lives" : "life") + ChatColor.YELLOW + '.');
         if (onlineTarget != null) {
             onlineTarget

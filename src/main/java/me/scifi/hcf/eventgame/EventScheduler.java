@@ -1,6 +1,7 @@
 package me.scifi.hcf.eventgame;
 
 import me.scifi.hcf.HCF;
+import me.scifi.hcf.managers.IManager;
 import org.bukkit.Bukkit;
 
 import java.io.BufferedReader;
@@ -21,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Class that can handle schedules for game events.
  */
-public class EventScheduler {
+public class EventScheduler implements IManager {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy,MM,dd,hh,mm,a", Locale.ENGLISH);
     private static final String FILE_NAME = "event-schedules.txt";

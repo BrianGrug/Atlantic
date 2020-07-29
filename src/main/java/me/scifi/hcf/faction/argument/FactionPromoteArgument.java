@@ -49,7 +49,7 @@ public class FactionPromoteArgument extends CommandArgument {
         Player player = (Player) sender;
         UUID uuid = player.getUniqueId();
 
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(uuid);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(uuid);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
@@ -87,7 +87,7 @@ public class FactionPromoteArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
         if (playerFaction == null || playerFaction.getMember(player.getUniqueId()).getRole() != Role.LEADER) {
             return Collections.emptyList();
         }

@@ -22,15 +22,15 @@ public class KingListener implements Listener {
     @EventHandler
     public void onKingDeath(PlayerDeathEvent e){
         Player p = e.getEntity();
-        if(plugin.kingManager.isEventActive()){
-            if(plugin.kingManager.getKingPlayer().equals(p)){
-               plugin.kingManager.removeKing(true);
-               List<String> killedMessage = plugin.messagesYML.getStringList("KING-DEATH");
+        if(plugin.getManagerHandler().getKingManager().isEventActive()){
+            if(plugin.getManagerHandler().getKingManager().getKingPlayer().equals(p)){
+               plugin.getManagerHandler().getKingManager().removeKing(true);
+               List<String> killedMessage = plugin.getMessagesYML().getStringList("KING-DEATH");
                killedMessage.forEach(str -> Bukkit.broadcastMessage(Utils.chat(str)));
 
                if(p.getKiller() != null) {
-                   if(plugin.getFactionManager().getPlayerFaction(p.getKiller()) != null){
-                       plugin.getFactionManager().getPlayerFaction(p.getKiller()).addPoints(plugin.getConfig().getLong("ktk-points"));
+                   if(plugin.getManagerHandler().getFactionManager().getPlayerFaction(p.getKiller()) != null){
+                       plugin.getManagerHandler().getFactionManager().getPlayerFaction(p.getKiller()).addPoints(plugin.getConfig().getLong("ktk-points"));
                    }
                }
             }

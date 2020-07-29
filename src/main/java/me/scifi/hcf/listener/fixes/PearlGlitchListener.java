@@ -36,7 +36,7 @@ public class PearlGlitchListener implements Listener {
             Block block = event.getClickedBlock();
             // Don't prevent opening chests, etc, as these won't throw the Enderpearls anyway
             if (block.getType().isSolid() && !(block.getState() instanceof InventoryHolder)) {
-                Faction factionAt = HCF.getPlugin().getFactionManager().getFactionAt(block.getLocation());
+                Faction factionAt = HCF.getPlugin().getManagerHandler().getFactionManager().getFactionAt(block.getLocation());
                 if (!(factionAt instanceof ClaimableFaction)) {
                     return;
                 }
@@ -55,7 +55,7 @@ public class PearlGlitchListener implements Listener {
             if (blockedPearlTypes.contains(to.getBlock().getType())) {
                 Player player = event.getPlayer();
                 player.sendMessage(ChatColor.YELLOW + "Pearl glitching detected, used Enderpearl has been refunded.");
-                plugin.getTimerManager().getEnderPearlTimer().refund(player);
+                plugin.getManagerHandler().getTimerManager().getEnderPearlTimer().refund(player);
 
                 event.setCancelled(true);
                 return;

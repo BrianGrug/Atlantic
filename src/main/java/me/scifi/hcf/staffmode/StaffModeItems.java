@@ -31,24 +31,24 @@ public class StaffModeItems {
         ItemMeta dyeMeta = dye.getItemMeta();
         ItemMeta headMeta = head.getItemMeta();
 
-        bookMeta.setDisplayName(Utils.chat(HCF.getPlugin().messagesYML.getString("STAFFMODE.INSPECT.NAME")));
-        bookMeta.setLore(Utils.list(HCF.getPlugin().messagesYML.getStringList("STAFFMODE.INSPECT.LORE")));
+        bookMeta.setDisplayName(Utils.chat(HCF.getPlugin().getMessagesYML().getString("STAFFMODE.INSPECT.NAME")));
+        bookMeta.setLore(Utils.list(HCF.getPlugin().getMessagesYML().getStringList("STAFFMODE.INSPECT.LORE")));
 
-        compassMeta.setDisplayName(Utils.chat(HCF.getPlugin().messagesYML.getString("STAFFMODE.THRUCOMPASS.NAME")));
-        compassMeta.setLore(Utils.list(HCF.getPlugin().messagesYML.getStringList("STAFFMODE.THRUCOMPASS.LORE")));
+        compassMeta.setDisplayName(Utils.chat(HCF.getPlugin().getMessagesYML().getString("STAFFMODE.THRUCOMPASS.NAME")));
+        compassMeta.setLore(Utils.list(HCF.getPlugin().getMessagesYML().getStringList("STAFFMODE.THRUCOMPASS.LORE")));
 
 
-        iceMeta.setDisplayName(Utils.chat(HCF.getPlugin().messagesYML.getString("STAFFMODE.FREEZEBLOCK.NAME")));
-        iceMeta.setLore(Utils.list(HCF.getPlugin().messagesYML.getStringList("STAFFMODE.FREEZEBLOCK.LORE")));
+        iceMeta.setDisplayName(Utils.chat(HCF.getPlugin().getMessagesYML().getString("STAFFMODE.FREEZEBLOCK.NAME")));
+        iceMeta.setLore(Utils.list(HCF.getPlugin().getMessagesYML().getStringList("STAFFMODE.FREEZEBLOCK.LORE")));
 
-        carpetMeta.setDisplayName(Utils.chat(HCF.getPlugin().messagesYML.getString("STAFFMODE.BETTERVIEW.NAME")));
-        carpetMeta.setLore(Utils.list(HCF.getPlugin().messagesYML.getStringList("STAFFMODE.BETTERVIEW.LORE")));
+        carpetMeta.setDisplayName(Utils.chat(HCF.getPlugin().getMessagesYML().getString("STAFFMODE.BETTERVIEW.NAME")));
+        carpetMeta.setLore(Utils.list(HCF.getPlugin().getMessagesYML().getStringList("STAFFMODE.BETTERVIEW.LORE")));
 
-        dyeMeta.setDisplayName(Utils.chat(HCF.getPlugin().messagesYML.getString("STAFFMODE.VANISHITEM.NAME.ENABLED")));
-        dyeMeta.setLore(Utils.list(HCF.getPlugin().messagesYML.getStringList("STAFFMODE.VANISHITEM.LORE")));
+        dyeMeta.setDisplayName(Utils.chat(HCF.getPlugin().getMessagesYML().getString("STAFFMODE.VANISHITEM.NAME.ENABLED")));
+        dyeMeta.setLore(Utils.list(HCF.getPlugin().getMessagesYML().getStringList("STAFFMODE.VANISHITEM.LORE")));
 
-        headMeta.setDisplayName(Utils.chat(HCF.getPlugin().messagesYML.getString("STAFFMODE.RANDOMTP.NAME")));
-        headMeta.setLore(Utils.list(HCF.getPlugin().messagesYML.getStringList("STAFFMODE-RANDOMTP.LORE")));
+        headMeta.setDisplayName(Utils.chat(HCF.getPlugin().getMessagesYML().getString("STAFFMODE.RANDOMTP.NAME")));
+        headMeta.setLore(Utils.list(HCF.getPlugin().getMessagesYML().getStringList("STAFFMODE-RANDOMTP.LORE")));
 
         book.setItemMeta(bookMeta);
         compass.setItemMeta(compassMeta);
@@ -58,12 +58,12 @@ public class StaffModeItems {
         head.setItemMeta(headMeta);
 
         PlayerInventory inv = p.getInventory();
-        inv.setItem(HCF.getPlugin().messagesYML.getInt("STAFFMODE.INSPECT.SLOT"),book);
-        inv.setItem(HCF.getPlugin().messagesYML.getInt("STAFFMODE.THRUCOMPASS.SLOT"),compass);
-        inv.setItem(HCF.getPlugin().messagesYML.getInt("STAFFMODE.FREEZEBLOCK.SLOT"),ice);
-        inv.setItem(HCF.getPlugin().messagesYML.getInt("STAFFMODE.BETTERVIEW.SLOT"),carpet);
-        inv.setItem(HCF.getPlugin().messagesYML.getInt("STAFFMODE.VANISHITEM.SLOT"),dye);
-        inv.setItem(HCF.getPlugin().messagesYML.getInt("STAFFMODE.RANDOMTP.SLOT"), head);
+        inv.setItem(HCF.getPlugin().getMessagesYML().getInt("STAFFMODE.INSPECT.SLOT"),book);
+        inv.setItem(HCF.getPlugin().getMessagesYML().getInt("STAFFMODE.THRUCOMPASS.SLOT"),compass);
+        inv.setItem(HCF.getPlugin().getMessagesYML().getInt("STAFFMODE.FREEZEBLOCK.SLOT"),ice);
+        inv.setItem(HCF.getPlugin().getMessagesYML().getInt("STAFFMODE.BETTERVIEW.SLOT"),carpet);
+        inv.setItem(HCF.getPlugin().getMessagesYML().getInt("STAFFMODE.VANISHITEM.SLOT"),dye);
+        inv.setItem(HCF.getPlugin().getMessagesYML().getInt("STAFFMODE.RANDOMTP.SLOT"), head);
     }
 
 }

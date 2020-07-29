@@ -25,14 +25,14 @@ public class LFACommand implements CommandExecutor {
       if(command.getName().equalsIgnoreCase("lfa")){
           if(sender instanceof Player){
               Player p = (Player) sender;
-              FactionManager fm = plugin.getFactionManager();
+              FactionManager fm = plugin.getManagerHandler().getFactionManager();
               if(p.hasPermission(command.getPermission())){
                 if(fm.getPlayerFaction(p) != null) {
                     if (fm.getPlayerFaction(p).getAlliedFactions().size() >= plugin.getConfig().getInt("factions.max-allies")) {
-                        p.sendMessage(Utils.chat(plugin.messagesYML.getString("FACTION-MAX-ALLIES")));
+                        p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("FACTION-MAX-ALLIES")));
                         return true;
                     } else {
-                        List<String> lfa_message = plugin.messagesYML.getStringList("LFA-MESSAGE");
+                        List<String> lfa_message = plugin.getMessagesYML().getStringList("LFA-MESSAGE");
                         if(!plugin.getLfa().isOnCooldown(p)){
                             lfa_message.forEach(str -> Bukkit.getServer().broadcastMessage(Utils.chat(str)
                             .replace("%FACTION%", fm.getPlayerFaction(p).getName())));
@@ -45,7 +45,7 @@ public class LFACommand implements CommandExecutor {
 
 
                 } else {
-                    sender.sendMessage(Utils.chat(plugin.messagesYML.getString("FACTION-NOT-FOUND")));
+                    sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("FACTION-NOT-FOUND")));
                     return true;
                 }
               }

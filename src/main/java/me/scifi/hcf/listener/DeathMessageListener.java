@@ -99,7 +99,7 @@ public class DeathMessageListener implements Listener {
         Preconditions.checkNotNull(entity, "Entity cannot be null");
         if (entity instanceof Player) {
             Player player = (Player) entity;
-            return player.getName() + ChatColor.GOLD + '[' + ChatColor.WHITE + plugin.getUserManager().getUser(player.getUniqueId()).getKills() + ChatColor.GOLD + ']';
+            return player.getName() + ChatColor.GOLD + '[' + ChatColor.WHITE + plugin.getManagerHandler().getUserManager().getUser(player.getUniqueId()).getKills() + ChatColor.GOLD + ']';
         } else {
             return WordUtils.capitalizeFully(entity.getType().name().replace('_', ' '));
         }

@@ -39,7 +39,7 @@ public class StaffReviveCommand implements CommandExecutor, TabCompleter {
         }
 
         UUID targetUUID = target.getUniqueId();
-        FactionUser factionTarget = HCF.getPlugin().getUserManager().getUser(targetUUID);
+        FactionUser factionTarget = HCF.getPlugin().getManagerHandler().getUserManager().getUser(targetUUID);
         Deathban deathban = factionTarget.getDeathban();
 
         if (deathban == null || !deathban.isActive()) {
@@ -60,7 +60,7 @@ public class StaffReviveCommand implements CommandExecutor, TabCompleter {
         }
 
         List<String> results = new ArrayList<>();
-        for (FactionUser factionUser : plugin.getUserManager().getUsers().values()) {
+        for (FactionUser factionUser : plugin.getManagerHandler().getUserManager().getUsers().values()) {
             Deathban deathban = factionUser.getDeathban();
             if (deathban != null && deathban.isActive()) {
                 OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(factionUser.getUserUUID());

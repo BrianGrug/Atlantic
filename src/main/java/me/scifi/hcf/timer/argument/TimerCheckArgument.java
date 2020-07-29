@@ -37,7 +37,7 @@ public class TimerCheckArgument extends CommandArgument {
         }
 
         PlayerTimer temporaryTimer = null;
-        for (Timer timer : plugin.getTimerManager().getTimers()) {
+        for (Timer timer : plugin.getManagerHandler().getTimerManager().getTimers()) {
             if (timer instanceof PlayerTimer && timer.getName().equalsIgnoreCase(args[1])) {
                 temporaryTimer = (PlayerTimer) timer;
                 break;

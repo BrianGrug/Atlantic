@@ -41,7 +41,7 @@ public class FactionStuckArgument extends CommandArgument {
             return true;
         }
 
-        StuckTimer stuckTimer = plugin.getTimerManager().getStuckTimer();
+        StuckTimer stuckTimer = plugin.getManagerHandler().getTimerManager().getStuckTimer();
 
         if (!stuckTimer.setCooldown(player, player.getUniqueId())) {
             sender.sendMessage(ChatColor.RED + "Your " + stuckTimer.getDisplayName() + ChatColor.RED + " timer is already active.");

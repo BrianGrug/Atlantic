@@ -47,7 +47,7 @@ public class FactionSubclaimCreateArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
@@ -83,7 +83,7 @@ public class FactionSubclaimCreateArgument extends CommandArgument {
             }
         }
 
-        Map<UUID, ClaimSelection> selectionMap = plugin.getClaimHandler().claimSelectionMap;
+        Map<UUID, ClaimSelection> selectionMap = plugin.getManagerHandler().getClaimHandler().claimSelectionMap;
         ClaimSelection claimSelection = selectionMap.get(uuid);
 
         if (claimSelection == null || !claimSelection.hasBothPositionsSet()) {
@@ -95,9 +95,9 @@ public class FactionSubclaimCreateArgument extends CommandArgument {
         subclaim.setY1(ClaimHandler.MIN_CLAIM_HEIGHT);
         subclaim.setY2(ClaimHandler.MAX_CLAIM_HEIGHT);
         subclaim.setName(args[2]);
-        if (plugin.getClaimHandler().tryCreatingSubclaim(player, subclaim)) {
-            plugin.getVisualiseHandler().clearVisualBlock(player, subclaim.getMinimumPoint());
-            plugin.getVisualiseHandler().clearVisualBlock(player, subclaim.getMaximumPoint());
+        if (plugin.getManagerHandler().getClaimHandler().tryCreatingSubclaim(player, subclaim)) {
+            plugin.getManagerHandler().getVisualiseHandler().clearVisualBlock(player, subclaim.getMinimumPoint());
+            plugin.getManagerHandler().getVisualiseHandler().clearVisualBlock(player, subclaim.getMaximumPoint());
             selectionMap.remove(uuid);
         }
 

@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Utils {
 
@@ -12,9 +13,7 @@ public class Utils {
     }
 
     public static List<String> list(List<String> s){
-        List<String> strings = new ArrayList<>();
-        s.forEach(str -> strings.add(ChatColor.translateAlternateColorCodes('&', str)));
-        return strings;
+        return s.stream().map(Utils::chat).collect(Collectors.toList());
     }
 
 }

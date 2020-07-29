@@ -53,7 +53,7 @@ public class FactionHomeArgument extends CommandArgument {
 
         UUID uuid = player.getUniqueId();
 
-        PlayerTimer timer = plugin.getTimerManager().getEnderPearlTimer();
+        PlayerTimer timer = plugin.getManagerHandler().getTimerManager().getEnderPearlTimer();
         long remaining = timer.getRemaining(player);
 
         if (remaining > 0L) {
@@ -63,14 +63,14 @@ public class FactionHomeArgument extends CommandArgument {
             return true;
         }
 
-        if ((remaining = (timer = plugin.getTimerManager().getCombatTimer()).getRemaining(player)) > 0L) {
+        if ((remaining = (timer = plugin.getManagerHandler().getTimerManager().getCombatTimer()).getRemaining(player)) > 0L) {
             sender.sendMessage(ChatColor.RED + "You cannot warp whilst your " + timer.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD
                     + DurationFormatter.getRemaining(remaining, true, false) + ChatColor.RED + " remaining]");
 
             return true;
         }
 
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(uuid);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(uuid);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
@@ -84,7 +84,7 @@ public class FactionHomeArgument extends CommandArgument {
             return true;
         }
 
-        Faction factionAt = plugin.getFactionManager().getFactionAt(player.getLocation());
+        Faction factionAt = plugin.getManagerHandler().getFactionManager().getFactionAt(player.getLocation());
 
         if (factionAt instanceof EventFaction) {
             sender.sendMessage(ChatColor.RED + "You cannot warp whilst in event zones.");
@@ -117,7 +117,7 @@ public class FactionHomeArgument extends CommandArgument {
             millis *= 2L;
         }
 
-        plugin.getTimerManager()
+        plugin.getManagerHandler().getTimerManager()
                 .getTeleportTimer()
                 .teleport(
                         player,

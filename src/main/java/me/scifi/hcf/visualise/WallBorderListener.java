@@ -147,17 +147,17 @@ public class WallBorderListener implements Listener {
     private void handlePositionChanged(Player player, World toWorld, int toX, int toY, int toZ) {
         final VisualType visualType;
         final Timer relevantTimer;
-        if (plugin.getTimerManager().getCombatTimer().getRemaining(player) > 0L) {
+        if (plugin.getManagerHandler().getTimerManager().getCombatTimer().getRemaining(player) > 0L) {
             visualType = VisualType.SPAWN_BORDER;
-            relevantTimer = plugin.getTimerManager().getCombatTimer();
-        } else if (plugin.getTimerManager().getPvpTimer().getRemaining(player) > 0L) {
+            relevantTimer = plugin.getManagerHandler().getTimerManager().getCombatTimer();
+        } else if (plugin.getManagerHandler().getTimerManager().getPvpTimer().getRemaining(player) > 0L) {
             visualType = VisualType.CLAIM_BORDER;
-            relevantTimer = plugin.getTimerManager().getPvpTimer();
+            relevantTimer = plugin.getManagerHandler().getTimerManager().getPvpTimer();
         } else
             return;
 
         // Clear any visualises that are no longer within distance.
-        plugin.getVisualiseHandler().clearVisualBlocks(player, visualType, new Predicate<VisualBlock>() {
+        plugin.getManagerHandler().getVisualiseHandler().clearVisualBlocks(player, visualType, new Predicate<VisualBlock>() {
             @Override
             public boolean apply(VisualBlock visualBlock) {
                 Location other = visualBlock.getLocation();
@@ -177,7 +177,7 @@ public class WallBorderListener implements Listener {
         Collection<Claim> added = new HashSet<>();
         for (int x = minX; x < maxX; x++) {
             for (int z = minZ; z < maxZ; z++) {
-                Faction faction = plugin.getFactionManager().getFactionAt(toWorld, x, z);
+                Faction faction = plugin.getManagerHandler().getFactionManager().getFactionAt(toWorld, x, z);
                 if (!(faction instanceof ClaimableFaction))
                     continue;
 
@@ -223,9 +223,9 @@ public class WallBorderListener implements Listener {
                         second.setY(maxHeight);
 
                         if (useTaskInstead) {
-                            generated += plugin.getVisualiseHandler().generateAsync(player, new Cuboid(first, second), visualType, false).size();
+                            generated += plugin.getManagerHandler().getVisualiseHandler().generateAsync(player, new Cuboid(first, second), visualType, false).size();
                         } else {
-                            generated += plugin.getVisualiseHandler().generate(player, new Cuboid(first, second), visualType, false).size();
+                            generated += plugin.getManagerHandler().getVisualiseHandler().generate(player, new Cuboid(first, second), visualType, false).size();
                         }
                     }
                 }

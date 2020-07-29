@@ -36,12 +36,12 @@ public class StuckTimer extends PlayerTimer implements Listener {
     private final Map<UUID, Location> startedLocations = new HashMap<>();
 
     public StuckTimer() {
-        super(HCF.getPlugin().messagesYML.getString("SCOREBOARD.STUCK.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().messagesYML.getLong("SCOREBOARD.STUCK.LENGTH")), false);
+        super(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.STUCK.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().getMessagesYML().getLong("SCOREBOARD.STUCK.LENGTH")), false);
     }
 
     @Override
     public String getScoreboardPrefix() {
-        return HCF.getPlugin().messagesYML.getString("SCOREBOARD.STUCK.PREFIX");
+        return HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.STUCK.PREFIX");
     }
 
     @Override

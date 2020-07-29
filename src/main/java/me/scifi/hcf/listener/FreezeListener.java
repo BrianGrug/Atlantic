@@ -32,7 +32,7 @@ public class FreezeListener implements Listener {
         if(FreezeCommand.frozen.containsKey(p.getUniqueId())){
             if(e.getFrom().getBlockX() != e.getTo().getBlockX() || e.getFrom().getBlockZ() != e.getTo().getBlockZ()){
                 p.teleport(FreezeCommand.frozen.get(p.getUniqueId()));
-                List<String> frozen_msg = plugin.messagesYML.getStringList("PLAYER-FROZEN-MESSAGE");
+                List<String> frozen_msg = plugin.getMessagesYML().getStringList("PLAYER-FROZEN-MESSAGE");
                 Utils.list(frozen_msg).forEach(p::sendMessage);
             }
         }
@@ -45,7 +45,7 @@ public class FreezeListener implements Listener {
                 FreezeCommand.frozen.remove(p.getUniqueId());
                 for(Player staff : Bukkit.getServer().getOnlinePlayers()){
                     if(staff.hasPermission("hcf.command.freeze")){
-                        staff.sendMessage(Utils.chat(plugin.messagesYML.getString("FROZEN-LOGOUT-MESSAGE")
+                        staff.sendMessage(Utils.chat(plugin.getMessagesYML().getString("FROZEN-LOGOUT-MESSAGE")
                         .replace("%player%",p.getName())));
                     }
                 }
@@ -55,7 +55,7 @@ public class FreezeListener implements Listener {
             FreezeCommand.frozen.remove(p.getUniqueId());
             for(Player staff : Bukkit.getServer().getOnlinePlayers()){
                 if(staff.hasPermission("hcf.command.freeze")){
-                    staff.sendMessage(Utils.chat(plugin.messagesYML.getString("FROZEN-LOGOUT-MESSAGE")
+                    staff.sendMessage(Utils.chat(plugin.getMessagesYML().getString("FROZEN-LOGOUT-MESSAGE")
                             .replace("%player%",p.getName())));
                 }
             }
@@ -78,13 +78,13 @@ public class FreezeListener implements Listener {
             Player damager = (Player) e.getDamager();
             Player damaged = (Player) e.getEntity();
             if(FreezeCommand.frozen.containsKey(damaged.getUniqueId())){
-                damager.sendMessage(Utils.chat(plugin.messagesYML.getString("HIT-FROZEN-PLAYER")
+                damager.sendMessage(Utils.chat(plugin.getMessagesYML().getString("HIT-FROZEN-PLAYER")
                 .replace("%player%",damaged.getName())));
                 e.setCancelled(true);
             }
 
             if(FreezeCommand.frozen.containsKey(damager.getUniqueId())){
-                damager.sendMessage(Utils.chat(plugin.messagesYML.getString("HIT-WHILE-FROZEN")));
+                damager.sendMessage(Utils.chat(plugin.getMessagesYML().getString("HIT-WHILE-FROZEN")));
                 e.setCancelled(true);
             }
         }
@@ -94,7 +94,7 @@ public class FreezeListener implements Listener {
     public void onBlockPlace(BlockPlaceEvent e){
         Player p = e.getPlayer();
         if(FreezeCommand.frozen.containsKey(p.getUniqueId())){
-            p.sendMessage(Utils.chat(plugin.messagesYML.getString("FROZEN-BLOCK-PLACE")));
+            p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("FROZEN-BLOCK-PLACE")));
             e.setCancelled(true);
         }
     }
@@ -103,7 +103,7 @@ public class FreezeListener implements Listener {
     public void onBlockBreak(BlockBreakEvent e){
         Player p = e.getPlayer();
         if(FreezeCommand.frozen.containsKey(p.getUniqueId())){
-            p.sendMessage(Utils.chat(plugin.messagesYML.getString("FROZEN-BLOCK-BREAK")));
+            p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("FROZEN-BLOCK-BREAK")));
             e.setCancelled(true);
         }
     }
@@ -112,7 +112,7 @@ public class FreezeListener implements Listener {
     public void onCommand(PlayerCommandPreprocessEvent e){
         Player p = e.getPlayer();
         if(e.getMessage().startsWith("/") && FreezeCommand.frozen.containsKey(p.getUniqueId())){
-            p.sendMessage(Utils.chat(plugin.messagesYML.getString("FROZEN-COMMAND-USE")));
+            p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("FROZEN-COMMAND-USE")));
             e.setCancelled(true);
         }
     }

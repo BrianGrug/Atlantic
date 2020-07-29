@@ -34,14 +34,14 @@ public class PvpClassWarmupTimer extends PlayerTimer implements Listener {
     private final HCF plugin;
 
     public PvpClassWarmupTimer(HCF plugin) {
-        super(plugin.messagesYML.getString("SCOREBOARD.WARMUP.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().messagesYML.getLong("SCOREBOARD.WARMUP.LENGTH")), false);
+        super(plugin.getMessagesYML().getString("SCOREBOARD.WARMUP.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().getMessagesYML().getLong("SCOREBOARD.WARMUP.LENGTH")), false);
         this.plugin = plugin;
 
         // Re-equip the applicable class for every player during reloads.
         new BukkitRunnable() {
             @Override
             public void run() {
-                for (Player player : Bukkit.getOnlinePlayers()) {
+                for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                     attemptEquip(player);
                 }
             }
@@ -56,7 +56,7 @@ public class PvpClassWarmupTimer extends PlayerTimer implements Listener {
 
     @Override
     public String getScoreboardPrefix() {
-        return HCF.getPlugin().messagesYML.getString("SCOREBOARD.WARMUP.PREFIX");
+        return HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.WARMUP.PREFIX");
     }
 
     @Override
@@ -78,12 +78,12 @@ public class PvpClassWarmupTimer extends PlayerTimer implements Listener {
 
         PvpClass pvpClass = this.classWarmups.remove(userUUID);
         Preconditions.checkNotNull(pvpClass, "Attempted to equip a class for %s, but nothing was added", player.getName());
-        this.plugin.getPvpClassManager().setEquippedClass(player, pvpClass);
+        this.plugin.getManagerHandler().getPvpClassManager().setEquippedClass(player, pvpClass);
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerKick(PlayerQuitEvent event) {
-        this.plugin.getPvpClassManager().setEquippedClass(event.getPlayer(), null);
+        this.plugin.getManagerHandler().getPvpClassManager().setEquippedClass(event.getPlayer(), null);
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -100,13 +100,13 @@ public class PvpClassWarmupTimer extends PlayerTimer implements Listener {
     }
 
     private void attemptEquip(Player player) {
-        PvpClass current = plugin.getPvpClassManager().getEquippedClass(player);
+        PvpClass current = plugin.getManagerHandler().getPvpClassManager().getEquippedClass(player);
         if (current != null) {
             if (current.isApplicableFor(player)) {
                 return;
             }
 
-            this.plugin.getPvpClassManager().setEquippedClass(player, null);
+            this.plugin.getManagerHandler().getPvpClassManager().setEquippedClass(player, null);
         } else if ((current = classWarmups.get(player.getUniqueId())) != null) {
             if (current.isApplicableFor(player)) {
                 return;
@@ -115,7 +115,7 @@ public class PvpClassWarmupTimer extends PlayerTimer implements Listener {
             this.clearCooldown(player.getUniqueId());
         }
 
-        Collection<PvpClass> pvpClasses = plugin.getPvpClassManager().getPvpClasses();
+        Collection<PvpClass> pvpClasses = plugin.getManagerHandler().getPvpClassManager().getPvpClasses();
         for (PvpClass pvpClass : pvpClasses) {
             if (pvpClass.isApplicableFor(player)) {
                 this.classWarmups.put(player.getUniqueId(), pvpClass);

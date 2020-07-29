@@ -73,7 +73,7 @@ public class FactionHelpArgument extends CommandArgument {
 
                 count++;
                 // pages.get(val).add(ChatColor.RED + "/" + label + ' ' + argument.getName() + " - " + ChatColor.GRAY + argument.getDescription());
-                pages.get(val).add(Utils.chat(HCF.getPlugin().messagesYML.getString("FACTION-HELP-FORMAT")
+                pages.get(val).add(Utils.chat(HCF.getPlugin().getMessagesYML().getString("FACTION-HELP-FORMAT")
                 .replace("%argumentname%", argument.getName())
                 .replace("%argumentdescription%",argument.getDescription())));
                 if (count % HELP_PER_PAGE == 0) {
@@ -99,7 +99,7 @@ public class FactionHelpArgument extends CommandArgument {
 
         sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         //sender.sendMessage(ChatColor.BLUE + " Faction Help " + ChatColor.WHITE + "(Page " + pageNumber + '/' + totalPageCount + ')');
-        sender.sendMessage(Utils.chat(HCF.getPlugin().messagesYML.getString("FACTION-HELP-TITLE")
+        sender.sendMessage(Utils.chat(HCF.getPlugin().getMessagesYML().getString("FACTION-HELP-TITLE")
         .replace("%pagenumber%",Integer.toString(pageNumber))
         .replace("%totalpagecount%",Integer.toString(totalPageCount))));
         for (String message : pages.get(pageNumber)) {

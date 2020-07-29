@@ -31,7 +31,7 @@ public class FactionTopArgument extends CommandArgument {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         List<String> header = Utils.list(HCF.getPlugin().getMessagesYML().getStringList("FACTION-TOP-HEADER"));
         header.forEach(sender::sendMessage);
-        List<PlayerFaction> list = HCF.getPlugin().getFactionManager().getFactions().stream().filter(f -> f instanceof PlayerFaction).map(f -> (PlayerFaction) f).filter(f -> f.getPoints() > 0).collect(Collectors.toList());
+        List<PlayerFaction> list = HCF.getPlugin().getManagerHandler().getFactionManager().getFactions().stream().filter(f -> f instanceof PlayerFaction).map(f -> (PlayerFaction) f).filter(f -> f.getPoints() > 0).collect(Collectors.toList());
         if(list.isEmpty()){
             sender.sendMessage(Utils.chat(HCF.getPlugin().getMessagesYML().getString("FACTION-TOP-EMPTY")));
             return true;

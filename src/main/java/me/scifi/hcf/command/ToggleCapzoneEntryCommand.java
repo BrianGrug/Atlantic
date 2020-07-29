@@ -30,7 +30,7 @@ public class ToggleCapzoneEntryCommand implements CommandExecutor, TabExecutor {
             return true;
         }
 
-        FactionUser factionUser = plugin.getUserManager().getUser(((Player) sender).getUniqueId());
+        FactionUser factionUser = plugin.getManagerHandler().getUserManager().getUser(((Player) sender).getUniqueId());
         boolean newStatus = !factionUser.isCapzoneEntryAlerts();
         factionUser.setCapzoneEntryAlerts(newStatus);
 

@@ -2,12 +2,13 @@ package me.scifi.hcf.customtimers;
 
 import lombok.Getter;
 import lombok.Setter;
+import me.scifi.hcf.managers.IManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
-public class CustomTimerManager {
+public class CustomTimerManager implements IManager {
 
     private List<CustomTimer> customTimers = new ArrayList<>();
 

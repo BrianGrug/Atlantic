@@ -3,13 +3,13 @@ package me.scifi.hcf.faction.argument;
 import com.doctordark.util.JavaUtils;
 import com.doctordark.util.command.CommandArgument;
 import com.google.common.collect.ImmutableList;
+import me.scifi.hcf.economy.EconomyManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import me.scifi.hcf.ConfigurationService;
 import me.scifi.hcf.HCF;
-import me.scifi.hcf.economy.EconomyManager;
 import me.scifi.hcf.faction.FactionMember;
 import me.scifi.hcf.faction.struct.Role;
 import me.scifi.hcf.faction.type.PlayerFaction;
@@ -45,7 +45,7 @@ public class FactionWithdrawArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
@@ -84,7 +84,7 @@ public class FactionWithdrawArgument extends CommandArgument {
             return true;
         }
 
-        plugin.getEconomyManager().addBalance(uuid, amount);
+        plugin.getManagerHandler().getEconomyManager().addBalance(uuid, amount);
         playerFaction.setBalance(factionBalance - amount);
         playerFaction.broadcast(ConfigurationService.TEAMMATE_COLOUR + factionMember.getRole().getAstrix() + sender.getName() + ChatColor.YELLOW + " has withdrew " + ChatColor.BOLD
                 + EconomyManager.ECONOMY_SYMBOL + JavaUtils.format(amount) + ChatColor.YELLOW + " from the faction balance.");

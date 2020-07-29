@@ -43,7 +43,7 @@ public class DeathListener implements Listener {
     public void onPlayerDeathKillIncrement(PlayerDeathEvent event) {
         Player killer = event.getEntity().getKiller();
         if (killer != null) {
-            FactionUser user = plugin.getUserManager().getUser(killer.getUniqueId());
+            FactionUser user = plugin.getManagerHandler().getUserManager().getUser(killer.getUniqueId());
             user.setKills(user.getKills() + 1);
         }
     }
@@ -53,11 +53,11 @@ public class DeathListener implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if(event.getEntity().getKiller() != null){
-            if(plugin.getFactionManager().getPlayerFaction(event.getEntity().getKiller()) != null){
-                plugin.getFactionManager().getPlayerFaction(event.getEntity().getKiller()).addPoints(1);
+            if(plugin.getManagerHandler().getFactionManager().getPlayerFaction(event.getEntity().getKiller()) != null){
+                plugin.getManagerHandler().getFactionManager().getPlayerFaction(event.getEntity().getKiller()).addPoints(1);
             }
         }
 
@@ -73,7 +73,7 @@ public class DeathListener implements Listener {
         if (playerFaction != null) {
             playerFaction.setPoints(playerFaction.getPoints() - 1);
             if(plugin.getConfig().getBoolean("kit-map")){
-                Faction factionAt = plugin.getFactionManager().getFactionAt(player.getLocation());
+                Faction factionAt = plugin.getManagerHandler().getFactionManager().getFactionAt(player.getLocation());
                 double newDtr = playerFaction.setDeathsUntilRaidable(playerFaction.getMaximumDeathsUntilRaidable());
 
                 Role role = playerFaction.getMember(player.getUniqueId()).getRole();
@@ -81,7 +81,7 @@ public class DeathListener implements Listener {
                 playerFaction.broadcast(ChatColor.GOLD + "Member Death: " + ConfigurationService.TEAMMATE_COLOUR + role.getAstrix() + player.getName() + ChatColor.GOLD + ". " + "DTR: (" + ChatColor.WHITE
                         + JavaUtils.format(newDtr, 2) + '/' + JavaUtils.format(playerFaction.getMaximumDeathsUntilRaidable(), 2) + ChatColor.GOLD + ").");
             } else {
-                Faction factionAt = plugin.getFactionManager().getFactionAt(player.getLocation());
+                Faction factionAt = plugin.getManagerHandler().getFactionManager().getFactionAt(player.getLocation());
                 double dtrLoss = (1.0D * factionAt.getDtrLossMultiplier());
                 double newDtr = playerFaction.setDeathsUntilRaidable(playerFaction.getDeathsUntilRaidable() - dtrLoss);
 
@@ -98,8 +98,8 @@ public class DeathListener implements Listener {
 
             EntityLightning entityLightning = new EntityLightning(worldServer, location.getX(), location.getY(), location.getZ(), false);
             PacketPlayOutSpawnEntityWeather packet = new PacketPlayOutSpawnEntityWeather(entityLightning);
-            for (Player target : Bukkit.getOnlinePlayers()) {
-                if (plugin.getUserManager().getUser(target.getUniqueId()).isShowLightning()) {
+            for (Player target : Bukkit.getServer().getOnlinePlayers()) {
+                if (plugin.getManagerHandler().getUserManager().getUser(target.getUniqueId()).isShowLightning()) {
                     ((CraftPlayer) target).getHandle().playerConnection.sendPacket(packet);
                     target.playSound(target.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
                 }

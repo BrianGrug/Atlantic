@@ -112,7 +112,7 @@ public class PortalListener implements Listener {
             }
 
             // Prevent entering the end if the player is Spawn Tagged.
-            PlayerTimer timer = plugin.getTimerManager().getCombatTimer();
+            PlayerTimer timer = plugin.getManagerHandler().getTimerManager().getCombatTimer();
             long remaining;
             if ((remaining = timer.getRemaining(player)) > 0L) {
                 message(player, ChatColor.RED + "You cannot enter the End whilst your " + timer.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD
@@ -123,7 +123,7 @@ public class PortalListener implements Listener {
             }
 
             // Prevent entering the end if the player is PVP Protected.
-            timer = plugin.getTimerManager().getPvpTimer();
+            timer = plugin.getManagerHandler().getTimerManager().getPvpTimer();
             if ((remaining = timer.getRemaining(player)) > 0L) {
                 message(player, ChatColor.RED + "You cannot enter the End whilst your " + timer.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD
                         + DurationFormatter.getRemaining(remaining, true, false) + ChatColor.RED + " remaining]");

@@ -22,7 +22,7 @@ public class PunishListener implements Listener {
                 String name = event.getInventory().getName();
                 String[] f = name.split(" ");
 
-                Faction faction = HCF.getPlugin().getFactionManager().getFaction(f[f.length -1]);
+                Faction faction = HCF.getPlugin().getManagerHandler().getFactionManager().getFaction(f[f.length -1]);
                 PlayerFaction playerFaction = (PlayerFaction) faction;
 
                 if(event.getCurrentItem() == null){

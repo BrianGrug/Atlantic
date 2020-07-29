@@ -40,7 +40,7 @@ public class KothTracker implements EventTracker {
         captureZone.updateScoreboardRemaining();
         long remainingMillis = captureZone.getRemainingCaptureMillis();
         if (remainingMillis <= 0L) { // has been captured.
-            plugin.getTimerManager().getEventTimer().handleWinner(captureZone.getCappingPlayer());
+            plugin.getManagerHandler().getTimerManager().getEventTimer().handleWinner(captureZone.getCappingPlayer());
             eventTimer.clearCooldown();
             return;
         }

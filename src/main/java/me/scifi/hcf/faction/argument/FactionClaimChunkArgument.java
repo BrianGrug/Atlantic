@@ -35,7 +35,7 @@ public class FactionClaimChunkArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
@@ -53,7 +53,7 @@ public class FactionClaimChunkArgument extends CommandArgument {
         }
 
         Location location = player.getLocation();
-        plugin.getClaimHandler().tryPurchasing(
+        plugin.getManagerHandler().getClaimHandler().tryPurchasing(
                 player,
                 new Claim(playerFaction, location.clone().add(CHUNK_RADIUS, ClaimHandler.MIN_CLAIM_HEIGHT, CHUNK_RADIUS), location.clone().add(-CHUNK_RADIUS, ClaimHandler.MAX_CLAIM_HEIGHT,
                         -CHUNK_RADIUS)));

@@ -32,7 +32,7 @@ public class CustomTimer{
             @Override
             public void run() {
                 if (endMillis < System.currentTimeMillis()) {
-                    HCF.getPlugin().getCustomTimerManager().deleteTimer(HCF.getPlugin().getCustomTimerManager().getCustomTimer(name));
+                    HCF.getPlugin().getManagerHandler().getCustomTimerManager().deleteTimer(HCF.getPlugin().getManagerHandler().getCustomTimerManager().getCustomTimer(name));
                     this.cancel();
                 }
             }
@@ -44,6 +44,6 @@ public class CustomTimer{
     }
 
     public void cancel() {
-        HCF.getPlugin().getCustomTimerManager().deleteTimer(this);
+        HCF.getPlugin().getManagerHandler().getCustomTimerManager().deleteTimer(this);
     }
 }

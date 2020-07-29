@@ -51,7 +51,7 @@ public class LivesCheckDeathbanArgument extends CommandArgument {
             return true;
         }
 
-        Deathban deathban = plugin.getUserManager().getUser(target.getUniqueId()).getDeathban();
+        Deathban deathban = plugin.getManagerHandler().getUserManager().getUser(target.getUniqueId()).getDeathban();
 
         if (deathban == null || !deathban.isActive()) {
             sender.sendMessage(ChatColor.RED + target.getName() + " is not death-banned.");
@@ -78,7 +78,7 @@ public class LivesCheckDeathbanArgument extends CommandArgument {
         }
 
         List<String> results = new ArrayList<>();
-        for (FactionUser factionUser : plugin.getUserManager().getUsers().values()) {
+        for (FactionUser factionUser : plugin.getManagerHandler().getUserManager().getUsers().values()) {
             Deathban deathban = factionUser.getDeathban();
             if (deathban != null && deathban.isActive()) {
                 OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(factionUser.getUserUUID());

@@ -24,12 +24,12 @@ import java.util.concurrent.TimeUnit;
 public class LogoutTimer extends PlayerTimer implements Listener {
 
     public LogoutTimer() {
-        super(HCF.getPlugin().messagesYML.getString("SCOREBOARD.LOGOUT.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().messagesYML.getLong("SCOREBOARD.LOGOUT.LENGTH")), false);
+        super(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.LOGOUT.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().getMessagesYML().getLong("SCOREBOARD.LOGOUT.LENGTH")), false);
     }
 
     @Override
     public String getScoreboardPrefix() {
-        return HCF.getPlugin().messagesYML.getString("SCOREBOARD.LOGOUT.PREFIX");
+        return HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.LOGOUT.PREFIX");
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)

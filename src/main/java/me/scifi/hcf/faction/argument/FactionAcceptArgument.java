@@ -49,12 +49,12 @@ public class FactionAcceptArgument extends CommandArgument {
 
         Player player = (Player) sender;
 
-        if (plugin.getFactionManager().getPlayerFaction(player) != null) {
+        if (plugin.getManagerHandler().getFactionManager().getPlayerFaction(player) != null) {
             sender.sendMessage(ChatColor.RED + "You are already in a faction.");
             return true;
         }
 
-        Faction faction = plugin.getFactionManager().getContainingFaction(args[1]);
+        Faction faction = plugin.getManagerHandler().getFactionManager().getContainingFaction(args[1]);
 
         if (faction == null) {
             sender.sendMessage(ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
@@ -91,7 +91,7 @@ public class FactionAcceptArgument extends CommandArgument {
             return Collections.emptyList();
         }
 
-        return plugin.getFactionManager().getFactions().stream().
+        return plugin.getManagerHandler().getFactionManager().getFactions().stream().
                 filter(faction -> faction instanceof PlayerFaction && ((PlayerFaction) faction).getInvitedPlayerNames().contains(sender.getName())).
                 map(faction -> sender.getName()).collect(Collectors.toList());
     }

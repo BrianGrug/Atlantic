@@ -25,7 +25,7 @@ public class HealCommand implements CommandExecutor {
                     p.setHealth(20);
                     p.setFoodLevel(20);
                     p.setSaturation(20f);
-                    sender.sendMessage(Utils.chat(plugin.messagesYML.getString("SELF-HEALED")));
+                    sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("SELF-HEALED")));
                     return true;
                 }
                 sender.sendMessage(Utils.chat("&cYou Can Only Heal A Player."));
@@ -38,7 +38,7 @@ public class HealCommand implements CommandExecutor {
                     target.setFireTicks(0);
                     target.setFoodLevel(20);
                     target.setSaturation(20f);
-                    sender.sendMessage(Utils.chat(plugin.messagesYML.getString("OTHER-HEALED")
+                    sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("OTHER-HEALED")
                     .replace("%player%",target.getName())));
                     return true;
                 }

@@ -1,6 +1,7 @@
 package me.scifi.hcf.pvpclass;
 
 import me.scifi.hcf.HCF;
+import me.scifi.hcf.managers.IManager;
 import me.scifi.hcf.pvpclass.archer.ArcherClass;
 import me.scifi.hcf.pvpclass.bard.BardClass;
 import me.scifi.hcf.pvpclass.event.PvpClassEquipEvent;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class PvpClassManager implements Listener {
+public class PvpClassManager implements Listener, IManager {
 
     // Mapping to get the PVP Class a player has equipped.
     private final Map<UUID, PvpClass> equippedClassMap = new HashMap<>();

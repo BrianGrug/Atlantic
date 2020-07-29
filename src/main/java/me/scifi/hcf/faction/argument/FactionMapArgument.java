@@ -44,7 +44,7 @@ public class FactionMapArgument extends CommandArgument {
         Player player = (Player) sender;
         UUID uuid = player.getUniqueId();
 
-        final FactionUser factionUser = plugin.getUserManager().getUser(uuid);
+        final FactionUser factionUser = plugin.getManagerHandler().getUserManager().getUser(uuid);
         final VisualType visualType;
         if (args.length <= 1) {
             visualType = VisualType.CLAIM_MAP;
@@ -59,7 +59,7 @@ public class FactionMapArgument extends CommandArgument {
                 return true;
             }
         } else {
-            plugin.getVisualiseHandler().clearVisualBlocks(player, visualType, null);
+            plugin.getManagerHandler().getVisualiseHandler().clearVisualBlocks(player, visualType, null);
             sender.sendMessage(ChatColor.RED + "Claim pillars are no longer shown.");
         }
 

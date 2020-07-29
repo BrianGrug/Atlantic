@@ -35,7 +35,7 @@ public class PvpTimerCommand implements CommandExecutor, TabCompleter {
         }
 
         Player player = (Player) sender;
-        PvPTimer pvpTimer = plugin.getTimerManager().getPvpTimer();
+        PvPTimer pvpTimer = plugin.getManagerHandler().getTimerManager().getPvpTimer();
 
         if (args.length < 1) {
             printUsage(sender, label, pvpTimer);

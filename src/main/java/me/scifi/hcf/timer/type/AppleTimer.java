@@ -18,12 +18,12 @@ import java.util.concurrent.TimeUnit;
 public class AppleTimer extends PlayerTimer implements Listener {
 
     public AppleTimer(HCF plugin) {
-        super(HCF.getPlugin().messagesYML.getString("SCOREBOARD.APPLE.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().messagesYML.getLong("SCOREBOARD.APPLE.LENGTH")));
+        super(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.APPLE.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().getMessagesYML().getLong("SCOREBOARD.APPLE.LENGTH")));
     }
 
     @Override
     public String getScoreboardPrefix() {
-        return HCF.getPlugin().messagesYML.getString("SCOREBOARD.APPLE.PREFIX");
+        return HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.APPLE.PREFIX");
     }
 
     @EventHandler

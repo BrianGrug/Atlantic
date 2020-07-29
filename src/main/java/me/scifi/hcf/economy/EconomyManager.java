@@ -1,72 +1,79 @@
 package me.scifi.hcf.economy;
 
+import com.doctordark.util.Config;
+import gnu.trove.impl.Constants;
 import gnu.trove.map.TObjectIntMap;
+import gnu.trove.map.hash.TObjectIntHashMap;
+import gnu.trove.procedure.TObjectIntProcedure;
+import me.scifi.hcf.managers.IManager;
+import org.bukkit.configuration.MemorySection;
+import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 /**
- * Handles balances of players.
+ * Implementation of the {@link EconomyManager} storing to YAML.
  */
-public interface EconomyManager {
+public class EconomyManager implements IManager {
 
-    char ECONOMY_SYMBOL = '$';
+    private final JavaPlugin plugin;
 
-    /**
-     * Gets the map of economy balances.
-     *
-     * @return the map of economy balances
-     */
-    TObjectIntMap<UUID> getBalanceMap();
+    public static final char ECONOMY_SYMBOL = '$';
 
-    /**
-     * Gets the balance of a player.
-     *
-     * @param uuid
-     *            the uuid of player to get for
-     * @return the balance of the player
-     */
-    int getBalance(UUID uuid);
+    private TObjectIntMap<UUID> balanceMap = new TObjectIntHashMap<>(Constants.DEFAULT_CAPACITY, Constants.DEFAULT_LOAD_FACTOR, 0);
+    private Config balanceConfig;
 
-    /**
-     * Sets the balance of a player.
-     *
-     * @param uuid
-     *            the uuid of player to set for
-     * @param amount
-     *            the amount to set
-     * @return the new balance of player
-     */
-    int setBalance(UUID uuid, int amount);
+    public EconomyManager(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
 
-    /**
-     * Adds to the balance of a player.
-     *
-     * @param uuid
-     *            the uuid of player to add for
-     * @param amount
-     *            the amount to add
-     * @return the new balance of player
-     */
-    int addBalance(UUID uuid, int amount);
+    public TObjectIntMap<UUID> getBalanceMap() {
+        return this.balanceMap;
+    }
 
-    /**
-     * Takes from the balance of a player.
-     *
-     * @param uuid
-     *            the uuid of player to take from
-     * @param amount
-     *            the amount to take
-     * @return the new balance of player
-     */
-    int subtractBalance(UUID uuid, int amount);
+    public int getBalance(UUID uuid) {
+        return this.balanceMap.get(uuid);
+    }
 
-    /**
-     * Reloads the data from storage.
-     */
-    void reloadEconomyData();
+    public int setBalance(UUID uuid, int amount) {
+        this.balanceMap.put(uuid, amount);
+        return amount;
+    }
 
-    /**
-     * Saves the data to storage.
-     */
-    void saveEconomyData();
+    public int addBalance(UUID uuid, int amount) {
+        return this.setBalance(uuid, this.getBalance(uuid) + amount);
+    }
+
+    public int subtractBalance(UUID uuid, int amount) {
+        return this.setBalance(uuid, this.getBalance(uuid) - amount);
+    }
+
+    public void load() {
+        Object object = (this.balanceConfig = new Config(plugin, "balances",plugin.getDataFolder().getAbsolutePath())).get("balances");
+        if (object instanceof MemorySection) {
+            MemorySection section = (MemorySection) object;
+            Set<String> keys = section.getKeys(false);
+            for (String id : keys) {
+                this.balanceMap.put(UUID.fromString(id), this.balanceConfig.getInt("balances." + id));
+            }
+        }
+    }
+
+    @Override
+    public void unload() {
+        Map<String, Integer> saveMap = new LinkedHashMap<>(this.balanceMap.size());
+        this.balanceMap.forEachEntry(new TObjectIntProcedure<UUID>() {
+            @Override
+            public boolean execute(UUID uuid, int i) {
+                saveMap.put(uuid.toString(), i);
+                return true;
+            }
+        });
+
+        this.balanceConfig.set("balances", saveMap);
+        this.balanceConfig.save();
+    }
 }

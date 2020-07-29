@@ -121,7 +121,7 @@ public class Text extends ChatComponentText
     }
     
     public void broadcast(final String permission) {
-        for (final Player player : Bukkit.getOnlinePlayers()) {
+        for (final Player player : Bukkit.getServer().getOnlinePlayers()) {
             if (permission == null || player.hasPermission(permission)) {
                 this.send((CommandSender)player);
             }

@@ -25,21 +25,21 @@ public class ReclaimCommand implements CommandExecutor {
             Player p = (Player) sender;
             if (p.hasPermission(command.getPermission())) {
                 String rank = plugin.getRank().getGroupName(p);
-                if (HCF.getReclaimManager().hasReclaimed(p)) {
-                    p.sendMessage(Utils.chat(plugin.messagesYML.getString("RECLAIM-ALREADY-RECLAIMED")));
+                if (HCF.getPlugin().getManagerHandler().getReclaimManager().hasReclaimed(p)) {
+                    p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("RECLAIM-ALREADY-RECLAIMED")));
                     return true;
                 }
-                if (HCF.getReclaimManager().hasReclaim(rank)) {
-                    p.sendMessage(Utils.chat(plugin.messagesYML.getString("RECLAIM-USED-RECLAIM")));
-                    HCF.getReclaimManager().setReclaimed(p);
-                    List<String> commands = HCF.getReclaimManager().returnReclaim(rank);
+                if (HCF.getPlugin().getManagerHandler().getReclaimManager().hasReclaim(rank)) {
+                    p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("RECLAIM-USED-RECLAIM")));
+                    HCF.getPlugin().getManagerHandler().getReclaimManager().setReclaimed(p);
+                    List<String> commands = HCF.getPlugin().getManagerHandler().getReclaimManager().returnReclaim(rank);
                     commands.forEach(str -> Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), str
                             .replace("%player%", p.getName())
                             .replace("%rank%", rank)));
                     return true;
                 }
 
-                p.sendMessage(Utils.chat(plugin.messagesYML.getString("RECLAIM-NOT-FOUND")));
+                p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("RECLAIM-NOT-FOUND")));
                 return true;
             }
             sender.sendMessage(Utils.chat("&cOnly players may execute this command."));

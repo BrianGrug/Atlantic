@@ -5,6 +5,7 @@ import com.doctordark.util.GenericUtils;
 import com.doctordark.util.cuboid.Cuboid;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import me.scifi.hcf.economy.EconomyManager;
 import me.scifi.hcf.faction.claim.Claim;
 import me.scifi.hcf.faction.event.FactionClaimChangeEvent;
 import me.scifi.hcf.faction.event.FactionClaimChangedEvent;
@@ -15,7 +16,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import me.scifi.hcf.HCF;
-import me.scifi.hcf.economy.EconomyManager;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -171,7 +171,7 @@ public class ClaimableFaction extends Faction {
 
             int refund = 0;
             for (Claim claim : toRemove) {
-                refund += plugin.getClaimHandler().calculatePrice(claim, expected, true);
+                refund += plugin.getManagerHandler().getClaimHandler().calculatePrice(claim, expected, true);
                 if (expected > 0)
                     expected--;
 
@@ -182,7 +182,7 @@ public class ClaimableFaction extends Faction {
                 }
             }
 
-            plugin.getEconomyManager().addBalance(playerFaction.getLeader().getUniqueId(), refund);
+            plugin.getManagerHandler().getEconomyManager().addBalance(playerFaction.getLeader().getUniqueId(), refund);
             playerFaction.broadcast(ChatColor.YELLOW + "Faction leader was refunded " + ChatColor.GREEN + EconomyManager.ECONOMY_SYMBOL + refund + ChatColor.YELLOW + " due to a land unclaim.");
         }
 

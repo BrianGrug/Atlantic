@@ -23,7 +23,7 @@ public class HelpCommand implements CommandExecutor {
             if(sender instanceof Player){
                 Player p = (Player) sender;
                 if(p.hasPermission(command.getPermission())){
-                    List<String> message = plugin.messagesYML.getStringList("HELP-MESSAGE");
+                    List<String> message = plugin.getMessagesYML().getStringList("HELP-MESSAGE");
                     message.forEach(str -> p.sendMessage(Utils.chat(str)));
                 }
             }

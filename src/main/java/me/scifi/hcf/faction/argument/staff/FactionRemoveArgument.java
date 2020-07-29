@@ -58,14 +58,14 @@ public class FactionRemoveArgument extends CommandArgument {
             return true;
         }
 
-        Faction faction = plugin.getFactionManager().getContainingFaction(args[1]);
+        Faction faction = plugin.getManagerHandler().getFactionManager().getContainingFaction(args[1]);
 
         if (faction == null) {
             sender.sendMessage(ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
             return true;
         }
 
-        if (plugin.getFactionManager().removeFaction(faction, sender)) {
+        if (plugin.getManagerHandler().getFactionManager().removeFaction(faction, sender)) {
             Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Disbanded faction " + faction.getName() + ChatColor.YELLOW + '.');
         }
 
@@ -80,7 +80,7 @@ public class FactionRemoveArgument extends CommandArgument {
             return null;
         } else {
             Player player = (Player) sender;
-            List<String> results = new ArrayList<>(plugin.getFactionManager().getFactionNameMap().keySet());
+            List<String> results = new ArrayList<>(plugin.getManagerHandler().getFactionManager().getFactionNameMap().keySet());
             for (Player target : HCF.getOnlinePlayers()) {
                 if (player.canSee(target) && !results.contains(target.getName())) {
                     results.add(target.getName());
@@ -109,8 +109,8 @@ public class FactionRemoveArgument extends CommandArgument {
         public Prompt acceptInput(ConversationContext context, String string) {
             switch (string.toLowerCase()) {
             case "yes": {
-                for (Faction faction : plugin.getFactionManager().getFactions()) {
-                    plugin.getFactionManager().removeFaction(faction, Bukkit.getConsoleSender());
+                for (Faction faction : plugin.getManagerHandler().getFactionManager().getFactions()) {
+                    plugin.getManagerHandler().getFactionManager().removeFaction(faction, Bukkit.getConsoleSender());
                 }
 
                 Conversable conversable = context.getForWhom();

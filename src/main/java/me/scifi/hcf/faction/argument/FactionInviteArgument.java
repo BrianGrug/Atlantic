@@ -59,7 +59,7 @@ public class FactionInviteArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
@@ -79,7 +79,7 @@ public class FactionInviteArgument extends CommandArgument {
             return true;
         }
 
-        if (!ConfigurationService.KIT_MAP && !plugin.getEotwHandler().isEndOfTheWorld() && playerFaction.isRaidable()) {
+        if (!ConfigurationService.KIT_MAP && !plugin.getManagerHandler().getEotwHandler().isEndOfTheWorld() && playerFaction.isRaidable()) {
             sender.sendMessage(ChatColor.RED + "You may not invite players whilst your faction is raidable.");
             return true;
         }
@@ -113,15 +113,15 @@ public class FactionInviteArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
         if (playerFaction == null || (playerFaction.getMember(player.getUniqueId()).getRole() == Role.MEMBER)) {
             return Collections.emptyList();
         }
 
         List<String> results = new ArrayList<>();
-        for (Player target : Bukkit.getOnlinePlayers()) {
+        for (Player target : Bukkit.getServer().getOnlinePlayers()) {
             if (player.canSee(target) && !results.contains(target.getName())) {
-                if (playerFaction != plugin.getFactionManager().getPlayerFaction(target.getUniqueId())) {
+                if (playerFaction != plugin.getManagerHandler().getFactionManager().getPlayerFaction(target.getUniqueId())) {
                     results.add(target.getName());
                 }
             }

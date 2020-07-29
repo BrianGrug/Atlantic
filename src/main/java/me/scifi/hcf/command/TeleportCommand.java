@@ -30,7 +30,7 @@ public class TeleportCommand implements CommandExecutor {
                     Player target = Bukkit.getServer().getPlayer(args[0]);
                     if (target != null) {
                         p.teleport(target);
-                        p.sendMessage(Utils.chat(plugin.messagesYML.getString("TELEPORTED-TO-TARGET")
+                        p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("TELEPORTED-TO-TARGET")
                                 .replace("%player%", target.getName())));
                         return true;
                     }
@@ -43,7 +43,7 @@ public class TeleportCommand implements CommandExecutor {
                     Player teleportTo = Bukkit.getServer().getPlayer(args[1]);
                     if (teleport != null && teleportTo != null) {
                         teleport.teleport(teleportTo);
-                        p.sendMessage(Utils.chat(plugin.messagesYML.getString("TELEPORTED-PLAYER-TO-TARGET")
+                        p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("TELEPORTED-PLAYER-TO-TARGET")
                                 .replace("%player%", teleport.getName())
                                 .replace("%target%", teleportTo.getName())));
                         return true;

@@ -29,7 +29,7 @@ public class EventCancelArgument extends CommandArgument {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        EventTimer eventTimer = plugin.getTimerManager().getEventTimer();
+        EventTimer eventTimer = plugin.getManagerHandler().getTimerManager().getEventTimer();
         Faction eventFaction = eventTimer.getEventFaction();
 
         if (!eventTimer.clearCooldown()) {

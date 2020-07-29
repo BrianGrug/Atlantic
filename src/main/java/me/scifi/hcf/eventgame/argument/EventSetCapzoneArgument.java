@@ -77,7 +77,7 @@ public class EventSetCapzoneArgument extends CommandArgument {
             return true;
         }
 
-        Faction faction = plugin.getFactionManager().getFaction(args[1]);
+        Faction faction = plugin.getManagerHandler().getFactionManager().getFaction(args[1]);
 
         if (!(faction instanceof CapturableFaction)) {
             sender.sendMessage(ChatColor.RED + "There is not a capturable faction named '" + args[1] + "'.");
@@ -101,7 +101,7 @@ public class EventSetCapzoneArgument extends CommandArgument {
         int minimumZ = claim.getMinimumZ();
         int maximumZ = claim.getMaximumZ();
 
-        FactionManager factionManager = plugin.getFactionManager();
+        FactionManager factionManager = plugin.getManagerHandler().getFactionManager();
         for (int x = minimumX; x <= maximumX; x++) {
             for (int z = minimumZ; z <= maximumZ; z++) {
                 Faction factionAt = factionManager.getFactionAt(world, x, z);
@@ -144,9 +144,9 @@ public class EventSetCapzoneArgument extends CommandArgument {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         switch (args.length) {
             case 2:
-                return plugin.getFactionManager().getFactions().stream().filter(faction -> faction instanceof EventFaction).map(Faction::getName).collect(Collectors.toList());
+                return plugin.getManagerHandler().getFactionManager().getFactions().stream().filter(faction -> faction instanceof EventFaction).map(Faction::getName).collect(Collectors.toList());
             case 3:
-                Faction faction = plugin.getFactionManager().getFaction(args[1]);
+                Faction faction = plugin.getManagerHandler().getFactionManager().getFaction(args[1]);
                 if (faction instanceof ConquestFaction) {
                     ConquestFaction.ConquestZone zones[] = ConquestFaction.ConquestZone.values();
                     List<String> results = new ArrayList<>(zones.length);

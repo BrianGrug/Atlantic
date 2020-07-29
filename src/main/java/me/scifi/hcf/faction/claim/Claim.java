@@ -90,7 +90,7 @@ public class Claim extends NamedCuboid implements Cloneable, ConfigurationSerial
 
     public ClaimableFaction getFaction() {
         if (!this.loaded) {
-            Faction faction = HCF.getPlugin().getFactionManager().getFaction(this.factionUUID);
+            Faction faction = HCF.getPlugin().getManagerHandler().getFactionManager().getFaction(this.factionUUID);
             if (faction instanceof ClaimableFaction) {
                 this.faction = (ClaimableFaction) faction;
             }

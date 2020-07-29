@@ -82,7 +82,7 @@ public class ClaimSelection implements Cloneable {
      */
     public int getPrice(PlayerFaction playerFaction, boolean selling) {
         Preconditions.checkNotNull(playerFaction, "Player faction cannot be null");
-        return pos1 == null || pos2 == null ? 0 : HCF.getPlugin().getClaimHandler().calculatePrice(new Cuboid(pos1, pos2), playerFaction.getClaims().size(), selling);
+        return pos1 == null || pos2 == null ? 0 : HCF.getPlugin().getManagerHandler().getClaimHandler().calculatePrice(new Cuboid(pos1, pos2), playerFaction.getClaims().size(), selling);
     }
 
     /**

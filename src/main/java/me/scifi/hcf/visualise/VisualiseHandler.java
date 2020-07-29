@@ -6,6 +6,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
+import me.scifi.hcf.managers.IManager;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -26,7 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class VisualiseHandler {
+public class VisualiseHandler implements IManager {
 
     private final Table<UUID, Location, VisualBlock> storedVisualises = HashBasedTable.create();
 

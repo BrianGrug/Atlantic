@@ -12,6 +12,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import lombok.Getter;
 import me.scifi.hcf.Utils;
+import me.scifi.hcf.economy.EconomyManager;
 import me.scifi.hcf.faction.event.cause.FactionLeaveCause;
 import me.scifi.hcf.faction.struct.Raidable;
 import me.scifi.hcf.faction.struct.RegenStatus;
@@ -28,7 +29,6 @@ import me.scifi.hcf.ConfigurationService;
 import me.scifi.hcf.DateTimeFormats;
 import me.scifi.hcf.HCF;
 import me.scifi.hcf.deathban.Deathban;
-import me.scifi.hcf.economy.EconomyManager;
 import me.scifi.hcf.faction.FactionMember;
 import me.scifi.hcf.faction.event.FactionDtrChangeEvent;
 import me.scifi.hcf.faction.event.PlayerJoinFactionEvent;
@@ -213,7 +213,7 @@ public class PlayerFaction extends ClaimableFaction implements Raidable {
         Iterator<UUID> iterator = allied.iterator();
         List<PlayerFaction> results = new ArrayList<>(allied.size());
         while (iterator.hasNext()) {
-            Faction faction = HCF.getPlugin().getFactionManager().getFaction(iterator.next());
+            Faction faction = HCF.getPlugin().getManagerHandler().getFactionManager().getFaction(iterator.next());
             if (faction instanceof PlayerFaction) {
                 results.add((PlayerFaction) faction);
             } else
@@ -382,7 +382,7 @@ public class PlayerFaction extends ClaimableFaction implements Raidable {
 
     public void setHome(@Nullable Location home) {
         if (home == null && this.home != null) {
-            TeleportTimer timer = HCF.getPlugin().getTimerManager().getTeleportTimer();
+            TeleportTimer timer = HCF.getPlugin().getManagerHandler().getTimerManager().getTeleportTimer();
             for (Player player : getOnlinePlayers()) {
                 Location destination = timer.getDestination(player);
                 if (Objects.equal(destination, this.home.getLocation())) {
@@ -553,7 +553,7 @@ public class PlayerFaction extends ClaimableFaction implements Raidable {
 
         Set<String> allyNames = new HashSet<>(ConfigurationService.MAX_ALLIES_PER_FACTION);
         for (Map.Entry<UUID, Relation> entry : relations.entrySet()) {
-            Faction faction = HCF.getPlugin().getFactionManager().getFaction(entry.getKey());
+            Faction faction = HCF.getPlugin().getManagerHandler().getFactionManager().getFaction(entry.getKey());
             if (faction instanceof PlayerFaction) {
                 PlayerFaction ally = (PlayerFaction) faction;
                 allyNames.add(ally.getDisplayName(sender) + ChatColor.GOLD + '[' + ChatColor.WHITE + ally.getOnlinePlayers(sender).size() + ChatColor.GRAY + '/' + ChatColor.WHITE
@@ -568,7 +568,7 @@ public class PlayerFaction extends ClaimableFaction implements Raidable {
             FactionMember factionMember = entry.getValue();
             Player target = factionMember.toOnlinePlayer();
 
-            FactionUser user = HCF.getPlugin().getUserManager().getUser(entry.getKey());
+            FactionUser user = HCF.getPlugin().getManagerHandler().getUserManager().getUser(entry.getKey());
             int kills = user.getKills();
             combinedKills += kills;
 
@@ -622,7 +622,7 @@ public class PlayerFaction extends ClaimableFaction implements Raidable {
 
         // Show announcement if the sender is in this faction.
         if (sender instanceof Player) {
-            Faction playerFaction = HCF.getPlugin().getFactionManager().getPlayerFaction((Player) sender);
+            Faction playerFaction = HCF.getPlugin().getManagerHandler().getFactionManager().getPlayerFaction((Player) sender);
             if (playerFaction != null && playerFaction.equals(this) && announcement != null) {
                 sender.sendMessage(ChatColor.YELLOW + "  Announcement: " + ChatColor.RED + announcement);
             }

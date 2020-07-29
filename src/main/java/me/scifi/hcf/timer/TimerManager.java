@@ -3,6 +3,7 @@ package me.scifi.hcf.timer;
 import com.doctordark.util.Config;
 import lombok.Data;
 import lombok.Getter;
+import me.scifi.hcf.managers.IManager;
 import me.scifi.hcf.timer.type.*;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,40 +13,29 @@ import me.scifi.hcf.eventgame.EventTimer;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Data
-public class TimerManager implements Listener {
+@Getter
+public class TimerManager implements Listener, IManager {
 
-    @Getter
     private CombatTimer combatTimer;
 
-    @Getter
     private LogoutTimer logoutTimer;
 
-    @Getter
     private EnderPearlTimer enderPearlTimer;
 
-    @Getter
     private EventTimer eventTimer;
 
-    @Getter
     private GappleTimer gappleTimer;
 
-    @Getter
     private AppleTimer appleTimer;
 
-    @Getter
     private PvPTimer pvpTimer;
 
-    @Getter
     private PvpClassWarmupTimer pvpClassWarmupTimer;
 
-    @Getter
     private StuckTimer stuckTimer;
 
-    @Getter
     private TeleportTimer teleportTimer;
 
-    @Getter
     private Set<Timer> timers = new LinkedHashSet<>();
 
     private JavaPlugin plugin;
@@ -65,7 +55,6 @@ public class TimerManager implements Listener {
         registerTimer(eventTimer = new EventTimer(plugin));
         registerTimer(pvpClassWarmupTimer = new PvpClassWarmupTimer(plugin));
         registerTimer(appleTimer = new AppleTimer(plugin));
-        reloadTimerData();
     }
 
     public void registerTimer(Timer timer) {
@@ -82,7 +71,7 @@ public class TimerManager implements Listener {
     /**
      * Reloads the {@link Timer} data from storage.
      */
-    public void reloadTimerData() {
+    public void load() {
         config = new Config(plugin, "timers",plugin.getDataFolder().getAbsolutePath());
         for (Timer timer : timers) {
             timer.load(config);
@@ -92,7 +81,7 @@ public class TimerManager implements Listener {
     /**
      * Saves the {@link Timer} data to storage.
      */
-    public void saveTimerData() {
+    public void unload() {
         for (Timer timer : timers) {
             timer.onDisable(config);
         }

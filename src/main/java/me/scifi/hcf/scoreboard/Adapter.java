@@ -12,7 +12,6 @@ import me.scifi.hcf.eventgame.faction.ConquestFaction;
 import me.scifi.hcf.eventgame.faction.EventFaction;
 import me.scifi.hcf.eventgame.faction.KothFaction;
 import me.scifi.hcf.eventgame.tracker.ConquestTracker;
-import me.scifi.hcf.faction.FactionManager;
 import me.scifi.hcf.faction.type.PlayerFaction;
 import me.scifi.hcf.pvpclass.PvpClass;
 import me.scifi.hcf.pvpclass.archer.ArcherClass;
@@ -49,42 +48,42 @@ public class Adapter implements AssembleAdapter {
 
     @Override
     public String getTitle(Player player) {
-        return ChatColor.translateAlternateColorCodes('&', HCF.getPlugin().messagesYML.getString("SCOREBOARD.TITLE"));
+        return ChatColor.translateAlternateColorCodes('&', HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.TITLE"));
     }
 
     @Override
     public List<String> getLines(Player player) {
         List<String> lines = new ArrayList<>();
 
-        UserManager um = HCF.getPlugin().getUserManager();
+        UserManager um = HCF.getPlugin().getManagerHandler().getUserManager();
 
         if (HCF.getPlugin().getConfig().getBoolean("kit-map")) {
             if (HCF.getPlugin().getConfig().getBoolean("kit-map-stats-in-spawn-only")) {
-                if (HCF.getPlugin().getFactionManager().getClaimAt(player.getLocation()).getFaction().isSafezone()) {
-                    lines.add(HCF.getPlugin().messagesYML.getString("SCOREBOARD.KILLS.TITLE")
+                if (HCF.getPlugin().getManagerHandler().getFactionManager().getClaimAt(player.getLocation()).getFaction().isSafezone()) {
+                    lines.add(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.KILLS.TITLE")
                             .replace("%kills%", Integer.toString(player.getStatistic(Statistic.PLAYER_KILLS))));
-                    lines.add(HCF.getPlugin().messagesYML.getString("SCOREBOARD.DEATHS.TITLE")
+                    lines.add(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.DEATHS.TITLE")
                             .replace("%deaths%", Integer.toString(player.getStatistic(Statistic.DEATHS))));
-                    if (HCF.getPlugin().messagesYML.getBoolean("SCOREBOARD.BALANCE.ENABLED")) {
-                        lines.add(HCF.getPlugin().messagesYML.getString("SCOREBOARD.BALANCE.TITLE")
-                                .replace("%balance%", Integer.toString(HCF.getPlugin().getEconomyManager().getBalance(player.getUniqueId()))));
+                    if (HCF.getPlugin().getMessagesYML().getBoolean("SCOREBOARD.BALANCE.ENABLED")) {
+                        lines.add(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.BALANCE.TITLE")
+                                .replace("%balance%", Integer.toString(HCF.getPlugin().getManagerHandler().getEconomyManager().getBalance(player.getUniqueId()))));
                     }
                 }
             } else {
-                lines.add(HCF.getPlugin().messagesYML.getString("SCOREBOARD.KILLS.TITLE")
+                lines.add(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.KILLS.TITLE")
                         .replace("%kills%", Integer.toString(um.getUserAsync(player.getUniqueId()).getKills())));
-                lines.add(HCF.getPlugin().messagesYML.getString("SCOREBOARD.DEATHS.TITLE")
+                lines.add(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.DEATHS.TITLE")
                         .replace("%deaths%", Integer.toString(um.getUserAsync(player.getUniqueId()).getDeaths())));
-                if (HCF.getPlugin().messagesYML.getBoolean("SCOREBOARD.BALANCE.ENABLED")) {
-                    lines.add(HCF.getPlugin().messagesYML.getString("SCOREBOARD.BALANCE.TITLE")
-                            .replace("%balance%", Integer.toString(HCF.getPlugin().getEconomyManager().getBalance(player.getUniqueId()))));
+                if (HCF.getPlugin().getMessagesYML().getBoolean("SCOREBOARD.BALANCE.ENABLED")) {
+                    lines.add(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.BALANCE.TITLE")
+                            .replace("%balance%", Integer.toString(HCF.getPlugin().getManagerHandler().getEconomyManager().getBalance(player.getUniqueId()))));
                 }
             }
         }
 
 
 
-        EotwHandler.EotwRunnable eotwRunnable = HCF.getPlugin().getEotwHandler().getRunnable();
+        EotwHandler.EotwRunnable eotwRunnable = HCF.getPlugin().getManagerHandler().getEotwHandler().getRunnable();
         if (eotwRunnable != null) {
             long remaining = eotwRunnable.getMillisUntilStarting();
             if (remaining > 0L) {
@@ -97,20 +96,20 @@ public class Adapter implements AssembleAdapter {
         SotwTimer.SotwRunnable sotwRunnable = HCF.getPlugin().getSotwTimer().getSotwRunnable();
         if (sotwRunnable != null) {
             if (SotwCommand.enabled.contains(player.getUniqueId())) {
-                lines.add(Utils.chat(HCF.getPlugin().messagesYML.getString("SCOREBOARD.SOTW.ENABLED")
+                lines.add(Utils.chat(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.SOTW.ENABLED")
                         .replace("%remain%", DurationFormatter.getRemaining(sotwRunnable.getRemaining(), true))));
             } else {
-                lines.add(Utils.chat(HCF.getPlugin().messagesYML.getString("SCOREBOARD.SOTW.REGULAR")
+                lines.add(Utils.chat(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.SOTW.REGULAR")
                         .replace("%remaining%", DurationFormatter.getRemaining(sotwRunnable.getRemaining(), true))));
             }
         }
 
 
-        if (HCF.getPlugin().kingManager.isEventActive()) {
-            int x = HCF.getPlugin().kingManager.getKingPlayer().getLocation().getBlockX();
-            int z = HCF.getPlugin().kingManager.getKingPlayer().getLocation().getBlockZ();
+        if (HCF.getPlugin().getManagerHandler().getKingManager().isEventActive()) {
+            int x = HCF.getPlugin().getManagerHandler().getKingManager().getKingPlayer().getLocation().getBlockX();
+            int z = HCF.getPlugin().getManagerHandler().getKingManager().getKingPlayer().getLocation().getBlockZ();
             lines.add("&3&lKing Event&7:");
-            lines.add(" &7\u00BB &3King Name&7: &f" + HCF.getPlugin().kingManager.getKingPlayer().getName());
+            lines.add(" &7\u00BB &3King Name&7: &f" + HCF.getPlugin().getManagerHandler().getKingManager().getKingPlayer().getName());
             lines.add(" &7\u00BB &3Coords&7: &f" + x + " , " + z);
         }
 
@@ -131,7 +130,7 @@ public class Adapter implements AssembleAdapter {
             }
         }
 
-        EventTimer eventTimer = HCF.getPlugin().getTimerManager().getEventTimer();
+        EventTimer eventTimer = HCF.getPlugin().getManagerHandler().getTimerManager().getEventTimer();
         List<String> conquestLines = null;
 
         EventFaction eventFaction = eventTimer.getEventFaction();
@@ -162,7 +161,7 @@ public class Adapter implements AssembleAdapter {
         }
 
         // Show the current PVP Class statistics of the player.
-        PvpClass pvpClass = HCF.getPlugin().getPvpClassManager().getEquippedClass(player);
+        PvpClass pvpClass = HCF.getPlugin().getManagerHandler().getPvpClassManager().getEquippedClass(player);
         if (pvpClass != null) {
             lines.add(ChatColor.AQUA.toString() + ChatColor.BOLD + "Active Class" + ChatColor.GRAY.toString() + ": " + ChatColor.WHITE + pvpClass.getName());
             if (pvpClass instanceof BardClass) {
@@ -212,7 +211,7 @@ public class Adapter implements AssembleAdapter {
             }
         }
 
-        Collection<Timer> timers = HCF.getPlugin().getTimerManager().getTimers();
+        Collection<Timer> timers = HCF.getPlugin().getManagerHandler().getTimerManager().getTimers();
         for (Timer timer : timers) {
             if (timer instanceof PlayerTimer) {
                 PlayerTimer playerTimer = (PlayerTimer) timer;
@@ -225,7 +224,7 @@ public class Adapter implements AssembleAdapter {
             }
         }
 
-        Collection<CustomTimer> customTimers = HCF.getPlugin().getCustomTimerManager().getCustomTimers();
+        Collection<CustomTimer> customTimers = HCF.getPlugin().getManagerHandler().getCustomTimerManager().getCustomTimers();
         for (CustomTimer timer : customTimers) {
 
             lines.add(timer.getScoreboard() + "&7: &f" + DurationFormatter.getRemaining(timer.getRemaining(), true));
@@ -242,12 +241,12 @@ public class Adapter implements AssembleAdapter {
 
 
         if (!lines.isEmpty()) {
-            lines.add(0, HCF.getPlugin().messagesYML.getString("SCOREBOARD.SEPARATOR"));
+            lines.add(0, HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.SEPARATOR"));
             if (HCF.getPlugin().getConfig().getBoolean("SCOREBOARD-FOOTER")) {
                 lines.add(" ");
-                lines.add(HCF.getPlugin().messagesYML.getString("SCOREBOARD.FOOTER"));
+                lines.add(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.FOOTER"));
             }
-            lines.add(lines.size(), HCF.getPlugin().messagesYML.getString("SCOREBOARD.SEPARATOR"));
+            lines.add(lines.size(), HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.SEPARATOR"));
         }
 
         lines.forEach(string -> ChatColor.translateAlternateColorCodes('&', string));

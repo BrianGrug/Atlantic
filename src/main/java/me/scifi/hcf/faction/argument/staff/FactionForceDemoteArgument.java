@@ -34,7 +34,7 @@ public class FactionForceDemoteArgument extends CommandArgument {
             return true;
         }
 
-        PlayerFaction playerFaction = plugin.getFactionManager().getContainingPlayerFaction(args[1]);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getContainingPlayerFaction(args[1]);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");

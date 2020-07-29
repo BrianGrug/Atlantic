@@ -67,7 +67,7 @@ public class EventTimer extends GlobalTimer implements Listener {
                 int day = now.getDayOfYear();
                 int hour = now.getHour();
                 int minute = now.getMinute();
-                for (Map.Entry<LocalDateTime, String> entry : plugin.getEventScheduler().getScheduleMap().entrySet()) {
+                for (Map.Entry<LocalDateTime, String> entry : plugin.getManagerHandler().getEventScheduler().getScheduleMap().entrySet()) {
                     // Compare now with the scheduled time..
                     LocalDateTime scheduledTime = entry.getKey();
                     if (day != scheduledTime.getDayOfYear() || hour != scheduledTime.getHour() || minute != scheduledTime.getMinute()) {
@@ -75,7 +75,7 @@ public class EventTimer extends GlobalTimer implements Listener {
                     }
 
                     // Make sure the faction found in schedule exists.
-                    Faction faction = plugin.getFactionManager().getFaction(entry.getValue());
+                    Faction faction = plugin.getManagerHandler().getFactionManager().getFaction(entry.getValue());
                     if (faction instanceof EventFaction && tryContesting((EventFaction) faction, Bukkit.getConsoleSender())) {
                         break;
                     }
@@ -86,7 +86,7 @@ public class EventTimer extends GlobalTimer implements Listener {
 
     @Override
     public String getScoreboardPrefix() {
-        return plugin.messagesYML.getString("SCOREBOARD.EVENT.PREFIX");
+        return plugin.getMessagesYML().getString("SCOREBOARD.EVENT.PREFIX");
     }
 
     @Override
@@ -134,7 +134,7 @@ public class EventTimer extends GlobalTimer implements Listener {
         if (this.eventFaction == null)
             return;
 
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(winner);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(winner);
         Bukkit.broadcastMessage(ChatColor.GOLD + "[" + this.eventFaction.getEventType().getDisplayName() + "] " + ChatColor.DARK_AQUA + winner.getName() + ChatColor.AQUA + '['
                 + (playerFaction == null ? Faction.FACTIONLESS_PREFIX : playerFaction.getName()) + ']' + ChatColor.BLUE + " has captured " + ChatColor.DARK_AQUA + this.eventFaction.getName()
                 + ChatColor.BLUE + " after " + ChatColor.DARK_AQUA + DurationFormatUtils.formatDurationWords(getUptime(), true, true) + " of up-time" + ChatColor.BLUE + '.');

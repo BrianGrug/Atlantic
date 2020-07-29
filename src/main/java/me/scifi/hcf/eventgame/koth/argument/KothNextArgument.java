@@ -37,7 +37,7 @@ public class KothNextArgument extends CommandArgument {
         long millis = System.currentTimeMillis();
         sender.sendMessage(ChatColor.GOLD + "The server time is currently " + ChatColor.YELLOW + DateTimeFormats.DAY_MTH_HR_MIN_AMPM.format(millis) + ChatColor.GOLD + '.');
 
-        Map<LocalDateTime, String> scheduleMap = plugin.getEventScheduler().getScheduleMap();
+        Map<LocalDateTime, String> scheduleMap = plugin.getManagerHandler().getEventScheduler().getScheduleMap();
 
         if (scheduleMap.isEmpty()) {
             sender.sendMessage(ChatColor.RED + "There is not an event schedule for after now.");

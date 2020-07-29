@@ -24,36 +24,36 @@ public class KTKCommand implements CommandExecutor {
           if(sender.hasPermission(command.getPermission())){
               if(args.length == 0){
 
-                  List<String> ktk = plugin.messagesYML.getStringList("KING-HELP");
+                  List<String> ktk = plugin.getMessagesYML().getStringList("KING-HELP");
                   ktk.forEach(str -> sender.sendMessage(Utils.chat(str)));
                   return true;
               }
               if(args.length == 1) {
                   if(args[0].equalsIgnoreCase("status")){
-                      List<String> status = plugin.messagesYML.getStringList("KING-STATUS");
-                      if(plugin.kingManager.isEventActive()){
-                          String health = Double.toString(plugin.kingManager.getKingPlayer().getHealth());
+                      List<String> status = plugin.getMessagesYML().getStringList("KING-STATUS");
+                      if(plugin.getManagerHandler().getKingManager().isEventActive()){
+                          String health = Double.toString(plugin.getManagerHandler().getKingManager().getKingPlayer().getHealth());
                           status.forEach(str -> sender.sendMessage(Utils.chat(str)
-                          .replace("%KINGX%",Integer.toString(plugin.kingManager.getKingPlayer().getLocation().getBlockX()))
-                          .replace("%KINGY%",Integer.toString(plugin.kingManager.getKingPlayer().getLocation().getBlockY()))
-                          .replace("%KINGZ%",Integer.toString(plugin.kingManager.getKingPlayer().getLocation().getBlockZ())
+                          .replace("%KINGX%",Integer.toString(plugin.getManagerHandler().getKingManager().getKingPlayer().getLocation().getBlockX()))
+                          .replace("%KINGY%",Integer.toString(plugin.getManagerHandler().getKingManager().getKingPlayer().getLocation().getBlockY()))
+                          .replace("%KINGZ%",Integer.toString(plugin.getManagerHandler().getKingManager().getKingPlayer().getLocation().getBlockZ())
                           .replace("%HEALTH%",health)
-                          .replace("%KING%",plugin.kingManager.getKingPlayer().getName()))));
+                          .replace("%KING%",plugin.getManagerHandler().getKingManager().getKingPlayer().getName()))));
                           return true;
                       } else {
-                          sender.sendMessage(Utils.chat(plugin.messagesYML.getString("KING-NOT-FOUND")));
+                          sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("KING-NOT-FOUND")));
                           return true;
                       }
                   } else if(args[0].equalsIgnoreCase("end")){
 
                     if(sender.hasPermission(command.getPermission() + ".end")) {
-                        if (plugin.kingManager.isEventActive()) {
-                            sender.sendMessage(Utils.chat(plugin.messagesYML.getString("KING-EVENT-ENDED")));
-                            List<String> ktkend = plugin.messagesYML.getStringList("KING-FORCE-END");
+                        if (plugin.getManagerHandler().getKingManager().isEventActive()) {
+                            sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("KING-EVENT-ENDED")));
+                            List<String> ktkend = plugin.getMessagesYML().getStringList("KING-FORCE-END");
                             ktkend.forEach(str -> Bukkit.getServer().broadcastMessage(Utils.chat(str)));
-                            plugin.kingManager.removeKing(true);
+                            plugin.getManagerHandler().getKingManager().removeKing(true);
                         } else {
-                            sender.sendMessage(Utils.chat(plugin.messagesYML.getString("KING-NOT-FOUND")));
+                            sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("KING-NOT-FOUND")));
                             return true;
                         }
                     }
@@ -61,12 +61,12 @@ public class KTKCommand implements CommandExecutor {
                       if (sender.hasPermission(command.getPermission() + ".start")) {
                           Player p = Bukkit.getServer().getPlayer(args[0]);
                           if(p != null){
-                              if(plugin.kingManager.getKingPlayer() != null){
-                                  sender.sendMessage(Utils.chat(plugin.messagesYML.getString("KING-EVENT-ACTIVE")));
+                              if(plugin.getManagerHandler().getKingManager().getKingPlayer() != null){
+                                  sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("KING-EVENT-ACTIVE")));
                                   return true;
                               } else {
-                                  sender.sendMessage(Utils.chat(plugin.messagesYML.getString("KING-EVENT-STARTED")));
-                                  plugin.kingManager.setKingPlayer(p);
+                                  sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("KING-EVENT-STARTED")));
+                                  plugin.getManagerHandler().getKingManager().setKingPlayer(p);
                               return true;
                               }
                           } else {

@@ -87,12 +87,12 @@ public class SignSubclaimListener implements Listener {
 
             if (this.isSubclaimable(attachedBlock)) {
                 Player player = event.getPlayer();
-                PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+                PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
                 if (playerFaction == null) {
                     return; // only allow officers to create Subclaims
                 }
 
-                Faction factionAt = plugin.getFactionManager().getFactionAt(block.getLocation());
+                Faction factionAt = plugin.getManagerHandler().getFactionManager().getFactionAt(block.getLocation());
                 if (playerFaction == factionAt) {
                     if (this.isSubclaimed(attachedBlock)) {
                         player.sendMessage(ChatColor.RED + "There is already a subclaim sign on this " + attachedBlock.getType().toString() + '.');
@@ -137,7 +137,7 @@ public class SignSubclaimListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onBlockBreak(BlockBreakEvent event) {
-        if (plugin.getEotwHandler().isEndOfTheWorld())
+        if (plugin.getManagerHandler().getEotwHandler().isEndOfTheWorld())
             return;
 
         Player player = event.getPlayer();
@@ -168,7 +168,7 @@ public class SignSubclaimListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onInventoryMoveItem(InventoryMoveItemEvent event) {
-        if (plugin.getEotwHandler().isEndOfTheWorld())
+        if (plugin.getManagerHandler().getEotwHandler().isEndOfTheWorld())
             return;
         InventoryHolder holder = event.getSource().getHolder();
 
@@ -216,7 +216,7 @@ public class SignSubclaimListener implements Listener {
             return;
         }
 
-        if (plugin.getEotwHandler().isEndOfTheWorld() || ConfigurationService.KIT_MAP) {
+        if (plugin.getManagerHandler().getEotwHandler().isEndOfTheWorld() || ConfigurationService.KIT_MAP) {
             return;
         }
 
@@ -245,7 +245,7 @@ public class SignSubclaimListener implements Listener {
             return true;
         }
 
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
         if (playerFaction == null || playerFaction.isRaidable()) {
             return true; // just let the player open it from the start.
         }
@@ -255,7 +255,7 @@ public class SignSubclaimListener implements Listener {
             return true; // let leaders open regardless.
         }
 
-        if (playerFaction != plugin.getFactionManager().getFactionAt(subclaimObject)) {
+        if (playerFaction != plugin.getManagerHandler().getFactionManager().getFactionAt(subclaimObject)) {
             return true;
         }
 

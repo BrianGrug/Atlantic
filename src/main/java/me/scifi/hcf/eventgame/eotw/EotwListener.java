@@ -26,21 +26,21 @@ public class EotwListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerQuit(PlayerQuitEvent event) {
-        EotwHandler.EotwRunnable runnable = plugin.getEotwHandler().getRunnable();
+        EotwHandler.EotwRunnable runnable = plugin.getManagerHandler().getEotwHandler().getRunnable();
         if (runnable != null)
             runnable.handleDisconnect(event.getPlayer());
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerKick(PlayerKickEvent event) {
-        EotwHandler.EotwRunnable runnable = plugin.getEotwHandler().getRunnable();
+        EotwHandler.EotwRunnable runnable = plugin.getManagerHandler().getEotwHandler().getRunnable();
         if (runnable != null)
             runnable.handleDisconnect(event.getPlayer());
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerDeath(PlayerDeathEvent event) {
-        EotwHandler.EotwRunnable runnable = plugin.getEotwHandler().getRunnable();
+        EotwHandler.EotwRunnable runnable = plugin.getManagerHandler().getEotwHandler().getRunnable();
         if (runnable != null)
             runnable.handleDisconnect(event.getEntity());
     }
@@ -48,14 +48,14 @@ public class EotwListener implements Listener {
     /*
      * Configurable please
      * 
-     * @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH) public void onFactionCreate(FactionCreateEvent event) { if (plugin.getEotwHandler().isEndOfTheWorld()) { Faction faction =
+     * @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH) public void onFactionCreate(FactionCreateEvent event) { if (plugin.getManagerHandler().getEotwHandler().isEndOfTheWorld()) { Faction faction =
      * event.getFaction(); if (faction instanceof PlayerFaction) { event.setCancelled(true); event.getSender().sendMessage(ChatColor.RED + "Player based factions cannot be created during EOTW."); } }
      * }
      */
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onFactionClaimChange(FactionClaimChangeEvent event) {
-        if (plugin.getEotwHandler().isEndOfTheWorld() && event.getCause() == ClaimChangeCause.CLAIM) {
+        if (plugin.getManagerHandler().getEotwHandler().isEndOfTheWorld() && event.getCause() == ClaimChangeCause.CLAIM) {
             Faction faction = event.getClaimableFaction();
             if (faction instanceof PlayerFaction) {
                 event.setCancelled(true);

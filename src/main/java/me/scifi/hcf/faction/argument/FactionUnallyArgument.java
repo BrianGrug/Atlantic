@@ -56,7 +56,7 @@ public class FactionUnallyArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
@@ -80,7 +80,7 @@ public class FactionUnallyArgument extends CommandArgument {
 
             targetFactions.addAll(allies);
         } else {
-            Faction searchedFaction = plugin.getFactionManager().getContainingFaction(args[1]);
+            Faction searchedFaction = plugin.getManagerHandler().getFactionManager().getContainingFaction(args[1]);
 
             if (!(searchedFaction instanceof PlayerFaction)) {
                 sender.sendMessage(ChatColor.RED + "Player faction named or containing member with IGN or UUID " + args[1] + " not found.");
@@ -122,7 +122,7 @@ public class FactionUnallyArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
         if (playerFaction == null) {
             return Collections.emptyList();
         }

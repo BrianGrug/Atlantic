@@ -34,7 +34,7 @@ public class Tab {
 
         elevatedTeam = scoreboard.registerNewTeam(getBlanks().get(getBlanks().size() - 1));
 
-        for (Player other : Bukkit.getOnlinePlayers()) {
+        for (Player other : Bukkit.getServer().getOnlinePlayers()) {
 
             getElevatedTeam(other, azazel).addEntry(other.getName());
 

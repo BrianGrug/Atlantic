@@ -81,17 +81,17 @@ public class ShopSignListener implements Listener {
                             fakeLines[0] = ChatColor.GREEN + "Sold " + sellQuantity;
                             fakeLines[3] = ChatColor.GREEN + "for " + EconomyManager.ECONOMY_SYMBOL + newPrice;
 
-                            plugin.getEconomyManager().addBalance(player.getUniqueId(), newPrice);
+                            plugin.getManagerHandler().getEconomyManager().addBalance(player.getUniqueId(), newPrice);
                             InventoryUtils.removeItem(player.getInventory(), stack.getType(), stack.getData().getData(), sellQuantity);
                             player.updateInventory();
                         }
                     }  else if (lines[0].equals(buy)) {
-                        if (price > plugin.getEconomyManager().getBalance(player.getUniqueId())) {
+                        if (price > plugin.getManagerHandler().getEconomyManager().getBalance(player.getUniqueId())) {
                             fakeLines[0] = ChatColor.RED + "Cannot afford";
                         } else {
                             fakeLines[0] = ChatColor.GREEN + "Item bought";
                             fakeLines[3] = ChatColor.GREEN + "for " + EconomyManager.ECONOMY_SYMBOL + price;
-                            plugin.getEconomyManager().subtractBalance(player.getUniqueId(), price);
+                            plugin.getManagerHandler().getEconomyManager().subtractBalance(player.getUniqueId(), price);
 
                             World world = player.getWorld();
                             Location location = player.getLocation();

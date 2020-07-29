@@ -26,9 +26,9 @@ public class ResetCommand implements CommandExecutor {
             }
             Player target = Bukkit.getServer().getPlayer(args[0]);
             if(target != null){
-                plugin.getUserManager().getUserAsync(target.getUniqueId()).setKills(0);
-                plugin.getUserManager().getUserAsync(target.getUniqueId()).setDeaths(0);
-                sender.sendMessage(Utils.chat(plugin.messagesYML.getString("PLAYER-STATISTICS-RESET")
+                plugin.getManagerHandler().getUserManager().getUserAsync(target.getUniqueId()).setKills(0);
+                plugin.getManagerHandler().getUserManager().getUserAsync(target.getUniqueId()).setDeaths(0);
+                sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("PLAYER-STATISTICS-RESET")
                 .replace("%player%",target.getName())));
                 return true;
             }

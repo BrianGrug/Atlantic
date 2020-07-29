@@ -29,7 +29,7 @@ public class LivesClearDeathbansArgument extends CommandArgument {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        for (FactionUser user : plugin.getUserManager().getUsers().values()) {
+        for (FactionUser user : plugin.getManagerHandler().getUserManager().getUsers().values()) {
             user.removeDeathban();
         }
 

@@ -2,6 +2,7 @@ package me.scifi.hcf.user;
 
 import com.doctordark.compat.com.google.common.collect.GuavaCompat;
 import com.doctordark.util.Config;
+import me.scifi.hcf.managers.IManager;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,7 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-public class UserManager implements Listener {
+public class UserManager implements Listener, IManager {
 
     private final HCF plugin;
 
@@ -25,7 +26,6 @@ public class UserManager implements Listener {
 
     public UserManager(HCF plugin) {
         this.plugin = plugin;
-        this.reloadUserData();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
@@ -75,7 +75,8 @@ public class UserManager implements Listener {
     /**
      * Loads the user data from storage.
      */
-    public void reloadUserData() {
+    @Override
+    public void load() {
         this.userConfig = new Config(plugin, "faction-users", plugin.getDataFolder().getAbsolutePath());
 
         Object object = userConfig.get("users");
@@ -91,7 +92,8 @@ public class UserManager implements Listener {
     /**
      * Saves the user data to storage.
      */
-    public void saveUserData() {
+    @Override
+    public void unload() {
         Set<Map.Entry<UUID, FactionUser>> entrySet = users.entrySet();
         Map<String, FactionUser> saveMap = new LinkedHashMap<>(entrySet.size());
         for (Map.Entry<UUID, FactionUser> entry : entrySet) {

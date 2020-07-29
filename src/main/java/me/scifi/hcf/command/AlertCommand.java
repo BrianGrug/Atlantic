@@ -27,7 +27,7 @@ public class AlertCommand implements CommandExecutor {
                         sb.append(args[i]).append(" ");
                     }
                     String message = sb.toString();
-                    String prefix = HCF.getPlugin().messagesYML.getString("ALERT-PREFIX");
+                    String prefix = HCF.getPlugin().getMessagesYML().getString("ALERT-PREFIX");
                     Bukkit.getServer().broadcastMessage(Utils.chat(prefix + " " + message));
                     return true;
                 }

@@ -36,13 +36,13 @@ public class CombatTimer extends PlayerTimer implements Listener {
     private final HCF plugin;
 
     public CombatTimer(HCF plugin) {
-        super(plugin.messagesYML.getString("SCOREBOARD.COMBAT.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().messagesYML.getLong("SCOREBOARD.COMBAT.LENGTH")));
+        super(plugin.getMessagesYML().getString("SCOREBOARD.COMBAT.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().getMessagesYML().getLong("SCOREBOARD.COMBAT.LENGTH")));
         this.plugin = plugin;
     }
 
     @Override
     public String getScoreboardPrefix() {
-        return plugin.messagesYML.getString("SCOREBOARD.COMBAT.PREFIX");
+        return plugin.getMessagesYML().getString("SCOREBOARD.COMBAT.PREFIX");
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -59,7 +59,7 @@ public class CombatTimer extends PlayerTimer implements Listener {
     public void onExpire(UUID userUUID) {
         Player player = Bukkit.getPlayer(userUUID);
         if (player != null) {
-            plugin.getVisualiseHandler().clearVisualBlocks(player, VisualType.SPAWN_BORDER, null);
+            plugin.getManagerHandler().getVisualiseHandler().clearVisualBlocks(player, VisualType.SPAWN_BORDER, null);
         }
     }
 
@@ -136,7 +136,7 @@ public class CombatTimer extends PlayerTimer implements Listener {
             if (optional.isPresent()) {
                 String name = getScoreboardPrefix() + getName();
                 Player player = optional.get();
-                player.sendMessage(Utils.chat(plugin.messagesYML.getString("COMBAT-TAG-MESSAGE").replace("%displayname%",name)
+                player.sendMessage(Utils.chat(plugin.getMessagesYML().getString("COMBAT-TAG-MESSAGE").replace("%displayname%",name)
                 .replace("%duration%", DurationFormatter.getRemaining(event.getDuration(),true,true))));
             }
         }

@@ -27,7 +27,7 @@ public class SetCommand implements CommandExecutor {
               Player p = (Player) sender;
               if(p.hasPermission(command.getPermission())){
                   if(args.length == 0){
-                      List<String> setHelp = Utils.list(plugin.messagesYML.getStringList("SET-HELP"));
+                      List<String> setHelp = Utils.list(plugin.getMessagesYML().getStringList("SET-HELP"));
                       setHelp.forEach(p::sendMessage);
                       return true;
                   }

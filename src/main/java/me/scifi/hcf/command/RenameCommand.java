@@ -34,10 +34,10 @@ public class RenameCommand implements CommandExecutor {
                         }
                         meta.setDisplayName(Utils.chat(sb.toString()));
                         p.getItemInHand().setItemMeta(meta);
-                        p.sendMessage(Utils.chat(plugin.messagesYML.getString("ITEM-RENAMED")));
+                        p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("ITEM-RENAMED")));
                         return true;
                     } else {
-                        p.sendMessage(Utils.chat(plugin.messagesYML.getString("ITEM-UNRENAMABLE")));
+                        p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("ITEM-UNRENAMABLE")));
                         return true;
                     }
                 }

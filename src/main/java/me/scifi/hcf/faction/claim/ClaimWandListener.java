@@ -1,6 +1,7 @@
 package me.scifi.hcf.faction.claim;
 
 import com.google.common.base.Predicate;
+import me.scifi.hcf.economy.EconomyManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -24,7 +25,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import me.scifi.hcf.HCF;
-import me.scifi.hcf.economy.EconomyManager;
 import me.scifi.hcf.faction.type.PlayerFaction;
 import me.scifi.hcf.visualise.VisualBlock;
 import me.scifi.hcf.visualise.VisualType;
@@ -55,24 +55,24 @@ public class ClaimWandListener implements Listener {
 
         // Clearing the claim selection of player.
         if (action == Action.RIGHT_CLICK_AIR) {
-            plugin.getClaimHandler().clearClaimSelection(player);
+            plugin.getManagerHandler().getClaimHandler().clearClaimSelection(player);
             player.setItemInHand(new ItemStack(Material.AIR, 1));
             player.sendMessage(ChatColor.RED + "You have cleared your claim selection.");
             return;
         }
 
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(uuid);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(uuid);
 
         // Purchasing the claim from the selections.
         if ((action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK) && player.isSneaking()) {
-            ClaimSelection claimSelection = plugin.getClaimHandler().claimSelectionMap.get(uuid);
+            ClaimSelection claimSelection = plugin.getManagerHandler().getClaimHandler().claimSelectionMap.get(uuid);
             if (claimSelection == null || !claimSelection.hasBothPositionsSet()) {
                 player.sendMessage(ChatColor.RED + "You have not set both positions of this claim selection.");
                 return;
             }
 
-            if (plugin.getClaimHandler().tryPurchasing(player, claimSelection.toClaim(playerFaction))) {
-                plugin.getClaimHandler().clearClaimSelection(player);
+            if (plugin.getManagerHandler().getClaimHandler().tryPurchasing(player, claimSelection.toClaim(playerFaction))) {
+                plugin.getManagerHandler().getClaimHandler().clearClaimSelection(player);
                 player.setItemInHand(new ItemStack(Material.AIR, 1));
             }
             return;
@@ -88,9 +88,9 @@ public class ClaimWandListener implements Listener {
                 event.setCancelled(true);
             }
 
-            if (plugin.getClaimHandler().canClaimHere(player, blockLocation)) {
+            if (plugin.getManagerHandler().getClaimHandler().canClaimHere(player, blockLocation)) {
                 ClaimSelection revert;
-                ClaimSelection claimSelection = plugin.getClaimHandler().claimSelectionMap.putIfAbsent(uuid, revert = new ClaimSelection(blockLocation.getWorld()));
+                ClaimSelection claimSelection = plugin.getManagerHandler().getClaimHandler().claimSelectionMap.putIfAbsent(uuid, revert = new ClaimSelection(blockLocation.getWorld()));
                 if (claimSelection == null)
                     claimSelection = revert;
 
@@ -134,7 +134,7 @@ public class ClaimWandListener implements Listener {
                 }
 
                 if (oldPosition != null) {
-                    plugin.getVisualiseHandler().clearVisualBlocks(player, VisualType.CREATE_CLAIM_SELECTION, new Predicate<VisualBlock>() {
+                    plugin.getManagerHandler().getVisualiseHandler().clearVisualBlocks(player, VisualType.CREATE_CLAIM_SELECTION, new Predicate<VisualBlock>() {
                         @Override
                         public boolean apply(VisualBlock visualBlock) {
                             Location location = visualBlock.getLocation();
@@ -173,7 +173,7 @@ public class ClaimWandListener implements Listener {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        plugin.getVisualiseHandler().generate(player, locations, VisualType.CREATE_CLAIM_SELECTION, true);
+                        plugin.getManagerHandler().getVisualiseHandler().generate(player, locations, VisualType.CREATE_CLAIM_SELECTION, true);
                     }
                 }.runTask(plugin);
             }
@@ -193,7 +193,7 @@ public class ClaimWandListener implements Listener {
             Player player = (Player) event.getDamager();
             if (isClaimingWand(player.getItemInHand())) {
                 player.setItemInHand(new ItemStack(Material.AIR, 1));
-                plugin.getClaimHandler().clearClaimSelection(player);
+                plugin.getManagerHandler().getClaimHandler().clearClaimSelection(player);
             }
         }
     }
@@ -213,7 +213,7 @@ public class ClaimWandListener implements Listener {
         Item item = event.getItemDrop();
         if (isClaimingWand(item.getItemStack())) {
             item.remove();
-            plugin.getClaimHandler().clearClaimSelection(event.getPlayer());
+            plugin.getManagerHandler().getClaimHandler().clearClaimSelection(event.getPlayer());
         }
     }
 
@@ -222,7 +222,7 @@ public class ClaimWandListener implements Listener {
         Item item = event.getItem();
         if (isClaimingWand(item.getItemStack())) {
             item.remove();
-            plugin.getClaimHandler().clearClaimSelection(event.getPlayer());
+            plugin.getManagerHandler().getClaimHandler().clearClaimSelection(event.getPlayer());
         }
     }
 
@@ -230,7 +230,7 @@ public class ClaimWandListener implements Listener {
     @EventHandler(ignoreCancelled = false, priority = EventPriority.NORMAL)
     public void onPlayerDeath(PlayerDeathEvent event) {
         if (event.getDrops().remove(ClaimHandler.CLAIM_WAND)) {
-            plugin.getClaimHandler().clearClaimSelection(event.getEntity());
+            plugin.getManagerHandler().getClaimHandler().clearClaimSelection(event.getEntity());
         }
     }
 
@@ -242,7 +242,7 @@ public class ClaimWandListener implements Listener {
             Player player = (Player) humanEntity;
             if (player.getInventory().contains(ClaimHandler.CLAIM_WAND)) {
                 player.getInventory().remove(ClaimHandler.CLAIM_WAND);
-                plugin.getClaimHandler().clearClaimSelection(player);
+                plugin.getManagerHandler().getClaimHandler().clearClaimSelection(player);
             }
         }
     }

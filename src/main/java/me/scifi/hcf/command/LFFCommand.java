@@ -25,10 +25,10 @@ public class LFFCommand implements CommandExecutor {
       if(command.getName().equalsIgnoreCase("lff")){
           if(sender instanceof Player){
               Player p = (Player) sender;
-              FactionManager fm = plugin.getFactionManager();
+              FactionManager fm = plugin.getManagerHandler().getFactionManager();
               if(p.hasPermission(command.getPermission())){
                   if(fm.getPlayerFaction(p) == null){
-                      List<String> lff_message = plugin.messagesYML.getStringList("LFF-MESSAGE");
+                      List<String> lff_message = plugin.getMessagesYML().getStringList("LFF-MESSAGE");
                       if(plugin.getLff().isOnCooldown(p)) {
                           p.sendMessage(Utils.chat("&cYou are already on cooldown for " + DurationFormatter.getRemaining(plugin.getLff().getRemaining(p),true)));
                           return true;

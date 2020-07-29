@@ -33,13 +33,13 @@ public class FreezeCommand implements CommandExecutor {
             if(target != null){
                 if(!frozen.containsKey(target.getUniqueId())){
                     frozen.put(target.getUniqueId(),target.getLocation());
-                    sender.sendMessage(Utils.chat(plugin.messagesYML.getString("STAFF-FROZEN-PLAYER")
+                    sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("STAFF-FROZEN-PLAYER")
                     .replace("%player%", target.getName())));
                     Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
                         @Override
                         public void run() {
                             if(frozen.containsKey(target.getUniqueId())){
-                                List<String> frozen_msg = plugin.messagesYML.getStringList("PLAYER-FROZEN-MESSAGE");
+                                List<String> frozen_msg = plugin.getMessagesYML().getStringList("PLAYER-FROZEN-MESSAGE");
                                 Utils.list(frozen_msg).forEach(target::sendMessage);
                             }
                         }
@@ -48,11 +48,11 @@ public class FreezeCommand implements CommandExecutor {
                 }
 
                 frozen.remove(target.getUniqueId());
-                sender.sendMessage(Utils.chat(plugin.messagesYML.getString("STAFF-UNFROZEN-PLAYER")
+                sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("STAFF-UNFROZEN-PLAYER")
                 .replace("%player%",target.getName())));
                 return true;
             }
-            sender.sendMessage(Utils.chat(plugin.messagesYML.getString("PLAYER-NOT-FOUND")));
+            sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("PLAYER-NOT-FOUND")));
             return true;
         }
         return false;

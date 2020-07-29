@@ -50,7 +50,7 @@ public class SotwTimer {
 
         @Override
         public void run() {
-            List<String> sotwEnded = HCF.getPlugin().messagesYML.getStringList("SOTW-ENDED-MESSAGE");
+            List<String> sotwEnded = HCF.getPlugin().getMessagesYML().getStringList("SOTW-ENDED-MESSAGE");
             sotwEnded.forEach(str -> Bukkit.broadcastMessage(Utils.chat(str)));
             this.cancel();
             this.sotwTimer.sotwRunnable = null;

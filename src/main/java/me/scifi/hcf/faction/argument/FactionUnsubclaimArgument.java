@@ -36,7 +36,7 @@ public class FactionUnsubclaimArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
@@ -62,7 +62,7 @@ public class FactionUnsubclaimArgument extends CommandArgument {
          * 
          * removingClaims = null; sender.sendMessage(ChatColor.RED + "Removing subclaims by a radius is currently unimplemented."); return true; } }
          * 
-         * // Try and identify any here if none of the arguments above return. if (removingClaims == null) { Claim claimAt = plugin.getFactionManager().getClaimAt(location); removingClaims = claimAt
+         * // Try and identify any here if none of the arguments above return. if (removingClaims == null) { Claim claimAt = plugin.getManagerHandler().getFactionManager().getClaimAt(location); removingClaims = claimAt
          * != null ? Collections.singletonList(claimAt) : Collections.emptyList(); }
          * 
          * int removed = 0; for (Claim claim : removingClaims) { Iterator<Subclaim> iterator = claim.getSubclaims().iterator(); while (iterator.hasNext()) { Subclaim subclaim = iterator.next(); if

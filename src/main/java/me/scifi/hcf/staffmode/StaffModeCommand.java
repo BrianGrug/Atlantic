@@ -62,11 +62,11 @@ public class StaffModeCommand implements CommandExecutor {
                 if(p.hasPermission(command.getPermission())){
                    if(staffMode.contains(p.getUniqueId())){
                        removeFromStaffMode(p);
-                       p.sendMessage(Utils.chat(plugin.messagesYML.getString("STAFFMODE-DISABLED")));
+                       p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("STAFFMODE-DISABLED")));
                        return true;
                    } else {
                        putInStaffMode(p);
-                       p.sendMessage(Utils.chat(plugin.messagesYML.getString("STAFFMODE-ENABLED")));
+                       p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("STAFFMODE-ENABLED")));
                        return true;
                    }
                 }

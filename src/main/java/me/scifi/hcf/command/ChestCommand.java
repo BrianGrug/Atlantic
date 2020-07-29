@@ -20,7 +20,7 @@ public class ChestCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player){
             Player p = (Player) sender;
-            FactionManager fm = plugin.getFactionManager();
+            FactionManager fm = plugin.getManagerHandler().getFactionManager();
             if(p.hasPermission(command.getPermission())){
                 if(plugin.getConfig().getBoolean("kit-map")){
                     if(fm.getClaimAt(p.getLocation()) != null && fm.getClaimAt(p.getLocation()).getFaction().isSafezone()) {

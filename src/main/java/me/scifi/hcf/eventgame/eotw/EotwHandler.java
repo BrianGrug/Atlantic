@@ -5,6 +5,7 @@ import me.scifi.hcf.DurationFormatter;
 import me.scifi.hcf.HCF;
 import me.scifi.hcf.faction.type.ClaimableFaction;
 import me.scifi.hcf.faction.type.Faction;
+import me.scifi.hcf.managers.IManager;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Handles the EndOfTheWorld mini-game which shrinks the border and runs a KOTH event.
  */
-public class EotwHandler {
+public class EotwHandler implements IManager {
 
     public static final int BORDER_DECREASE_MINIMUM = 500;
     public static final int BORDER_DECREASE_AMOUNT = 200;
@@ -131,7 +132,7 @@ public class EotwHandler {
             elapsedSeconds++;
 
             if (elapsedSeconds == 0) {
-                for (Faction faction : HCF.getPlugin().getFactionManager().getFactions()) {
+                for (Faction faction : HCF.getPlugin().getManagerHandler().getFactionManager().getFactions()) {
                     if (faction instanceof ClaimableFaction) {
                         ClaimableFaction claimableFaction = (ClaimableFaction) faction;
                         claimableFaction.removeClaims(claimableFaction.getClaims(), Bukkit.getConsoleSender());
@@ -178,13 +179,13 @@ public class EotwHandler {
                     ConfigurationService.BORDER_SIZES.put(current, borderSize = newBorderSize);
                     String msg = (ChatColor.DARK_AQUA + "Border has been decreased to " + ChatColor.YELLOW + newBorderSize + ChatColor.DARK_AQUA + " blocks.");
 
-                    for (Player player : Bukkit.getOnlinePlayers()) {
+                    for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                         if (player.getWorld().getEnvironment().equals(current))
                             player.sendMessage(msg);
                     }
 
                     // Update list of players outside of the border now it has shrunk.
-                    for (Player player : Bukkit.getOnlinePlayers()) {
+                    for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 
                         if (!BorderListener.isWithinBorder(player.getLocation())) {
                             outsideBorder.add(player);
@@ -194,7 +195,7 @@ public class EotwHandler {
                 } else if (elapsedSeconds % BORDER_DECREASE_TIME_SECONDS_HALVED == 0) {
                     String msg2 = (ChatColor.DARK_AQUA + "Border decreasing to " + ChatColor.YELLOW + newBorderSize + ChatColor.DARK_AQUA + " blocks in " + ChatColor.YELLOW
                             + BORDER_DECREASE_TIME_ALERT_WORDS + ChatColor.DARK_AQUA + '.');
-                    for (Player player : Bukkit.getOnlinePlayers()) {
+                    for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                         if (player.getWorld().getEnvironment().equals(current))
                             player.sendMessage(msg2);
                     }

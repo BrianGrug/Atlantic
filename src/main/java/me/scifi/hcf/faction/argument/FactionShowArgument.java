@@ -38,15 +38,15 @@ public class FactionShowArgument extends CommandArgument {
                 return true;
             }
 
-            namedFaction = plugin.getFactionManager().getPlayerFaction((Player) sender);
+            namedFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction((Player) sender);
 
             if (namedFaction == null) {
                 sender.sendMessage(ChatColor.RED + "You are not in a faction.");
                 return true;
             }
         } else {
-            namedFaction = plugin.getFactionManager().getFaction(args[1]);
-            playerFaction = plugin.getFactionManager().getContainingPlayerFaction(args[1]);
+            namedFaction = plugin.getManagerHandler().getFactionManager().getFaction(args[1]);
+            playerFaction = plugin.getManagerHandler().getFactionManager().getContainingPlayerFaction(args[1]);
 
             if (namedFaction == null && playerFaction == null) {
                 sender.sendMessage(ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
@@ -76,7 +76,7 @@ public class FactionShowArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        List<String> results = new ArrayList<>(plugin.getFactionManager().getFactionNameMap().keySet());
+        List<String> results = new ArrayList<>(plugin.getManagerHandler().getFactionManager().getFactionNameMap().keySet());
         for (Player target : HCF.getOnlinePlayers()) {
             if (player.canSee(target) && !results.contains(target.getName())) {
                 results.add(target.getName());

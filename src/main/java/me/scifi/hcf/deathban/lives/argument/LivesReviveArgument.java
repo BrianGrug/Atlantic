@@ -60,7 +60,7 @@ public class LivesReviveArgument extends CommandArgument {
         }
 
         UUID targetUUID = target.getUniqueId();
-        FactionUser factionTarget = plugin.getUserManager().getUser(targetUUID);
+        FactionUser factionTarget = plugin.getManagerHandler().getUserManager().getUser(targetUUID);
         Deathban deathban = factionTarget.getDeathban();
 
         if (deathban == null || !deathban.isActive()) {
@@ -76,7 +76,7 @@ public class LivesReviveArgument extends CommandArgument {
                     return true;
                 }
 
-                if (plugin.getEotwHandler().isEndOfTheWorld()) {
+                if (plugin.getManagerHandler().getEotwHandler().isEndOfTheWorld()) {
                     sender.sendMessage(ChatColor.RED + "You cannot revive players during EOTW.");
                     return true;
                 }
@@ -84,16 +84,16 @@ public class LivesReviveArgument extends CommandArgument {
 
             Player player = (Player) sender;
             UUID playerUUID = player.getUniqueId();
-            int selfLives = plugin.getDeathbanManager().getLives(playerUUID);
+            int selfLives = plugin.getManagerHandler().getDeathbanManager().getLives(playerUUID);
 
             if (selfLives <= 0) {
                 sender.sendMessage(ChatColor.RED + "You do not have any lives.");
                 return true;
             }
 
-            plugin.getDeathbanManager().setLives(playerUUID, selfLives - 1);
-            PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
-            relation = playerFaction == null ? Relation.ENEMY : playerFaction.getFactionRelation(plugin.getFactionManager().getPlayerFaction(targetUUID));
+            plugin.getManagerHandler().getDeathbanManager().setLives(playerUUID, selfLives - 1);
+            PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
+            relation = playerFaction == null ? Relation.ENEMY : playerFaction.getFactionRelation(plugin.getManagerHandler().getFactionManager().getPlayerFaction(targetUUID));
             sender.sendMessage(ChatColor.YELLOW + "You have used a life to revive " + relation.toChatColour() + target.getName() + ChatColor.YELLOW + '.');
         } else {
             sender.sendMessage(ChatColor.YELLOW + "You have revived " + ConfigurationService.ENEMY_COLOUR + target.getName() + ChatColor.YELLOW + '.');
@@ -121,7 +121,7 @@ public class LivesReviveArgument extends CommandArgument {
         }
 
         List<String> results = new ArrayList<>();
-        Collection<FactionUser> factionUsers = plugin.getUserManager().getUsers().values();
+        Collection<FactionUser> factionUsers = plugin.getManagerHandler().getUserManager().getUsers().values();
         for (FactionUser factionUser : factionUsers) {
             Deathban deathban = factionUser.getDeathban();
             if (deathban == null || !deathban.isActive())

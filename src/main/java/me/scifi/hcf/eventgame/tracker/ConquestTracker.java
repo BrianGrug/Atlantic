@@ -146,7 +146,7 @@ public class ConquestTracker implements EventTracker, Listener {
             if (remainingMillis <= 0L) {
                 UUID uuid = cappingPlayer.getUniqueId();
 
-                PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(uuid);
+                PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(uuid);
                 if (playerFaction != null) {
                     int newPoints = addPoints(playerFaction, 1);
                     if (newPoints < ConfigurationService.CONQUEST_REQUIRED_WIN_POINTS) {
@@ -162,7 +162,7 @@ public class ConquestTracker implements EventTracker, Listener {
                             factionPointsMap.clear();
                         }
 
-                        plugin.getTimerManager().getEventTimer().handleWinner(cappingPlayer);
+                        plugin.getManagerHandler().getTimerManager().getEventTimer().handleWinner(cappingPlayer);
                         return;
                     }
                 }
@@ -185,7 +185,7 @@ public class ConquestTracker implements EventTracker, Listener {
 
     @Override
     public boolean onControlTake(Player player, CaptureZone captureZone) {
-        if (plugin.getFactionManager().getPlayerFaction(player.getUniqueId()) == null) {
+        if (plugin.getManagerHandler().getFactionManager().getPlayerFaction(player.getUniqueId()) == null) {
             player.sendMessage(ChatColor.RED + "You must be in a faction to capture for Conquest.");
             return false;
         }
@@ -211,10 +211,10 @@ public class ConquestTracker implements EventTracker, Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
     public void onPlayerDeath(PlayerDeathEvent event) {
-        Faction currentEventFac = plugin.getTimerManager().getEventTimer().getEventFaction();
+        Faction currentEventFac = plugin.getManagerHandler().getTimerManager().getEventTimer().getEventFaction();
         if (currentEventFac instanceof ConquestFaction) {
             Player player = event.getEntity();
-            PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+            PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
             if (playerFaction != null && ConfigurationService.CONQUEST_POINT_LOSS_PER_DEATH > 0) {
                 int oldPoints = getPoints(playerFaction);
                 if (oldPoints == 0) return;

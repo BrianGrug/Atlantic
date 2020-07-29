@@ -53,7 +53,7 @@ public class SubclaimWandListener implements Listener {
 
         // Clearing the claim selection of player.
         if (action == Action.RIGHT_CLICK_AIR) {
-            plugin.getClaimHandler().clearClaimSelection(player);
+            plugin.getManagerHandler().getClaimHandler().clearClaimSelection(player);
             player.setItemInHand(new ItemStack(Material.AIR, 1));
             player.sendMessage(ChatColor.RED + "You have cleared your subclaim selection.");
             return;
@@ -75,9 +75,9 @@ public class SubclaimWandListener implements Listener {
                 event.setCancelled(true);
             }
 
-            if (plugin.getClaimHandler().canSubclaimHere(player, blockLocation)) {
+            if (plugin.getManagerHandler().getClaimHandler().canSubclaimHere(player, blockLocation)) {
                 ClaimSelection revert;
-                ClaimSelection claimSelection = plugin.getClaimHandler().claimSelectionMap.putIfAbsent(uuid, revert = new ClaimSelection(blockLocation.getWorld()));
+                ClaimSelection claimSelection = plugin.getManagerHandler().getClaimHandler().claimSelectionMap.putIfAbsent(uuid, revert = new ClaimSelection(blockLocation.getWorld()));
                 if (claimSelection == null)
                     claimSelection = revert;
 
@@ -117,7 +117,7 @@ public class SubclaimWandListener implements Listener {
                 }
 
                 if (oldPosition != null) {
-                    plugin.getVisualiseHandler().clearVisualBlocks(player, VisualType.CREATE_CLAIM_SELECTION, new Predicate<VisualBlock>() {
+                    plugin.getManagerHandler().getVisualiseHandler().clearVisualBlocks(player, VisualType.CREATE_CLAIM_SELECTION, new Predicate<VisualBlock>() {
                         @Override
                         public boolean apply(VisualBlock visualBlock) {
                             Location location = visualBlock.getLocation();
@@ -148,7 +148,7 @@ public class SubclaimWandListener implements Listener {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        plugin.getVisualiseHandler().generate(player, locations, VisualType.CREATE_CLAIM_SELECTION, true);
+                        plugin.getManagerHandler().getVisualiseHandler().generate(player, locations, VisualType.CREATE_CLAIM_SELECTION, true);
                     }
                 }.runTask(plugin);
             }
@@ -168,7 +168,7 @@ public class SubclaimWandListener implements Listener {
             Player player = (Player) event.getDamager();
             if (isSubclaimWand(player.getItemInHand())) {
                 player.setItemInHand(new ItemStack(Material.AIR, 1));
-                plugin.getClaimHandler().clearClaimSelection(player);
+                plugin.getManagerHandler().getClaimHandler().clearClaimSelection(player);
             }
         }
     }
@@ -188,7 +188,7 @@ public class SubclaimWandListener implements Listener {
         Item item = event.getItemDrop();
         if (isSubclaimWand(item.getItemStack())) {
             item.remove();
-            plugin.getClaimHandler().clearClaimSelection(event.getPlayer());
+            plugin.getManagerHandler().getClaimHandler().clearClaimSelection(event.getPlayer());
         }
     }
 
@@ -197,7 +197,7 @@ public class SubclaimWandListener implements Listener {
         Item item = event.getItem();
         if (isSubclaimWand(item.getItemStack())) {
             item.remove();
-            plugin.getClaimHandler().clearClaimSelection(event.getPlayer());
+            plugin.getManagerHandler().getClaimHandler().clearClaimSelection(event.getPlayer());
         }
     }
 
@@ -205,7 +205,7 @@ public class SubclaimWandListener implements Listener {
     @EventHandler(ignoreCancelled = false, priority = EventPriority.NORMAL)
     public void onPlayerDeath(PlayerDeathEvent event) {
         if (event.getDrops().remove(ClaimHandler.SUBCLAIM_WAND)) {
-            plugin.getClaimHandler().clearClaimSelection(event.getEntity());
+            plugin.getManagerHandler().getClaimHandler().clearClaimSelection(event.getEntity());
         }
     }
 
@@ -217,7 +217,7 @@ public class SubclaimWandListener implements Listener {
             Player player = (Player) humanEntity;
             if (player.getInventory().contains(ClaimHandler.SUBCLAIM_WAND)) {
                 player.getInventory().remove(ClaimHandler.SUBCLAIM_WAND);
-                plugin.getClaimHandler().clearClaimSelection(player);
+                plugin.getManagerHandler().getClaimHandler().clearClaimSelection(player);
             }
         }
     }

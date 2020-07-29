@@ -30,7 +30,7 @@ public class EventUptimeArgument extends CommandArgument {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        EventTimer eventTimer = plugin.getTimerManager().getEventTimer();
+        EventTimer eventTimer = plugin.getManagerHandler().getTimerManager().getEventTimer();
 
         if (eventTimer.getRemaining() <= 0L) {
             sender.sendMessage(ChatColor.RED + "There is not a running event.");

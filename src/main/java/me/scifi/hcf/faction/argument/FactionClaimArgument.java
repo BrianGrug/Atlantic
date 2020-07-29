@@ -36,7 +36,7 @@ public class FactionClaimArgument extends CommandArgument {
         Player player = (Player) sender;
         UUID uuid = player.getUniqueId();
 
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(uuid);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(uuid);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");

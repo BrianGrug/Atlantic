@@ -97,7 +97,7 @@ public class WorldListener implements Listener {
         Player player = event.getPlayer();
         if (!player.hasPlayedBefore()) {
 
-            plugin.getEconomyManager().addBalance(player.getUniqueId(), plugin.getConfig().getInt("STARTING-BALANCE")); // give player some starting money
+            plugin.getManagerHandler().getEconomyManager().addBalance(player.getUniqueId(), plugin.getConfig().getInt("STARTING-BALANCE")); // give player some starting money
             player.teleport(player.getWorld().getSpawnLocation());
         }
     }

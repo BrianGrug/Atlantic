@@ -45,7 +45,7 @@ public class FactionRenameArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
@@ -79,7 +79,7 @@ public class FactionRenameArgument extends CommandArgument {
             return true;
         }
 
-        if (plugin.getFactionManager().getFaction(newName) != null) {
+        if (plugin.getManagerHandler().getFactionManager().getFaction(newName) != null) {
             sender.sendMessage(ChatColor.RED + "Faction " + newName + ChatColor.RED + " already exists.");
             return true;
         }

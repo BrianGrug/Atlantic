@@ -52,7 +52,7 @@ public final class ProtocolLibHook {
                         Location location = new Location(player.getWorld(), x = modifier.read(0), y = modifier.read(1), z = modifier.read(2));
 
                         // Validation
-                        VisualBlock visualBlock = hcf.getVisualiseHandler().getVisualBlockAt(player, location);
+                        VisualBlock visualBlock = hcf.getManagerHandler().getVisualiseHandler().getVisualBlockAt(player, location);
                         if (visualBlock == null)
                             return;
 

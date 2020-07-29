@@ -48,7 +48,7 @@ public class LandMap {
 
         for(int x = minimumX; x <= maximumX; ++x) {
             for(int z = minimumZ; z <= maximumZ; ++z) {
-                final Claim claim = plugin.getFactionManager().getClaimAt(world, x, z);
+                final Claim claim = plugin.getManagerHandler().getFactionManager().getClaimAt(world, x, z);
                 if(claim != null) {
                     board.add(claim);
                 }
@@ -67,7 +67,7 @@ public class LandMap {
                     shown.add(world.getBlockAt(corner.getBlockX(), y, corner.getBlockZ()).getLocation());
                 }
             }
-            final Map<Location, VisualBlockData> dataMap = plugin.getVisualiseHandler().generate(player, shown, visualType, true);
+            final Map<Location, VisualBlockData> dataMap = plugin.getManagerHandler().getVisualiseHandler().generate(player, shown, visualType, true);
             if(dataMap.isEmpty()) {
                 continue LOOP_MAIN;
             }
@@ -94,7 +94,7 @@ public class LandMap {
         player.getWorld();
         location.getBlockX();
         location.getBlockZ();
-        Claim  claimAt = HCF.getPlugin().getFactionManager().getClaimAt(player.getLocation());
+        Claim  claimAt = HCF.getPlugin().getManagerHandler().getFactionManager().getClaimAt(player.getLocation());
         Location closest = null;
         for(Location claim : claimAt.getCornerLocations()) {
             if(closest == null){

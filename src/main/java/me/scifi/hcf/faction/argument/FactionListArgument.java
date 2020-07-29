@@ -79,7 +79,7 @@ public class FactionListArgument extends CommandArgument {
         Player senderPlayer = sender instanceof Player ? (Player) sender : null;
         for (Player target : HCF.getOnlinePlayers()) {
             if (senderPlayer == null || senderPlayer.canSee(target)) {
-                PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(target);
+                PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(target);
                 if (playerFaction != null) {
                     factionOnlineMap.put(playerFaction, factionOnlineMap.getOrDefault(playerFaction, 0) + 1);
                 }

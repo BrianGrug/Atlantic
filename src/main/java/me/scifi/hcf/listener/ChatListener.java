@@ -1,6 +1,5 @@
 package me.scifi.hcf.listener;
 
-import com.doctordark.util.Rank;
 import me.scifi.hcf.HCF;
 import me.scifi.hcf.Utils;
 import me.scifi.hcf.command.MuteChatCommand;
@@ -28,11 +27,11 @@ public class ChatListener implements Listener {
     public void onChat(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         String message = e.getMessage().replace("%", "%%");
-        FactionManager fm = plugin.getFactionManager();
+        FactionManager fm = plugin.getManagerHandler().getFactionManager();
         String rankName = plugin.getRank().getGroupPrefix(p);
         ChatChannel chatChannel = fm.getPlayerFaction(p) == null ? ChatChannel.PUBLIC : fm.getPlayerFaction(p).getMember(p).getChatChannel();
         if (MuteChatCommand.isLocked && !p.hasPermission("hcf.command.mutechat.bypass")) {
-            p.sendMessage(Utils.chat(plugin.messagesYML.getString("CHAT-MUTED-TALK")));
+            p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("CHAT-MUTED-TALK")));
             e.setCancelled(true);
         }
         if (chatChannel == ChatChannel.PUBLIC) {

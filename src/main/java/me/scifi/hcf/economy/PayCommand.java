@@ -47,7 +47,7 @@ public class PayCommand implements CommandExecutor, TabCompleter {
 
             // Calculate the senders balance here.
             Player senderPlayer = sender instanceof Player ? (Player) sender : null;
-            int senderBalance = senderPlayer != null ? plugin.getEconomyManager().getBalance(senderPlayer.getUniqueId()) : 1024;
+            int senderBalance = senderPlayer != null ? plugin.getManagerHandler().getEconomyManager().getBalance(senderPlayer.getUniqueId()) : 1024;
 
             if (senderBalance < amount) {
                 sender.sendMessage(ChatColor.RED + "You tried to pay " + EconomyManager.ECONOMY_SYMBOL + amount + ", but you only have " + EconomyManager.ECONOMY_SYMBOL + senderBalance
@@ -75,8 +75,8 @@ public class PayCommand implements CommandExecutor, TabCompleter {
 
             // Make the money transactions.
             if (senderPlayer != null)
-                plugin.getEconomyManager().subtractBalance(senderPlayer.getUniqueId(), amount);
-            plugin.getEconomyManager().addBalance(targetPlayer.getUniqueId(), amount);
+                plugin.getManagerHandler().getEconomyManager().subtractBalance(senderPlayer.getUniqueId(), amount);
+            plugin.getManagerHandler().getEconomyManager().addBalance(targetPlayer.getUniqueId(), amount);
 
             targetPlayer.sendMessage(ChatColor.YELLOW + sender.getName() + " has sent you " + ChatColor.GOLD + EconomyManager.ECONOMY_SYMBOL + amount + ChatColor.YELLOW + '.');
             sender.sendMessage(ChatColor.YELLOW + "You have sent " + ChatColor.GOLD + EconomyManager.ECONOMY_SYMBOL + amount + ChatColor.YELLOW + " to " + target.getName() + '.');

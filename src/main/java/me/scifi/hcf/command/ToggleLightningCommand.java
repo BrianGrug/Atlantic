@@ -30,7 +30,7 @@ public class ToggleLightningCommand implements CommandExecutor, TabExecutor {
             return true;
         }
 
-        FactionUser factionUser = plugin.getUserManager().getUser(((Player) sender).getUniqueId());
+        FactionUser factionUser = plugin.getManagerHandler().getUserManager().getUser(((Player) sender).getUniqueId());
         boolean newShowLightning = !factionUser.isShowLightning();
         factionUser.setShowLightning(newShowLightning);
 

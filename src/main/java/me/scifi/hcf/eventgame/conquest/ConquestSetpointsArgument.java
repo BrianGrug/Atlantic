@@ -33,7 +33,7 @@ public class ConquestSetpointsArgument extends CommandArgument {
             return true;
         }
 
-        Faction faction = plugin.getFactionManager().getFaction(args[1]);
+        Faction faction = plugin.getManagerHandler().getFactionManager().getFaction(args[1]);
 
         if (!(faction instanceof PlayerFaction)) {
             sender.sendMessage(ChatColor.RED + "Faction " + args[1] + " is either not found or is not a player faction.");

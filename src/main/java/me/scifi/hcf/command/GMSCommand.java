@@ -24,7 +24,7 @@ public class GMSCommand implements CommandExecutor {
             Player p = (Player) sender;
             if(p.hasPermission(command.getPermission())){
                 p.setGameMode(GameMode.SURVIVAL);
-                p.sendMessage(Utils.chat(plugin.messagesYML.getString("GAMEMODE-CHANGED-SURVIVAL")));
+                p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("GAMEMODE-CHANGED-SURVIVAL")));
                 return true;
             }
         }

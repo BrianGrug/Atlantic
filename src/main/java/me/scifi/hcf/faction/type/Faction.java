@@ -126,7 +126,7 @@ public abstract class Faction implements ConfigurationSerializable {
     }
 
     public Relation getRelation(CommandSender sender) {
-        return sender instanceof Player ? getFactionRelation(HCF.getPlugin().getFactionManager().getPlayerFaction((Player) sender)) : Relation.ENEMY;
+        return sender instanceof Player ? getFactionRelation(HCF.getPlugin().getManagerHandler().getFactionManager().getPlayerFaction((Player) sender)) : Relation.ENEMY;
     }
 
     /**

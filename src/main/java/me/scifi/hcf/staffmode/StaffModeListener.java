@@ -37,7 +37,7 @@ public class StaffModeListener implements Listener {
     public void onBlockPlace(BlockPlaceEvent e){
         Player p = e.getPlayer();
         if(StaffModeCommand.staffMode.contains(p.getUniqueId())){
-            p.sendMessage(Utils.chat(plugin.messagesYML.getString("STAFFMODE-BLOCK-PLACE")));
+            p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("STAFFMODE-BLOCK-PLACE")));
             e.setCancelled(true);
         }
 
@@ -54,7 +54,7 @@ public class StaffModeListener implements Listener {
     public void onBlockBreak(BlockBreakEvent e){
         Player p = e.getPlayer();
         if(StaffModeCommand.staffMode.contains(p.getUniqueId())){
-            p.sendMessage(Utils.chat(plugin.messagesYML.getString("STAFFMODE-BLOCK-BREAK")));
+            p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("STAFFMODE-BLOCK-BREAK")));
             e.setCancelled(true);
         }
     }
@@ -98,25 +98,25 @@ public class StaffModeListener implements Listener {
     public void onInteract(PlayerInteractEvent e){
         Player p = e.getPlayer();
         if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK){
-           if(StaffModeCommand.staffMode.contains(p.getUniqueId()) && e.getItem() != null && e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName() && e.getItem().getItemMeta().getDisplayName().equals(Utils.chat(plugin.messagesYML.getString("STAFFMODE.VANISHITEM.NAME.ENABLED")))){
+           if(StaffModeCommand.staffMode.contains(p.getUniqueId()) && e.getItem() != null && e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName() && e.getItem().getItemMeta().getDisplayName().equals(Utils.chat(plugin.getMessagesYML().getString("STAFFMODE.VANISHITEM.NAME.ENABLED")))){
                Vanish.disableVanish(p);
                ItemStack dye = new ItemStack(Material.INK_SACK,1,(short) 8);
                ItemMeta dyeMeta = dye.getItemMeta();
-               dyeMeta.setDisplayName(Utils.chat(plugin.messagesYML.getString("STAFFMODE.VANISHITEM.NAME.DISABLED")));
+               dyeMeta.setDisplayName(Utils.chat(plugin.getMessagesYML().getString("STAFFMODE.VANISHITEM.NAME.DISABLED")));
                List<String> lore = new ArrayList<>();
-               for(String s : plugin.messagesYML.getStringList("STAFFMODE.VANISHITEM.LORE")){
+               for(String s : plugin.getMessagesYML().getStringList("STAFFMODE.VANISHITEM.LORE")){
                    lore.add(ChatColor.translateAlternateColorCodes('&',s));
                     }
                dyeMeta.setLore(lore);
                dye.setItemMeta(dyeMeta);
                p.getInventory().setItemInHand(dye);
-                 } else if(StaffModeCommand.staffMode.contains(p.getUniqueId()) && e.getItem() != null  && e.getItem().getItemMeta().getDisplayName().equals(Utils.chat(plugin.messagesYML.getString("STAFFMODE.VANISHITEM.NAME.DISABLED")))){
+                 } else if(StaffModeCommand.staffMode.contains(p.getUniqueId()) && e.getItem() != null  && e.getItem().getItemMeta().getDisplayName().equals(Utils.chat(plugin.getMessagesYML().getString("STAFFMODE.VANISHITEM.NAME.DISABLED")))){
                 Vanish.setVanished(p);
                ItemStack dye = new ItemStack(Material.INK_SACK,1,(short) 10);
                ItemMeta dyeMeta = dye.getItemMeta();
-               dyeMeta.setDisplayName(Utils.chat(plugin.messagesYML.getString("STAFFMODE.VANISHITEM.NAME.ENABLED")));
+               dyeMeta.setDisplayName(Utils.chat(plugin.getMessagesYML().getString("STAFFMODE.VANISHITEM.NAME.ENABLED")));
                List<String> lore = new ArrayList<>();
-               for(String s : plugin.messagesYML.getStringList("STAFFMODE.VANISHITEM.LORE")){
+               for(String s : plugin.getMessagesYML().getStringList("STAFFMODE.VANISHITEM.LORE")){
                    lore.add(ChatColor.translateAlternateColorCodes('&',s));
                }
                dyeMeta.setLore(lore);
@@ -131,23 +131,23 @@ public class StaffModeListener implements Listener {
         Player p = e.getPlayer();
         ItemStack head = new ItemStack(Material.SKULL_ITEM,1);
         ItemMeta headMeta = head.getItemMeta();
-        headMeta.setDisplayName(Utils.chat(HCF.getPlugin().messagesYML.getString("STAFFMODE.RANDOMTP.NAME")));
-        headMeta.setLore(Utils.list(HCF.getPlugin().messagesYML.getStringList("STAFFMODE-RANDOMTP.LORE")));
+        headMeta.setDisplayName(Utils.chat(HCF.getPlugin().getMessagesYML().getString("STAFFMODE.RANDOMTP.NAME")));
+        headMeta.setLore(Utils.list(HCF.getPlugin().getMessagesYML().getStringList("STAFFMODE-RANDOMTP.LORE")));
         head.setItemMeta(headMeta);
         if(p.getItemInHand().equals(head)) {
             Random random = new Random();
             if (HCF.getOnlinePlayers().size() > 1) {
                 int index = random.nextInt(HCF.getOnlinePlayers().size());
-                Player to = (Player) Bukkit.getOnlinePlayers()[index];
+                Player to = (Player) Bukkit.getServer().getOnlinePlayers().toArray()[index];
                 if (to != p) {
                     p.teleport(to);
-                    p.sendMessage(Utils.chat(plugin.messagesYML.getString("TELEPORT-SUCCESSFUL-MESSAGE")));
+                    p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("TELEPORT-SUCCESSFUL-MESSAGE")));
                 } else {
                     p.sendMessage(Utils.chat("&cYou cannot teleport to yourself."));
                 }
 
             } else {
-                p.sendMessage(Utils.chat(plugin.messagesYML.getString("NOT-ENOUGH-PLAYERS")));
+                p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("NOT-ENOUGH-PLAYERS")));
             }
         }
     }
@@ -158,9 +158,9 @@ public class StaffModeListener implements Listener {
         Player p = e.getPlayer();
 
         ItemMeta bookMeta = new ItemStack(Material.BOOK,1).getItemMeta();
-        bookMeta.setDisplayName(Utils.chat(HCF.getPlugin().messagesYML.getString("STAFFMODE.INSPECT.NAME")));
+        bookMeta.setDisplayName(Utils.chat(HCF.getPlugin().getMessagesYML().getString("STAFFMODE.INSPECT.NAME")));
         List<String> bookLore = new ArrayList<>();
-        for (String s: HCF.getPlugin().messagesYML.getStringList("STAFFMODE.INSPECT.LORE")) {
+        for (String s: HCF.getPlugin().getMessagesYML().getStringList("STAFFMODE.INSPECT.LORE")) {
             bookLore.add(ChatColor.translateAlternateColorCodes('&',s));
         }
         bookMeta.setLore(bookLore);
@@ -169,9 +169,9 @@ public class StaffModeListener implements Listener {
                 ItemStack ice = new ItemStack(Material.ICE);
                 ItemMeta iceMeta = ice.getItemMeta();
                 Player rightClicked = (Player) e.getRightClicked();
-                iceMeta.setDisplayName(Utils.chat(HCF.getPlugin().messagesYML.getString("STAFFMODE.FREEZEBLOCK.NAME")));
+                iceMeta.setDisplayName(Utils.chat(HCF.getPlugin().getMessagesYML().getString("STAFFMODE.FREEZEBLOCK.NAME")));
                 List<String> iceLore = new ArrayList<>();
-                for (String s : HCF.getPlugin().messagesYML.getStringList("STAFFMODE.FREEZEBLOCK.LORE")) {
+                for (String s : HCF.getPlugin().getMessagesYML().getStringList("STAFFMODE.FREEZEBLOCK.LORE")) {
                     iceLore.add(ChatColor.translateAlternateColorCodes('&', s));
                 }
                 iceMeta.setLore(iceLore);
@@ -227,7 +227,7 @@ public class StaffModeListener implements Listener {
     public void onGameModeChange(PlayerGameModeChangeEvent e){
         Player p = e.getPlayer();
         if(StaffModeCommand.staffMode.contains(p.getUniqueId())){
-            p.sendMessage(Utils.chat(plugin.messagesYML.getString("STAFFMODE-GAMEMODE-SWITCH")));
+            p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("STAFFMODE-GAMEMODE-SWITCH")));
             p.setGameMode(GameMode.CREATIVE);
             e.setCancelled(true);
         }

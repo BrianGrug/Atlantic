@@ -62,17 +62,17 @@ public class FactionCreateArgument extends CommandArgument {
             return true;
         }
 
-        if (plugin.getFactionManager().getFaction(name) != null) {
+        if (plugin.getManagerHandler().getFactionManager().getFaction(name) != null) {
             sender.sendMessage(ChatColor.RED + "Faction '" + name + "' already exists.");
             return true;
         }
 
-        if (plugin.getFactionManager().getPlayerFaction((Player) sender) != null) {
+        if (plugin.getManagerHandler().getFactionManager().getPlayerFaction((Player) sender) != null) {
             sender.sendMessage(ChatColor.RED + "You are already in a faction.");
             return true;
         }
 
-        plugin.getFactionManager().createFaction(new PlayerFaction(name), sender);
+        plugin.getManagerHandler().getFactionManager().createFaction(new PlayerFaction(name), sender);
         return true;
     }
 }

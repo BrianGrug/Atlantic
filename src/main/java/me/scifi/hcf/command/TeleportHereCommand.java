@@ -29,7 +29,7 @@ public class TeleportHereCommand implements CommandExecutor {
                 Player target = Bukkit.getServer().getPlayer(args[0]);
                 if(target != null){
                     target.teleport(p);
-                    p.sendMessage(Utils.chat(plugin.messagesYML.getString("TELEPORT-HERE-MESSAGE")
+                    p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("TELEPORT-HERE-MESSAGE")
                     .replace("%player%", target.getName())));
                     return true;
                 }

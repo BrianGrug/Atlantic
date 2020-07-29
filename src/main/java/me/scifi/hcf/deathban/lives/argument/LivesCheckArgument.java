@@ -47,7 +47,7 @@ public class LivesCheckArgument extends CommandArgument {
             return true;
         }
 
-        int targetLives = plugin.getDeathbanManager().getLives(target.getUniqueId());
+        int targetLives = plugin.getManagerHandler().getDeathbanManager().getLives(target.getUniqueId());
 
         sender.sendMessage(target.getName() + ChatColor.YELLOW + " has " + ChatColor.AQUA + targetLives + ChatColor.YELLOW + ' ' + (targetLives == 1 ? "life" : "lives") + '.');
         return true;

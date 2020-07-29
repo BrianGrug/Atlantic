@@ -50,13 +50,13 @@ public class EnderPearlTimer extends PlayerTimer implements Listener {
     private final JavaPlugin plugin;
 
     public EnderPearlTimer(JavaPlugin plugin) {
-        super(HCF.getPlugin().messagesYML.getString("SCOREBOARD.ENDERPEARL.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().messagesYML.getLong("SCOREBOARD.ENDERPEARL.LENGTH")));
+        super(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.ENDERPEARL.NAME"), TimeUnit.SECONDS.toMillis(HCF.getPlugin().getMessagesYML().getLong("SCOREBOARD.ENDERPEARL.LENGTH")));
         this.plugin = plugin;
     }
 
     @Override
     public String getScoreboardPrefix() {
-        return HCF.getPlugin().messagesYML.getString("SCOREBOARD.ENDERPEARL.PREFIX");
+        return HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.ENDERPEARL.PREFIX");
     }
 
   //  @Override

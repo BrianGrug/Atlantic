@@ -51,7 +51,7 @@ public class FactionChatSpyArgument extends CommandArgument implements Listener 
     public void onFactionRemove(FactionRemoveEvent event) {
         if (event.getFaction() instanceof PlayerFaction) {
             UUID factionUUID = event.getFaction().getUniqueID();
-            for (FactionUser user : plugin.getUserManager().getUsers().values()) {
+            for (FactionUser user : plugin.getManagerHandler().getUserManager().getUsers().values()) {
                 user.getFactionChatSpying().remove(factionUUID);
             }
         }
@@ -72,7 +72,7 @@ public class FactionChatSpyArgument extends CommandArgument implements Listener 
                 continue;
 
             Player target = (Player) recipient;
-            FactionUser user = event.isAsynchronous() ? plugin.getUserManager().getUserAsync(target.getUniqueId()) : plugin.getUserManager().getUser(player.getUniqueId());
+            FactionUser user = event.isAsynchronous() ? plugin.getManagerHandler().getUserManager().getUserAsync(target.getUniqueId()) : plugin.getManagerHandler().getUserManager().getUser(player.getUniqueId());
             Collection<UUID> spying = user.getFactionChatSpying();
             if (spying.contains(ALL_UUID) || spying.contains(faction.getUniqueID())) {
                 recipient.sendMessage(format);
@@ -93,7 +93,7 @@ public class FactionChatSpyArgument extends CommandArgument implements Listener 
         }
 
         Player player = (Player) sender;
-        Set<UUID> currentSpies = plugin.getUserManager().getUser(player.getUniqueId()).getFactionChatSpying();
+        Set<UUID> currentSpies = plugin.getManagerHandler().getUserManager().getUser(player.getUniqueId()).getFactionChatSpying();
 
         if (args[1].equalsIgnoreCase("list")) {
             if (currentSpies.isEmpty()) {
@@ -113,7 +113,7 @@ public class FactionChatSpyArgument extends CommandArgument implements Listener 
                 return true;
             }
 
-            Faction faction = plugin.getFactionManager().getFaction(args[2]);
+            Faction faction = plugin.getManagerHandler().getFactionManager().getFaction(args[2]);
 
             if (!(faction instanceof PlayerFaction)) {
                 sender.sendMessage(ChatColor.RED + "Player based faction named or containing member with IGN or UUID " + args[2] + " not found.");
@@ -153,7 +153,7 @@ public class FactionChatSpyArgument extends CommandArgument implements Listener 
                 return true;
             }
 
-            Faction faction = plugin.getFactionManager().getContainingFaction(args[2]);
+            Faction faction = plugin.getManagerHandler().getFactionManager().getContainingFaction(args[2]);
 
             if (faction == null) {
                 sender.sendMessage(ChatColor.GOLD + "Faction '" + ChatColor.WHITE + args[2] + ChatColor.GOLD + "' not found.");
@@ -189,7 +189,7 @@ public class FactionChatSpyArgument extends CommandArgument implements Listener 
             }
 
             List<String> results = new ArrayList<>();
-            for(String string : plugin.getFactionManager().getFactionNameMap().keySet()) {
+            for(String string : plugin.getManagerHandler().getFactionManager().getFactionNameMap().keySet()) {
                 results.add(string);
             }
             Player senderPlayer = sender instanceof Player ? ((Player) sender) : null;

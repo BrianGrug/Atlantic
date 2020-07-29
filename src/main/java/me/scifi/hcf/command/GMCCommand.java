@@ -24,7 +24,7 @@ public class GMCCommand implements CommandExecutor {
             Player p = (Player) sender;
             if(p.hasPermission(command.getPermission())){
                 p.setGameMode(GameMode.CREATIVE);
-                p.sendMessage(Utils.chat(plugin.messagesYML.getString("GAMEMODE-CHANGED-CREATIVE")));
+                p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("GAMEMODE-CHANGED-CREATIVE")));
                 return true;
             }
         }

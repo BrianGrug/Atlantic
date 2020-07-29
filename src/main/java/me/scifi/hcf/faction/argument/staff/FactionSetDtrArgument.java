@@ -48,7 +48,7 @@ public class FactionSetDtrArgument extends CommandArgument {
         }
 
         if (args[1].equalsIgnoreCase("all")) {
-            for (Faction faction : plugin.getFactionManager().getFactions()) {
+            for (Faction faction : plugin.getManagerHandler().getFactionManager().getFactions()) {
                 if (faction instanceof PlayerFaction) {
                     ((PlayerFaction) faction).setDeathsUntilRaidable(newDTR);
                 }
@@ -58,7 +58,7 @@ public class FactionSetDtrArgument extends CommandArgument {
             return true;
         }
 
-        Faction faction = plugin.getFactionManager().getContainingFaction(args[1]);
+        Faction faction = plugin.getManagerHandler().getFactionManager().getContainingFaction(args[1]);
 
         if (faction == null) {
             sender.sendMessage(ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
@@ -86,8 +86,8 @@ public class FactionSetDtrArgument extends CommandArgument {
             return null;
         } else {
             Player player = (Player) sender;
-            List<String> results = new ArrayList<>(plugin.getFactionManager().getFactionNameMap().keySet());
-            for (Player target : Bukkit.getOnlinePlayers()) {
+            List<String> results = new ArrayList<>(plugin.getManagerHandler().getFactionManager().getFactionNameMap().keySet());
+            for (Player target : Bukkit.getServer().getOnlinePlayers()) {
                 if (player.canSee(target) && !results.contains(target.getName())) {
                     results.add(target.getName());
                 }

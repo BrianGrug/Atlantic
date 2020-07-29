@@ -36,7 +36,7 @@ public class FactionClaimsArgument extends CommandArgument {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        PlayerFaction selfFaction = sender instanceof Player ? plugin.getFactionManager().getPlayerFaction((Player) sender) : null;
+        PlayerFaction selfFaction = sender instanceof Player ? plugin.getManagerHandler().getFactionManager().getPlayerFaction((Player) sender) : null;
         ClaimableFaction targetFaction;
         if (args.length < 2) {
             if (!(sender instanceof Player)) {
@@ -51,7 +51,7 @@ public class FactionClaimsArgument extends CommandArgument {
 
             targetFaction = selfFaction;
         } else {
-            Faction faction = plugin.getFactionManager().getContainingFaction(args[1]);
+            Faction faction = plugin.getManagerHandler().getFactionManager().getContainingFaction(args[1]);
 
             if (faction == null) {
                 sender.sendMessage(ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
@@ -97,8 +97,8 @@ public class FactionClaimsArgument extends CommandArgument {
             return null;
         } else {
             Player player = ((Player) sender);
-            List<String> results = new ArrayList<>(plugin.getFactionManager().getFactionNameMap().keySet());
-            for (Player target : Bukkit.getOnlinePlayers()) {
+            List<String> results = new ArrayList<>(plugin.getManagerHandler().getFactionManager().getFactionNameMap().keySet());
+            for (Player target : Bukkit.getServer().getOnlinePlayers()) {
                 if (player.canSee(target) && !results.contains(target.getName())) {
                     results.add(target.getName());
                 }

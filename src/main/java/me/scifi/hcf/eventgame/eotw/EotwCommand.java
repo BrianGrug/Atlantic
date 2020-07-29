@@ -56,14 +56,14 @@ public class EotwCommand implements CommandExecutor, TabCompleter {
         @Override
         public Prompt acceptInput(final ConversationContext context, final String string) {
             if (string.equalsIgnoreCase("yes")) {
-                boolean newStatus = !HCF.getPlugin().getEotwHandler().isEndOfTheWorld(false);
+                boolean newStatus = !HCF.getPlugin().getManagerHandler().getEotwHandler().isEndOfTheWorld(false);
                 Conversable conversable = context.getForWhom();
                 if (conversable instanceof CommandSender) {
                     Command.broadcastCommandMessage((CommandSender) conversable, ChatColor.GOLD + "Set EOTW mode to " + newStatus + '.');
                 } else
                     conversable.sendRawMessage(ChatColor.GOLD + "Set EOTW mode to " + newStatus + '.');
 
-                HCF.getPlugin().getEotwHandler().setEndOfTheWorld(newStatus);
+                HCF.getPlugin().getManagerHandler().getEotwHandler().setEndOfTheWorld(newStatus);
             } else if (string.equalsIgnoreCase("no")) {
                 context.getForWhom().sendRawMessage(ChatColor.BLUE + "Cancelled the process of setting EOTW mode.");
             } else {

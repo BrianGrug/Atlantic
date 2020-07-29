@@ -46,14 +46,14 @@ public class FactionKickArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
             return true;
         }
 
-        if (playerFaction.isRaidable() && !ConfigurationService.KIT_MAP && !plugin.getEotwHandler().isEndOfTheWorld()) {
+        if (playerFaction.isRaidable() && !ConfigurationService.KIT_MAP && !plugin.getManagerHandler().getEotwHandler().isEndOfTheWorld()) {
             sender.sendMessage(ChatColor.RED + "You cannot kick players whilst your faction is raidable.");
             return true;
         }
@@ -104,7 +104,7 @@ public class FactionKickArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
         if (playerFaction == null) {
             return Collections.emptyList();
         }

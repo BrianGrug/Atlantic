@@ -34,7 +34,7 @@ public class Azazel implements Listener {
             Bukkit.getLogger().severe("There must be atleast 60 player slots for this to work"); //TODO: Possibly set max players to 60?
         }
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
            // if (((CraftPlayer)player).getHandle().playerConnection.networkManager.getVersion() < 47) {
                 if (!(tabs.containsKey(player.getUniqueId()))) {
                     tabs.put(player.getUniqueId(), new Tab(player, true, this));
@@ -59,7 +59,7 @@ public class Azazel implements Listener {
 
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
             PacketPlayOutPlayerInfo packet = PacketPlayOutPlayerInfo.removePlayer(((CraftPlayer)event.getPlayer()).getHandle());
             ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
         }
@@ -76,7 +76,7 @@ public class Azazel implements Listener {
     public void onPlayerQuitEvent(PlayerQuitEvent event) {
         tabs.remove(event.getPlayer().getUniqueId());
 
-        for (Player other : Bukkit.getOnlinePlayers()) {
+        for (Player other : Bukkit.getServer().getOnlinePlayers()) {
             EntityPlayer entityPlayer = ((CraftPlayer)other).getHandle();
 
             if (entityPlayer.playerConnection.networkManager.getVersion() >= 47) {

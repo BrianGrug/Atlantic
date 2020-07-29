@@ -39,7 +39,7 @@ public class FactionSetDeathbanMultiplierArgument extends CommandArgument {
             return true;
         }
 
-        Faction faction = plugin.getFactionManager().getContainingFaction(args[1]);
+        Faction faction = plugin.getManagerHandler().getFactionManager().getContainingFaction(args[1]);
 
         if (faction == null) {
             sender.sendMessage(ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
@@ -77,9 +77,9 @@ public class FactionSetDeathbanMultiplierArgument extends CommandArgument {
         } else if (args[1].isEmpty()) {
             return null;
         } else {
-            List<String> results = new ArrayList<>(plugin.getFactionManager().getFactionNameMap().keySet());
+            List<String> results = new ArrayList<>(plugin.getManagerHandler().getFactionManager().getFactionNameMap().keySet());
             Player senderPlayer = sender instanceof Player ? ((Player) sender) : null;
-            for (Player player : Bukkit.getOnlinePlayers()) {
+            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 // Make sure the player can see.
                 if (senderPlayer == null || senderPlayer.canSee(player)) {
                     results.add(player.getName());

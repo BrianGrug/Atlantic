@@ -44,7 +44,7 @@ public class ReportCommand implements CommandExecutor {
                     String reason = sb.toString();
                     for (Player staff : Bukkit.getServer().getOnlinePlayers()) {
                         if (staff.hasPermission(command.getPermission() + ".recieve")) {
-                            List<String> msg = Utils.list(plugin.messagesYML.getStringList("REPORT-MESSAGE"));
+                            List<String> msg = Utils.list(plugin.getMessagesYML().getStringList("REPORT-MESSAGE"));
                             msg.forEach(str -> staff.sendMessage(str
                                     .replace("%reported%", reported.getName())
                                     .replace("%reason%", reason)
@@ -52,7 +52,7 @@ public class ReportCommand implements CommandExecutor {
                         }
                     }
                     report.placeOnCooldown(p, 3600);
-                    p.sendMessage(Utils.chat(plugin.messagesYML.getString("REPORT-RECIEVED")));
+                    p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("REPORT-RECIEVED")));
                     return true;
                 }
                 p.sendMessage(Utils.chat("&cPlayer is not online."));

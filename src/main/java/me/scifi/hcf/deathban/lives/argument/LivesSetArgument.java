@@ -53,7 +53,7 @@ public class LivesSetArgument extends CommandArgument {
             return true;
         }
 
-        plugin.getDeathbanManager().setLives(target.getUniqueId(), amount);
+        plugin.getManagerHandler().getDeathbanManager().setLives(target.getUniqueId(), amount);
 
         sender.sendMessage(ChatColor.YELLOW + target.getName() + " now has " + ChatColor.GOLD + amount + ChatColor.YELLOW + " lives.");
         return true;

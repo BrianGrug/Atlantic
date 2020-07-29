@@ -107,7 +107,7 @@ public class ArcherClass extends PvpClass implements Listener {
             ProjectileSource source = arrow.getShooter();
             if (source instanceof Player) {
                 Player shooter = (Player) source;
-                if (plugin.getPvpClassManager().hasClassEquipped(shooter, this)) {
+                if (plugin.getManagerHandler().getPvpClassManager().hasClassEquipped(shooter, this)) {
                     /*if (force <= MINIMUM_FORCE) {
                         shooter.sendMessage(ChatColor.RED + "Mark not applied as arrow was shot with less than " + MINIMUM_FORCE + "% force.");
                         return;
@@ -178,7 +178,7 @@ public class ArcherClass extends PvpClass implements Listener {
         Action action = event.getAction();
         if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
             if (event.hasItem() && event.getItem().getType() == Material.SUGAR) {
-                if (plugin.getPvpClassManager().getEquippedClass(event.getPlayer()) != this) {
+                if (plugin.getManagerHandler().getPvpClassManager().getEquippedClass(event.getPlayer()) != this) {
                     return;
                 }
 
@@ -206,7 +206,7 @@ public class ArcherClass extends PvpClass implements Listener {
     @EventHandler(ignoreCancelled = false, priority = EventPriority.HIGH)
     public void onPlayerInteractWithFeather(PlayerInteractEvent e){
         if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK){
-            if(plugin.getPvpClassManager().getEquippedClass(e.getPlayer()) == this  && e.hasItem() && e.getItem().getType() == Material.FEATHER){
+            if(plugin.getManagerHandler().getPvpClassManager().getEquippedClass(e.getPlayer()) == this  && e.hasItem() && e.getItem().getType() == Material.FEATHER){
                 if(plugin.getArcherJumpBoost().isOnCooldown(e.getPlayer())){
                     e.getPlayer().sendMessage(Utils.chat("&cYou cannot use " + getName() + " jump boost for another " + DurationFormatUtils.formatDurationWords(plugin.getArcherJumpBoost().getRemaining(e.getPlayer()),true,true) + "."));
                 } else {

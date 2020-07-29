@@ -66,7 +66,7 @@ public class SnowportListener implements Listener {
 
         if (!snowball.hasMetadata("snowport")) return;
 
-        if (plugin.getFactionManager().getFactionAt(player.getLocation()).isSafezone() || plugin.getFactionManager().getFactionAt(damaged.getLocation()).isSafezone())
+        if (plugin.getManagerHandler().getFactionManager().getFactionAt(player.getLocation()).isSafezone() || plugin.getManagerHandler().getFactionManager().getFactionAt(damaged.getLocation()).isSafezone())
             return;
 
         if (!plugin.getItemsYML().getBoolean("snowport.radius.enabled")) {

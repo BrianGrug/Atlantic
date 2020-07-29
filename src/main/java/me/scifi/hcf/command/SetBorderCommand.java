@@ -39,17 +39,17 @@ public class SetBorderCommand implements CommandExecutor {
                       if(world.equalsIgnoreCase("normal")){
                           ConfigurationService.config.set("border_sizes.NORMAL", size);
                           ConfigurationService.config.save();
-                          p.sendMessage(Utils.chat(plugin.messagesYML.getString("BORDER-NORMAL-SET")));
+                          p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("BORDER-NORMAL-SET")));
                           return true;
                       } else if(world.equalsIgnoreCase("nether")){
                           ConfigurationService.config.set("border_sizes.NETHER", size);
                           ConfigurationService.config.save();
-                          p.sendMessage(Utils.chat(plugin.messagesYML.getString("BORDER-NETHER-SET")));
+                          p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("BORDER-NETHER-SET")));
                           return true;
                       } else if(world.equalsIgnoreCase("end")){
                           ConfigurationService.config.set("border_sizes.END", size);
                           ConfigurationService.config.save();
-                          p.sendMessage(Utils.chat(plugin.messagesYML.getString("BORDER-END-SET")));
+                          p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("BORDER-END-SET")));
                           return true;
 
                       }

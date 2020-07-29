@@ -52,7 +52,7 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
             }
 
             UUID uuid = target.getUniqueId();
-            int balance = plugin.getEconomyManager().getBalance(uuid);
+            int balance = plugin.getManagerHandler().getEconomyManager().getBalance(uuid);
 
             if (args.length < 2) {
                 sender.sendMessage(ChatColor.GOLD + (sender.equals(target) ? "Your balance" : "Balance of " + target.getName()) + " is " + ChatColor.WHITE + EconomyManager.ECONOMY_SYMBOL + balance
@@ -74,7 +74,7 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
                     return true;
                 }
 
-                int newBalance = plugin.getEconomyManager().addBalance(uuid, amount);
+                int newBalance = plugin.getManagerHandler().getEconomyManager().addBalance(uuid, amount);
                 sender.sendMessage(new String[]{ChatColor.YELLOW + "Added " + EconomyManager.ECONOMY_SYMBOL + JavaUtils.format(amount) + " to balance of " + target.getName() + '.',
                         ChatColor.YELLOW + "Balance of " + target.getName() + " is now " + EconomyManager.ECONOMY_SYMBOL + newBalance + '.'});
 
@@ -94,7 +94,7 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
                     return true;
                 }
 
-                int newBalance = plugin.getEconomyManager().subtractBalance(uuid, amount);
+                int newBalance = plugin.getManagerHandler().getEconomyManager().subtractBalance(uuid, amount);
 
                 sender.sendMessage(new String[]{ChatColor.YELLOW + "Taken " + EconomyManager.ECONOMY_SYMBOL + JavaUtils.format(amount) + " from balance of " + target.getName() + '.',
                         ChatColor.YELLOW + "Balance of " + target.getName() + " is now " + EconomyManager.ECONOMY_SYMBOL + newBalance + '.'});
@@ -115,7 +115,7 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
                 List<String> results = Lists.newArrayList("top");
                 if (sender.hasPermission(command.getPermission() + ".staff")) {
                     Player senderPlayer = sender instanceof Player ? (Player) sender : null;
-                    for (Player player : Bukkit.getOnlinePlayers()) {
+                    for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                         if (senderPlayer == null || senderPlayer.canSee(player)) {
                             results.add(player.getName());
                         }

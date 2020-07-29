@@ -1,102 +1,119 @@
 package me.scifi.hcf.deathban;
 
+import com.doctordark.util.Config;
+import com.doctordark.util.PersistableLocation;
+import gnu.trove.impl.Constants;
 import gnu.trove.map.TObjectIntMap;
+import gnu.trove.map.hash.TObjectIntHashMap;
+import gnu.trove.procedure.TObjectIntProcedure;
+import me.scifi.hcf.ConfigurationService;
+import me.scifi.hcf.HCF;
+import me.scifi.hcf.faction.type.Faction;
+import me.scifi.hcf.managers.IManager;
+import org.bukkit.Location;
+import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public interface DeathbanManager {
+public class DeathbanManager implements IManager {
 
-    long MAX_DEATHBAN_TIME = TimeUnit.HOURS.toMillis(8);
+    private static final int MAX_DEATHBAN_MULTIPLIER = 300;
 
-    /**
-     * Gets the map storing the lives with the {@link UUID} string by the amount.
-     *
-     * @return the lives map
-     */
-    TObjectIntMap<UUID> getLivesMap();
+    private static final long MAX_DEATHBAN_TIME = TimeUnit.HOURS.toMillis(8);
 
-    /**
-     * Gets the lives of a player.
-     *
-     * @param uuid
-     *            the uuid of player to get for
-     * @return the amount of owned lives
-     */
-    int getLives(UUID uuid);
 
-    /**
-     * Sets the amount of lives a player has.
-     *
-     * @param uuid
-     *            the uuid of player to set for
-     * @param amount
-     *            the amount to set at
-     * @return the new lives of the player
-     */
-    int setLives(UUID uuid, int amount);
+    private final HCF plugin;
 
-    /**
-     * Gives lives to a player.
-     *
-     * @param uuid
-     *            the uuid of player to give to
-     * @param amount
-     *            the amount to give
-     * @return the new lives of the player
-     */
-    int addLives(UUID uuid, int amount);
+    private TObjectIntMap<UUID> livesMap;
+    private Config livesConfig;
 
-    /**
-     * Takes lives away from a player.
-     *
-     * @param uuid
-     *            the uuid of player to take for
-     * @param amount
-     *            the amount to take
-     * @return the new lives of the player
-     */
-    int takeLives(UUID uuid, int amount);
+    public DeathbanManager(HCF plugin) {
+        this.plugin = plugin;
+    }
 
-    /**
-     * Gets the deathban multiplier for a {@link Player}.
-     *
-     * @param player
-     *            the {@link Player} to get for
-     * @return the deathban multiplier
-     */
-    double getDeathBanMultiplier(Player player);
+    public TObjectIntMap<UUID> getLivesMap() {
+        return livesMap;
+    }
 
-    /**
-     * Applies a {@link Deathban} to a {@link Player}.
-     *
-     * @param player
-     *            the {@link Player} to apply to
-     * @param reason
-     *            the reason for {@link Deathban}
-     * @return the {@link Deathban} that has been applied
-     */
-    Deathban applyDeathBan(Player player, String reason);
+    public int getLives(UUID uuid) {
+        return livesMap.get(uuid);
+    }
 
-    /**
-     * Applies a {@link Deathban} to a {@link Player}.
-     *
-     * @param uuid
-     *            the uuid of player to apply to
-     * @param deathban
-     *            the {@link Deathban} to be applied
-     * @return the {@link Deathban} that has been applied
-     */
-    Deathban applyDeathBan(UUID uuid, Deathban deathban);
+    public int setLives(UUID uuid, int lives) {
+        livesMap.put(uuid, lives);
+        return lives;
+    }
 
-    /**
-     * Reloads deathban data from storage.
-     */
-    void reloadDeathbanData();
+    public int addLives(UUID uuid, int amount) {
+        return livesMap.adjustOrPutValue(uuid, amount, amount);
+    }
 
-    /**
-     * Saves deathban data to storage.
-     */
-    void saveDeathbanData();
+    public int takeLives(UUID uuid, int amount) {
+        return setLives(uuid, getLives(uuid) - amount);
+    }
+
+    public double getDeathBanMultiplier(Player player) {
+        for (int i = 5; i < MAX_DEATHBAN_MULTIPLIER; i++) {
+            if (player.hasPermission("hcf.deathban.multiplier." + i)) {
+                return ((double) i) / 100.0;
+            }
+        }
+
+        return 1.0D;
+    }
+
+    public Deathban applyDeathBan(Player player, String reason) {
+        Location location = player.getLocation();
+        Faction factionAt = plugin.getManagerHandler().getFactionManager().getFactionAt(location);
+
+        long duration = ConfigurationService.DEFAULT_DEATHBAN_DURATION;
+        if (!factionAt.isDeathban()) {
+            duration /= 2; // non-deathban factions should be 50% quicker
+        }
+
+        duration *= getDeathBanMultiplier(player);
+        duration *= factionAt.getDeathbanMultiplier();
+        return applyDeathBan(player.getUniqueId(), new Deathban(reason, Math.min(MAX_DEATHBAN_TIME, duration), new PersistableLocation(location)));
+    }
+
+    public Deathban applyDeathBan(UUID uuid, Deathban deathban) {
+        plugin.getManagerHandler().getUserManager().getUser(uuid).setDeathban(deathban);
+        return deathban;
+    }
+
+    @Override
+    public void load() {
+        livesConfig = new Config(plugin, "lives", plugin.getDataFolder().getAbsolutePath());
+        Object object = livesConfig.get("lives");
+        if (object instanceof MemorySection) {
+            MemorySection section = (MemorySection) object;
+            Set<String> keys = section.getKeys(false);
+            livesMap = new TObjectIntHashMap<>(keys.size(), Constants.DEFAULT_LOAD_FACTOR, 0);
+            for (String id : keys) {
+                livesMap.put(UUID.fromString(id), livesConfig.getInt(section.getCurrentPath() + "." + id));
+            }
+        } else {
+            livesMap = new TObjectIntHashMap<>(Constants.DEFAULT_CAPACITY, Constants.DEFAULT_LOAD_FACTOR, 0);
+        }
+    }
+
+    @Override
+    public void unload() {
+        Map<String, Integer> saveMap = new LinkedHashMap<>(livesMap.size());
+        livesMap.forEachEntry(new TObjectIntProcedure<UUID>() {
+            @Override
+            public boolean execute(UUID uuid, int i) {
+                saveMap.put(uuid.toString(), i);
+                return true;
+            }
+        });
+
+        livesConfig.set("lives", saveMap);
+        livesConfig.save();
+    }
 }

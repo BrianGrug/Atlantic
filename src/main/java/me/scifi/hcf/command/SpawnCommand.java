@@ -27,7 +27,7 @@ public class SpawnCommand implements CommandExecutor {
                   p.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
                   p.getLocation().setYaw(plugin.getConfig().getFloat("SPAWN.YAW"));
                   p.getLocation().setPitch(plugin.getConfig().getFloat("SPAWN.PITCH"));
-                  p.sendMessage(Utils.chat(plugin.messagesYML.getString("SPAWN-MESSAGE")));
+                  p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("SPAWN-MESSAGE")));
                   return true;
               }
           } else {

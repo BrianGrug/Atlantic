@@ -66,7 +66,7 @@ public class SpawnCannonCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        if (!plugin.getFactionManager().getFactionAt(location).isSafezone()) {
+        if (!plugin.getManagerHandler().getFactionManager().getFactionAt(location).isSafezone()) {
             sender.sendMessage(ChatColor.RED + "You can only use the spawn cannon in safe-zones.");
             return true;
         }
@@ -129,7 +129,7 @@ public class SpawnCannonCommand implements CommandExecutor, TabCompleter {
      *            the expected launch landing location
      */
     public void launchPlayer(Player player, Location location) {
-        Faction factionAt = plugin.getFactionManager().getFactionAt(location);
+        Faction factionAt = plugin.getManagerHandler().getFactionManager().getFactionAt(location);
 
         if (!(factionAt instanceof WarzoneFaction)) {
             player.sendMessage(ChatColor.RED + "You can only cannon to areas in the Warzone.");

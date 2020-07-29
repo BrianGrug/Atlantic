@@ -43,21 +43,21 @@ public class FactionBoxArgument extends CommandArgument {
 
         Player p = (Player) sender;
 
-        if(plugin.getFactionManager().getPlayerFaction(p) == null){
+        if(plugin.getManagerHandler().getFactionManager().getPlayerFaction(p) == null){
             p.sendMessage(Utils.chat("&cYou must be in a faction to execute this command."));
             return true;
         }
 
-        if(plugin.getFactionManager().getPlayerFaction(p).getClaims().isEmpty()){
+        if(plugin.getManagerHandler().getFactionManager().getPlayerFaction(p).getClaims().isEmpty()){
             p.sendMessage(Utils.chat("&cYou must have a claim to execute this command."));
             return true;
         }
 
-        if(redeemed.contains(plugin.getFactionManager().getPlayerFaction(p).getUniqueID())){
+        if(redeemed.contains(plugin.getManagerHandler().getFactionManager().getPlayerFaction(p).getUniqueID())){
             p.sendMessage(Utils.chat("&cYour faction has already used this command."));
             return true;
         }
-        plugin.getFactionManager().getPlayerFaction(p).getClaims().forEach(claim -> {
+        plugin.getManagerHandler().getFactionManager().getPlayerFaction(p).getClaims().forEach(claim -> {
             int y = 80;
             while (y > 0){
                 Cuboid cuboid = new Cuboid(new Location(claim.getWorld(), claim.getX1(),claim.getY1(),claim.getZ1()), new Location(claim.getWorld(), claim.getX2(), claim.getY2(), claim.getZ2()));
@@ -89,7 +89,7 @@ public class FactionBoxArgument extends CommandArgument {
                 y--;
             }
         });
-        redeemed.add(plugin.getFactionManager().getPlayerFaction(p).getUniqueID());
+        redeemed.add(plugin.getManagerHandler().getFactionManager().getPlayerFaction(p).getUniqueID());
 
         return false;
     }

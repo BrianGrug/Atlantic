@@ -30,13 +30,13 @@ public class GameModeCommand implements CommandExecutor {
                 if(args.length == 1){
                     if(args[0].equalsIgnoreCase("c") || args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative"))
                     {
-                        p.sendMessage(Utils.chat(plugin.messagesYML.getString("GAMEMODE-CHANGED-CREATIVE")));
+                        p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("GAMEMODE-CHANGED-CREATIVE")));
                         p.setGameMode(GameMode.CREATIVE);
                         return true;
 
                     } else if(args[0].equalsIgnoreCase("s") || args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival"))
                     {
-                        p.sendMessage(Utils.chat(plugin.messagesYML.getString("GAMEMODE-CHANGED-SURVIVAL")));
+                        p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("GAMEMODE-CHANGED-SURVIVAL")));
                         p.setGameMode(GameMode.SURVIVAL);
                         return true;
                     }
@@ -49,12 +49,12 @@ public class GameModeCommand implements CommandExecutor {
                     if(target != null){
                         if(args[0].equalsIgnoreCase("&c") || args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative"))
                         {
-                            p.sendMessage(Utils.chat(plugin.messagesYML.getString("GAMEMODE-CHANGED-CREATIVE")));
+                            p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("GAMEMODE-CHANGED-CREATIVE")));
                             target.setGameMode(GameMode.CREATIVE);
                             return true;
                         } else if(args[0].equalsIgnoreCase("s") || args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival"))
                         {
-                            p.sendMessage(Utils.chat(plugin.messagesYML.getString("GAMEMODE-CHANGED-SURVIVAL")));
+                            p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("GAMEMODE-CHANGED-SURVIVAL")));
                             target.setGameMode(GameMode.SURVIVAL);
                             return true;
                         }

@@ -24,11 +24,11 @@ public class VanishCommand implements CommandExecutor {
               if(p.hasPermission(command.getPermission())){
                   if(Vanish.isPlayerVanished(p)){
                       Vanish.disableVanish(p);
-                      p.sendMessage(Utils.chat(plugin.messagesYML.getString("VANISH-DISABLED")));
+                      p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("VANISH-DISABLED")));
                       return true;
                   } else {
                       Vanish.setVanished(p);
-                      p.sendMessage(Utils.chat(plugin.messagesYML.getString("VANISH-ENABLED")));
+                      p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("VANISH-ENABLED")));
                   }
               }
           }

@@ -72,11 +72,11 @@ public class SotwCommand implements CommandExecutor, TabCompleter {
                                 return true;
                             }
                             if (SotwCommand.enabled.contains(p.getUniqueId())) {
-                                p.sendMessage(Utils.chat(plugin.messagesYML.getString("SOTW-ENABLED-ALREADY")));
+                                p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("SOTW-ENABLED-ALREADY")));
                                 return true;
                             } else {
                                 SotwCommand.enabled.add(p.getUniqueId());
-                                p.sendMessage(Utils.chat(plugin.messagesYML.getString("SOTW-ENABLED-SUCCESSFUL")));
+                                p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("SOTW-ENABLED-SUCCESSFUL")));
                                 return true;
                             }
                         } else {
@@ -102,7 +102,7 @@ public class SotwCommand implements CommandExecutor, TabCompleter {
                 }
 
             }
-            List<String> help = plugin.messagesYML.getStringList("SOTW-HELP-MESSAGE");
+            List<String> help = plugin.getMessagesYML().getStringList("SOTW-HELP-MESSAGE");
             help.forEach(str -> sender.sendMessage(Utils.chat(str)));
 
         }

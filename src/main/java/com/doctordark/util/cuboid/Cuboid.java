@@ -138,7 +138,7 @@ Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializable {
 
     public Set<Player> getPlayers() {
         final Set<Player> players = new HashSet<Player>();
-        for (final Player player : Bukkit.getOnlinePlayers()) {
+        for (final Player player : Bukkit.getServer().getOnlinePlayers()) {
             if (this.contains(player)) {
                 players.add(player);
             }

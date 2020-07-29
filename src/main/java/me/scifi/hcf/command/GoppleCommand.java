@@ -33,7 +33,7 @@ public class GoppleCommand implements CommandExecutor, TabCompleter {
 
         Player player = (Player) sender;
 
-        PlayerTimer timer = plugin.getTimerManager().getGappleTimer();
+        PlayerTimer timer = plugin.getManagerHandler().getTimerManager().getGappleTimer();
         long remaining = timer.getRemaining(player);
 
         if (remaining <= 0L) {

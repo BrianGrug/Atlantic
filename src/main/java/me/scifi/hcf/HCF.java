@@ -31,9 +31,8 @@ import me.scifi.hcf.eventgame.faction.ConquestFaction;
 import me.scifi.hcf.eventgame.faction.KothFaction;
 import me.scifi.hcf.eventgame.koth.KothExecutor;
 import me.scifi.hcf.faction.FactionExecutor;
-import me.scifi.hcf.faction.FactionManager;
 import me.scifi.hcf.faction.FactionMember;
-import me.scifi.hcf.faction.FlatFileFactionManager;
+import me.scifi.hcf.faction.FactionManager;
 import me.scifi.hcf.faction.claim.*;
 import me.scifi.hcf.faction.type.*;
 import me.scifi.hcf.ktk.KTKCommand;
@@ -41,6 +40,8 @@ import me.scifi.hcf.ktk.KingListener;
 import me.scifi.hcf.ktk.KingManager;
 import me.scifi.hcf.listener.*;
 import me.scifi.hcf.listener.fixes.*;
+import me.scifi.hcf.managers.IManager;
+import me.scifi.hcf.managers.ManagerHandler;
 import me.scifi.hcf.pvpclass.PvpClassManager;
 import me.scifi.hcf.pvpclass.bard.EffectRestorer;
 import me.scifi.hcf.reclaims.ReclaimCommand;
@@ -64,8 +65,6 @@ import me.scifi.hcf.user.UserManager;
 import me.scifi.hcf.visualise.ProtocolLibHook;
 import me.scifi.hcf.visualise.VisualiseHandler;
 import me.scifi.hcf.visualise.WallBorderListener;
-import net.milkbowl.vault.chat.Chat;
-import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
@@ -73,7 +72,6 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -84,29 +82,16 @@ import java.util.concurrent.TimeUnit;
 public class HCF extends JavaPlugin {
 
     @Getter
-    public static ReclaimManager reclaimManager;
-    @Getter
     private static HCF plugin;
-    public Config messagesYML;
-    public KingManager kingManager;
-    public Config itemsYML = new Config(this, "items", getDataFolder().getAbsolutePath());
-    public Config miscYML = new Config(this, "misc", getDataFolder().getAbsolutePath());
-    public Config config;
+    private Config messagesYML;
+    private Config itemsYML = new Config(this, "items", getDataFolder().getAbsolutePath());
+    private Config miscYML = new Config(this, "misc", getDataFolder().getAbsolutePath());
+    private Config config;
     private Random random = new Random();
-    private ClaimHandler claimHandler;
     private CombatLogListener combatLogListener;
-    private DeathbanManager deathbanManager;
-    private EconomyManager economyManager;
     private EffectRestorer effectRestorer;
-    private EotwHandler eotwHandler;
-    private EventScheduler eventScheduler;
-    private FactionManager factionManager;
     private FoundDiamondsListener foundDiamondsListener;
-    private PvpClassManager pvpClassManager;
     private SotwTimer sotwTimer;
-    private TimerManager timerManager;
-    private UserManager userManager;
-    private VisualiseHandler visualiseHandler;
     private ItemDb itemDb;
     private WorldEditPlugin worldEdit;
     private Cooldown lff = new Cooldown();
@@ -116,7 +101,7 @@ public class HCF extends JavaPlugin {
     private Cooldown archerJumpBoost = new Cooldown();
     private Cooldown report = new Cooldown();
     private Rank rank;
-    private CustomTimerManager customTimerManager;
+    private ManagerHandler managerHandler;
 
     //Intellij shat itself so this is here
     public static Collection<? extends Player> getOnlinePlayers() {
@@ -138,7 +123,9 @@ public class HCF extends JavaPlugin {
         rank = new Rank();
         registerYMLS();
         registerConfiguration();
-        registerManagers();
+        itemDb = new SimpleItemDb(this);
+        sotwTimer = new SotwTimer();
+        this.managerHandler = new ManagerHandler();
         registerCommands();
         registerListeners();
         effectRestorer = new EffectRestorer(this);
@@ -156,18 +143,14 @@ public class HCF extends JavaPlugin {
     }
 
     private void saveData() {
-        deathbanManager.saveDeathbanData();
-        economyManager.saveEconomyData();
-        factionManager.saveFactionData();
-        timerManager.saveTimerData();
-        userManager.saveUserData();
+        this.managerHandler.getManagers().stream().forEach(IManager::unload);
     }
 
     @Override
     public void onDisable() {
         combatLogListener.removeCombatLoggers();
         BasePlugin.getPlugin().disable();
-        pvpClassManager.onDisable();
+        managerHandler.getPvpClassManager().onDisable();
         foundDiamondsListener.saveConfig(); // temporary
         saveData();
         HCF.plugin = null; // always initialise last
@@ -328,21 +311,8 @@ public class HCF extends JavaPlugin {
 
 
     private void registerManagers() {
-        claimHandler = new ClaimHandler(this);
-        economyManager = new FlatFileEconomyManager(this);
-        deathbanManager = new FlatFileDeathbanManager(this);
-        eotwHandler = new EotwHandler(this);
-        eventScheduler = new EventScheduler(this);
-        factionManager = new FlatFileFactionManager(this);
-        pvpClassManager = new PvpClassManager(this);
-        itemDb = new SimpleItemDb(this);
-        sotwTimer = new SotwTimer();
-        timerManager = new TimerManager(this);
-        userManager = new UserManager(this);
-        visualiseHandler = new VisualiseHandler();
-        kingManager = new KingManager();
-        reclaimManager = new ReclaimManager();
-        customTimerManager = new CustomTimerManager();
+
+
     }
 
 }

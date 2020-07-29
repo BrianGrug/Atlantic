@@ -29,7 +29,7 @@ public class LogoutCommand implements CommandExecutor, TabCompleter {
         }
 
         Player player = (Player) sender;
-        LogoutTimer logoutTimer = plugin.getTimerManager().getLogoutTimer();
+        LogoutTimer logoutTimer = plugin.getManagerHandler().getTimerManager().getLogoutTimer();
 
         if (!logoutTimer.setCooldown(player, player.getUniqueId())) {
             sender.sendMessage(Utils.chat(ChatColor.RED + "Your " + logoutTimer.getDisplayName() + ChatColor.RED + " timer is already active."));

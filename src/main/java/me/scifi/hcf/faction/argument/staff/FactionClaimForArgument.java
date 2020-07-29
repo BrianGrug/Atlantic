@@ -42,7 +42,7 @@ public class FactionClaimForArgument extends CommandArgument {
             sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
-        Faction faction = plugin.getFactionManager().getFaction(args[1]);
+        Faction faction = plugin.getManagerHandler().getFactionManager().getFaction(args[1]);
         if(!(faction instanceof ClaimableFaction)){
             sender.sendMessage(ChatColor.RED + "This is not a claimable faction (cannot contain claims)");
             return true;
@@ -84,8 +84,8 @@ public class FactionClaimForArgument extends CommandArgument {
     public List<String> onTabComplete(final CommandSender sender, final Command command, final String label, final String[] args) {
         switch (args.length){
             case 2 :{
-                final List<String> results = new ArrayList<>(plugin.getFactionManager().getClaimableFactions().size());
-                for(ClaimableFaction claimableFaction : plugin.getFactionManager().getClaimableFactions()){
+                final List<String> results = new ArrayList<>(plugin.getManagerHandler().getFactionManager().getClaimableFactions().size());
+                for(ClaimableFaction claimableFaction : plugin.getManagerHandler().getFactionManager().getClaimableFactions()){
                     results.add(claimableFaction.getName());
                 }
                 return results;

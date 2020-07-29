@@ -8,8 +8,6 @@ import me.scifi.hcf.faction.type.Faction;
 import me.scifi.hcf.faction.type.PlayerFaction;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class FactionSetPointsArgument extends CommandArgument {
 
@@ -34,7 +32,7 @@ public class FactionSetPointsArgument extends CommandArgument {
             return true;
         }
 
-        FactionManager fm = HCF.getPlugin().getFactionManager();
+        FactionManager fm = HCF.getPlugin().getManagerHandler().getFactionManager();
         if(fm.getFaction(args[1]) == null){
             sender.sendMessage(Utils.chat("&cFaction not found."));
             return true;

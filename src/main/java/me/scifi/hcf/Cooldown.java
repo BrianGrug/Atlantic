@@ -1,12 +1,13 @@
 package me.scifi.hcf;
 
 import lombok.Data;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@Data
+@Getter
 public class Cooldown {
 
     public Map<UUID,Long> cooldownMap = new HashMap<>();

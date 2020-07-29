@@ -69,7 +69,7 @@ public class EventSetAreaArgument extends CommandArgument {
             return true;
         }
 
-        Faction faction = plugin.getFactionManager().getFaction(args[1]);
+        Faction faction = plugin.getManagerHandler().getFactionManager().getFaction(args[1]);
 
         if (!(faction instanceof EventFaction)) {
             sender.sendMessage(ChatColor.RED + "There is not an event faction named '" + args[1] + "'.");
@@ -88,6 +88,6 @@ public class EventSetAreaArgument extends CommandArgument {
             return Collections.emptyList();
         }
 
-        return plugin.getFactionManager().getFactions().stream().filter(faction -> faction instanceof EventFaction).map(Faction::getName).collect(Collectors.toList());
+        return plugin.getManagerHandler().getFactionManager().getFactions().stream().filter(faction -> faction instanceof EventFaction).map(Faction::getName).collect(Collectors.toList());
     }
 }

@@ -30,7 +30,7 @@ public class CustomTimerCommand implements CommandExecutor {
             switch (args[0]) {
                 case "list": {
                     List<String> names = new ArrayList<>();
-                    plugin.getCustomTimerManager().getCustomTimers().forEach(timer -> names.add(timer.getName()));
+                    plugin.getManagerHandler().getCustomTimerManager().getCustomTimers().forEach(timer -> names.add(timer.getName()));
                     if (names.size() > 0) {
                         StringBuilder sb = new StringBuilder();
                         for (int i = 0; i < names.size(); i++) {
@@ -49,7 +49,7 @@ public class CustomTimerCommand implements CommandExecutor {
                         sender.sendMessage(Utils.chat("&cUsage: /customtimer end <timer>"));
                         return true;
                     }
-                    CustomTimer timer = plugin.getCustomTimerManager().getCustomTimer(args[1]);
+                    CustomTimer timer = plugin.getManagerHandler().getCustomTimerManager().getCustomTimer(args[1]);
                     if (timer == null) {
                         sender.sendMessage(Utils.chat("&cThis timer is not currently active."));
                         return true;
@@ -76,13 +76,18 @@ public class CustomTimerCommand implements CommandExecutor {
                         return true;
                     }
 
-                    if (plugin.getCustomTimerManager().getCustomTimer(args[1]) != null) {
+                    if (plugin.getManagerHandler().getCustomTimerManager().getCustomTimer(args[1]) != null) {
                         sender.sendMessage(Utils.chat("&cA timer with this name already exists."));
                         return true;
                     }
 
+                    StringBuilder stringBuilder = new StringBuilder();
 
-                    plugin.getCustomTimerManager().createTimer(new CustomTimer(Utils.chat(args[1]), Utils.chat(args[3].replace("-", " ")), System.currentTimeMillis(), System.currentTimeMillis() + duration));
+                    for (int i = 3; i < args.length; i++) {
+                        stringBuilder.append(args[i]).append(" ");
+                    }
+
+                    plugin.getManagerHandler().getCustomTimerManager().createTimer(new CustomTimer(Utils.chat(args[1]), Utils.chat(stringBuilder.toString().trim()), System.currentTimeMillis(), System.currentTimeMillis() + duration));
                     sender.sendMessage(Utils.chat("&cThe custom timer has been created."));
                     break;
                 }

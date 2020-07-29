@@ -40,7 +40,7 @@ public class FactionUnclaimArgument extends CommandArgument {
         }
 
         Player player = (Player) sender;
-        PlayerFaction playerFaction = plugin.getFactionManager().getPlayerFaction(player);
+        PlayerFaction playerFaction = plugin.getManagerHandler().getFactionManager().getPlayerFaction(player);
 
         if (playerFaction == null) {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
@@ -67,7 +67,7 @@ public class FactionUnclaimArgument extends CommandArgument {
             removingClaims = new ArrayList<>(factionClaims);
         } else {
             Location location = player.getLocation();
-            Claim claimAt = plugin.getFactionManager().getClaimAt(location);
+            Claim claimAt = plugin.getManagerHandler().getFactionManager().getClaimAt(location);
             if (claimAt == null || !factionClaims.contains(claimAt)) {
                 sender.sendMessage(ChatColor.RED + "Your faction does not own a claim here.");
                 return true;

@@ -50,7 +50,7 @@ public class Assemble {
 		}
 
 		//Register new boards for existing online players
-		for (Player player : Bukkit.getOnlinePlayers()) {
+		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 			//Make sure it doesn't double up
 			AssembleBoardCreateEvent createEvent = new AssembleBoardCreateEvent(player);
 

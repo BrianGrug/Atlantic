@@ -38,14 +38,14 @@ public class EventRenameArgument extends CommandArgument {
             return true;
         }
 
-        Faction faction = plugin.getFactionManager().getFaction(args[2]);
+        Faction faction = plugin.getManagerHandler().getFactionManager().getFaction(args[2]);
 
         if (faction != null) {
             sender.sendMessage(ChatColor.RED + "There is already a faction named " + args[2] + '.');
             return true;
         }
 
-        faction = plugin.getFactionManager().getFaction(args[1]);
+        faction = plugin.getManagerHandler().getFactionManager().getFaction(args[1]);
 
         if (!(faction instanceof EventFaction)) {
             sender.sendMessage(ChatColor.RED + "There is not an event faction named '" + args[1] + "'.");
@@ -65,6 +65,6 @@ public class EventRenameArgument extends CommandArgument {
             return Collections.emptyList();
         }
 
-        return plugin.getFactionManager().getFactions().stream().filter(faction -> faction instanceof EventFaction).map(Faction::getName).collect(Collectors.toList());
+        return plugin.getManagerHandler().getFactionManager().getFactions().stream().filter(faction -> faction instanceof EventFaction).map(Faction::getName).collect(Collectors.toList());
     }
 }

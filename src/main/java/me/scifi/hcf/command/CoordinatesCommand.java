@@ -22,7 +22,7 @@ public class CoordinatesCommand implements CommandExecutor {
         if(sender instanceof Player){
             Player p = (Player) sender;
             if(p.hasPermission(command.getPermission())){
-                List<String> msg = Utils.list(plugin.messagesYML.getStringList("COORDNATES-MESSAGE"));
+                List<String> msg = Utils.list(plugin.getMessagesYML().getStringList("COORDNATES-MESSAGE"));
                 msg.forEach(p::sendMessage);
                 return true;
             }

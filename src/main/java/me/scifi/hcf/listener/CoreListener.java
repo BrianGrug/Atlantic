@@ -72,7 +72,7 @@ public class CoreListener implements Listener {
         e.setQuitMessage(null);
         Player player = e.getPlayer();
 
-       // if(plugin.getTimerManager().getCombatTimer().getRemaining(player) > 0) {
+       // if(plugin.getManagerHandler().getTimerManager().getCombatTimer().getRemaining(player) > 0) {
             //armor.put(player.getUniqueId(), player.getInventory().getArmorContents());
             //content.put(player.getUniqueId(), player.getInventory().getContents());
        // }
@@ -115,8 +115,8 @@ public class CoreListener implements Listener {
     public void onCombatPlace(BlockPlaceEvent e){
         Player p = e.getPlayer();
       if(!plugin.getConfig().getBoolean("combat-place")) {
-          if (plugin.getTimerManager().getCombatTimer().getRemaining(p) > 0) {
-              p.sendMessage(Utils.chat(plugin.messagesYML.getString("COMBAT-PLACE-DISABLED")));
+          if (plugin.getManagerHandler().getTimerManager().getCombatTimer().getRemaining(p) > 0) {
+              p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("COMBAT-PLACE-DISABLED")));
               e.setCancelled(true);
           }
       }
@@ -136,15 +136,15 @@ public class CoreListener implements Listener {
         event.setQuitMessage(null);
 
         Player player = event.getPlayer();
-        plugin.getVisualiseHandler().clearVisualBlocks(player, null, null, false);
-        plugin.getUserManager().getUser(player.getUniqueId()).setShowClaimMap(false);
+        plugin.getManagerHandler().getVisualiseHandler().clearVisualBlocks(player, null, null, false);
+        plugin.getManagerHandler().getUserManager().getUser(player.getUniqueId()).setShowClaimMap(false);
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerChangedWorld(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
-        plugin.getVisualiseHandler().clearVisualBlocks(player, null, null, false);
-        plugin.getUserManager().getUser(player.getUniqueId()).setShowClaimMap(false);
+        plugin.getManagerHandler().getVisualiseHandler().clearVisualBlocks(player, null, null, false);
+        plugin.getManagerHandler().getUserManager().getUser(player.getUniqueId()).setShowClaimMap(false);
     }
 
 }

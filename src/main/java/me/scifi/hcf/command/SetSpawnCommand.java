@@ -26,7 +26,7 @@ public class SetSpawnCommand implements CommandExecutor {
                   int y = p.getLocation().getBlockY();
                   int z = p.getLocation().getBlockZ();
                   Bukkit.getServer().getWorlds().get(0).setSpawnLocation(x,y,z);
-                  p.sendMessage(Utils.chat(plugin.messagesYML.getString("SET-SPAWN-MESSAGE")));
+                  p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("SET-SPAWN-MESSAGE")));
                   return true;
               }
           } else {

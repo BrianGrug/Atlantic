@@ -97,18 +97,18 @@ public class CombatLogListener implements Listener {
 
         if (player.getGameMode() != GameMode.CREATIVE && !player.isDead() && !result) {
             // If the player has PVP protection, don't spawn a logger
-            if (plugin.getTimerManager().getPvpTimer().getRemaining(uuid) > 0L)
+            if (plugin.getManagerHandler().getTimerManager().getPvpTimer().getRemaining(uuid) > 0L)
                 return;
 
 
             // There is no enemies near the player, so don't spawn a logger.
-            if (plugin.getTimerManager().getTeleportTimer().getNearbyEnemies(player, NEARBY_SPAWN_RADIUS) <= 0 || plugin.getSotwTimer().getSotwRunnable() != null)
+            if (plugin.getManagerHandler().getTimerManager().getTeleportTimer().getNearbyEnemies(player, NEARBY_SPAWN_RADIUS) <= 0 || plugin.getSotwTimer().getSotwRunnable() != null)
                 return;
 
 
             // Make sure the player is not in a safezone.
             Location location = player.getLocation();
-            if (plugin.getFactionManager().getFactionAt(location).isSafezone())
+            if (plugin.getManagerHandler().getFactionManager().getFactionAt(location).isSafezone())
                 return;
 
 

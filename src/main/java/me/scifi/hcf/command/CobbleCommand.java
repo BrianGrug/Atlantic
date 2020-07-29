@@ -28,11 +28,11 @@ public class CobbleCommand implements CommandExecutor {
             if(p.hasPermission(command.getPermission())){
                 if(players.contains(p.getUniqueId())){
                     players.remove(p.getUniqueId());
-                    p.sendMessage(Utils.chat(plugin.messagesYML.getString("COBBLE-PICKUP-ENABLED")));
+                    p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("COBBLE-PICKUP-ENABLED")));
                     return true;
                 }
                     players.add(p.getUniqueId());
-                    p.sendMessage(Utils.chat(plugin.messagesYML.getString("COBBLE-PICKUP-DISABLED")));
+                    p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("COBBLE-PICKUP-DISABLED")));
                     return true;
             }
         }

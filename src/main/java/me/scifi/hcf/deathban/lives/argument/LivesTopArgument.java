@@ -36,11 +36,11 @@ public class LivesTopArgument extends CommandArgument {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        synchronized (plugin.getDeathbanManager().getLivesMap()) {
+        synchronized (plugin.getManagerHandler().getDeathbanManager().getLivesMap()) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    TObjectIntMap<UUID> livesMap = plugin.getDeathbanManager().getLivesMap();
+                    TObjectIntMap<UUID> livesMap = plugin.getManagerHandler().getDeathbanManager().getLivesMap();
 
                     if (livesMap.isEmpty()) {
                         sender.sendMessage(ChatColor.RED + "There are no lives stored.");

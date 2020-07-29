@@ -41,7 +41,7 @@ public class RogueClass extends PvpClass implements Listener {
         Entity damager = event.getDamager();
         if (entity instanceof Player && damager instanceof Player) {
             Player attacker = (Player) damager;
-            if (plugin.getPvpClassManager().getEquippedClass(attacker) == this) {
+            if (plugin.getManagerHandler().getPvpClassManager().getEquippedClass(attacker) == this) {
                 ItemStack stack = attacker.getItemInHand();
                 if (stack != null && stack.getType() == Material.GOLD_SWORD && stack.getEnchantments().isEmpty()) {
                     Player player = (Player) entity;
@@ -61,7 +61,7 @@ public class RogueClass extends PvpClass implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInteract(PlayerInteractEvent e){
         Player p = e.getPlayer();
-        if(plugin.getPvpClassManager().getEquippedClass(p) == this){
+        if(plugin.getManagerHandler().getPvpClassManager().getEquippedClass(p) == this){
             if(e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR){
                 if(e.getItem() != null && e.getItem().getType() == Material.SUGAR){
                     if(!plugin.getRogue().isOnCooldown(p)) {

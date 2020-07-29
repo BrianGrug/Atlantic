@@ -30,24 +30,24 @@ public abstract class EventFaction extends ClaimableFaction {
     @Override
     public String getDisplayName(Faction faction) {
         if(getEventType() == EventType.KOTH) {
-            return Utils.chat(HCF.getPlugin().messagesYML.getString("SCOREBOARD.EVENT.KOTH.DISPLAYNAME").replace("%name%", name));
+            return Utils.chat(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.EVENT.KOTH.DISPLAYNAME").replace("%name%", name));
         }
-        return Utils.chat(HCF.getPlugin().messagesYML.getString("SCOREBOARD.EVENT.CONQUEST.DISPLAYNAME").replace("%name%",name));
+        return Utils.chat(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.EVENT.CONQUEST.DISPLAYNAME").replace("%name%",name));
     }
 
     @Override
     public String getDisplayName(CommandSender sender) {
         if (getEventType() == EventType.KOTH) {
-            return Utils.chat(HCF.getPlugin().messagesYML.getString("SCOREBOARD.EVENT.KOTH.DISPLAYNAME").replace("%name%", name));
+            return Utils.chat(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.EVENT.KOTH.DISPLAYNAME").replace("%name%", name));
         }
-        return Utils.chat(HCF.getPlugin().messagesYML.getString("SCOREBOARD.EVENT.CONQUEST.DISPLAYNAME").replace("%name%",name));
+        return Utils.chat(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.EVENT.CONQUEST.DISPLAYNAME").replace("%name%",name));
     }
 
     public String getScoreboardName() {
       if(getEventType() == EventType.KOTH){
-        return Utils.chat(HCF.getPlugin().messagesYML.getString("SCOREBOARD.EVENT.KOTH.FORMATTED").replace("%name%", name));
+        return Utils.chat(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.EVENT.KOTH.FORMATTED").replace("%name%", name));
     }
-        return Utils.chat(HCF.getPlugin().messagesYML.getString("SCOREBOARD.EVENT.CONQUEST.FORMATTED").replace("%name%",name));
+        return Utils.chat(HCF.getPlugin().getMessagesYML().getString("SCOREBOARD.EVENT.CONQUEST.FORMATTED").replace("%name%",name));
     }
 
     /**

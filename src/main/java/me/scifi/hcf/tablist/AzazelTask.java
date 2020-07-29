@@ -29,7 +29,7 @@ public class AzazelTask extends BukkitRunnable {
     public void run() {
         TabAdapter adapter = azazel.getAdapter();
         if (adapter != null) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
+            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 Tab tab = azazel.getTabByPlayer(player);
                 if (tab != null) {
                     TabTemplate template = adapter.getTemplate(player);

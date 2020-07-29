@@ -22,13 +22,13 @@ public class MuteChatCommand implements CommandExecutor {
         if(sender.hasPermission(command.getPermission())){
           if(isLocked){
               isLocked = false;
-              sender.sendMessage(Utils.chat(plugin.messagesYML.getString("MUTE-CHAT-DISABLED")));
-              Bukkit.getServer().broadcastMessage(Utils.chat(plugin.messagesYML.getString("CHAT-ENABLED-BROADCAST")));
+              sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("MUTE-CHAT-DISABLED")));
+              Bukkit.getServer().broadcastMessage(Utils.chat(plugin.getMessagesYML().getString("CHAT-ENABLED-BROADCAST")));
               return true;
           }
           isLocked = true;
-          sender.sendMessage(Utils.chat(plugin.messagesYML.getString("MUTE-CHAT-ENABLED")));
-          Bukkit.getServer().broadcastMessage(Utils.chat(plugin.messagesYML.getString("CHAT-DISABLED-BROADCAST")));
+          sender.sendMessage(Utils.chat(plugin.getMessagesYML().getString("MUTE-CHAT-ENABLED")));
+          Bukkit.getServer().broadcastMessage(Utils.chat(plugin.getMessagesYML().getString("CHAT-DISABLED-BROADCAST")));
         }
         return false;
     }

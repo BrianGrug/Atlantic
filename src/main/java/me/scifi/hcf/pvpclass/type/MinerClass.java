@@ -56,7 +56,7 @@ public class MinerClass extends PvpClass implements Listener {
         Entity entity = event.getEntity();
         if (entity instanceof Player && BukkitUtils.getFinalAttacker(event, false) != null) {
             Player player = (Player) entity;
-            if (plugin.getPvpClassManager().hasClassEquipped(player, this)) {
+            if (plugin.getManagerHandler().getPvpClassManager().hasClassEquipped(player, this)) {
                 removeInvisibilitySafely(player);
             }
         }
@@ -100,7 +100,7 @@ public class MinerClass extends PvpClass implements Listener {
     private void conformMinerInvisibility(Player player, Location from, Location to) {
         int fromY = from.getBlockY();
         int toY = to.getBlockY();
-        if (fromY != toY && plugin.getPvpClassManager().hasClassEquipped(player, this)) {
+        if (fromY != toY && plugin.getManagerHandler().getPvpClassManager().hasClassEquipped(player, this)) {
             boolean isInvisible = player.hasPotionEffect(PotionEffectType.INVISIBILITY);
             if (toY > INVISIBILITY_HEIGHT_LEVEL) {
                 if (fromY <= INVISIBILITY_HEIGHT_LEVEL && isInvisible) {

@@ -28,7 +28,7 @@ public class TPPosCommand implements CommandExecutor {
                     int z = Integer.parseInt(args[2]);
                     Location loc = new Location(p.getWorld(), x, y, z);
                     p.teleport(loc);
-                    p.sendMessage(Utils.chat(plugin.messagesYML.getString("TELEPORTED-TO-COORDS")
+                    p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("TELEPORTED-TO-COORDS")
                             .replace("%x%", args[0])
                             .replace("%y%", args[1])
                             .replace("%z%", args[2])));
@@ -47,7 +47,7 @@ public class TPPosCommand implements CommandExecutor {
                         int z = Integer.parseInt(args[3]);
                         Location loc = new Location(p.getWorld(), x, y, z);
                         target.teleport(loc);
-                        p.sendMessage(Utils.chat(plugin.messagesYML.getString("TELEPORTED-TARGET-TO-COORDS")
+                        p.sendMessage(Utils.chat(plugin.getMessagesYML().getString("TELEPORTED-TARGET-TO-COORDS")
                                 .replace("%x%", args[1])
                                 .replace("%y%", args[2])
                                 .replace("%z%", args[3])
