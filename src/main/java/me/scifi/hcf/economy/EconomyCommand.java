@@ -5,6 +5,7 @@ import com.doctordark.util.BukkitUtils;
 import com.doctordark.util.JavaUtils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import me.scifi.hcf.ConfigurationService;
 import me.scifi.hcf.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -62,6 +63,12 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
             }
 
             if (args[1].equalsIgnoreCase("give") || args[1].equalsIgnoreCase("add")) {
+
+                if (!sender.hasPermission(command.getPermission() + ".staff")) {
+                    sender.sendMessage(Utils.chat("&cNo Permission."));
+                    return true;
+                }
+
                 if (args.length < 3) {
                     sender.sendMessage(ChatColor.RED + "Usage: /" + label + ' ' + target.getName() + ' ' + args[1] + " <amount>");
                     return true;
@@ -82,6 +89,12 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
             }
 
             if (args[1].equalsIgnoreCase("take") || args[1].equalsIgnoreCase("negate") || args[1].equalsIgnoreCase("minus") || args[1].equalsIgnoreCase("subtract")) {
+
+                if (!sender.hasPermission(command.getPermission() + ".staff")) {
+                    sender.sendMessage(Utils.chat("&cNo Permission."));
+                    return true;
+                }
+
                 if (args.length < 3) {
                     sender.sendMessage(ChatColor.RED + "Usage: /" + label + ' ' + target.getName() + ' ' + args[1] + " <amount>");
                     return true;

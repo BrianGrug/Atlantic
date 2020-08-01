@@ -143,7 +143,7 @@ public class HCF extends JavaPlugin {
     }
 
     private void saveData() {
-        this.managerHandler.getManagers().stream().forEach(IManager::unload);
+        this.managerHandler.getManagers().forEach(IManager::unload);
     }
 
     @Override
