@@ -37,7 +37,8 @@ public class StaffModeCommand implements CommandExecutor {
         StaffModeItems.giveModItems(p);
         p.setHealth(20);
         p.setFoodLevel(20);
-    Vanish.setVanished(p);
+        Vanish.setVanished(p);
+        LunarClientAPI.giveAllStaffModules(player);
     }
 
     public static void removeFromStaffMode(Player p){
@@ -52,6 +53,7 @@ public class StaffModeCommand implements CommandExecutor {
         armorContents.remove(p.getUniqueId());
         inventoryContents.remove(p.getUniqueId());
         Vanish.disableVanish(p);
+        LunarClientAPI.disableAllStaffModules(player);
     }
 
     @Override
