@@ -57,16 +57,13 @@
 
     <repositories>
         <repository>
-            <id>sk89q-repo</id>
-            <url>http://maven.sk89q.com/repo/</url>
-        </repository>
-        <repository>
             <id>papermc</id>
             <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
+
         <repository>
-            <id>localhost</id>
-            <url>http://localhost:8081/repository/maven-releases/</url>
+            <id>lunarclient-public</id>
+            <url>https://maven.moonsworth.com/repository/lunarclient-public/</url>
         </repository>
 
     </repositories>
@@ -76,7 +73,8 @@
             <groupId>com.sk89q</groupId>
             <artifactId>worldedit</artifactId>
             <version>5.7-SNAPSHOT</version>
-            <scope>provided</scope>
+            <scope>system</scope>
+            <systemPath>${basedir}/deps/WorldEdit.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>me.activated.aquacore</groupId>
@@ -90,6 +88,11 @@
             <artifactId>paperspigot-api</artifactId>
             <version>1.7.10-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.lunarclient</groupId>
+            <artifactId>bukkitapi</artifactId>
+            <version>1.0-20200729.212152-7</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -138,7 +141,8 @@
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
             <version>3.7.0</version>
-            <scope>provided</scope>
+            <scope>system</scope>
+            <systemPath>${basedir}/deps/ProtocolLib.jar</systemPath>
         </dependency>
     </dependencies>
 
