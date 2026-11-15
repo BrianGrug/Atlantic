@@ -4,6 +4,8 @@ Atlantic core is an HCF core made by Scifi, taken over by me. I purchased rights
 
 ## Installation
 
+bash grab.sh
+
 Super straight forward, put this on the compiled jar onto the server, throw on ProtocolLib, WorldEdit, and Vault.
 
 ## Code
